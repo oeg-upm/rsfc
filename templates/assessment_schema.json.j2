@@ -1,0 +1,40 @@
+{
+  "@context": "https://w3id.org/everse/rsqa/0.0.1/",
+  "@type": "SoftwareQualityAssessment",
+  "name": "Quality Assessment for {{name}}{% if version %} {{version}}{% endif %}",
+  "description": "An automated assessment of the {{name}} tool based on the EVERSE software quality indicators, run on {{date}}.",
+  "creator": {
+    "@type": "schema:Person",
+    "name": "Faruk Diblen",
+    "email": "f.diblen@example.com"
+  },
+  "dateCreated": "{{date_iso}}",
+  "license": { "@id": "https://creativecommons.org/publicdomain/zero/1.0/" },
+  "assessedSoftware": {
+    "@type": "schema:SoftwareApplication",
+    "name": "{{name}}"{% if version %},
+    "softwareVersion": "{{ version }}"{% endif %},
+    "url": "{{url}}"{% if doi %},
+    "schema:identifier": {
+        "@id": "{{doi}}"
+    }{% endif %}
+  },
+  "checks": [
+    {% for check in checks -%}
+    {
+      "@type": "CheckResult",
+      "assessesIndicator": { "@id": "{{ check['assessesIndicator']['@id'] }}" },
+      "checkingSoftware": {
+        "@type": "schema:SoftwareApplication",
+        "name": "{{ check['checkingSoftware']['name'] }}",
+        "@id": "{{ check['checkingSoftware']['@id'] }}",
+        "softwareVersion": "{{ check['checkingSoftware']['softwareVersion'] }}"
+      },
+      "process": "{{ check['process'] }}",
+      "status": { "@id": "{{ check['status'] }}" },
+      "output": "{{ check['output'] }}",
+      "evidence": {{ check.evidence | tojson }}
+    }{{ "," if not loop.last else "" }}
+    {% endfor %}
+  ]
+}

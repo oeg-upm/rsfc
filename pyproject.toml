@@ -1,0 +1,29 @@
+[project]
+name = "rsqc"
+version = "0.0.1"
+description = "EVERSE Research Software Quality Checks"
+authors = [
+    { name="Andres Montero", email="amontero.engineer@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "somef",
+    "regex",
+    "requests"
+]
+
+[project.urls]
+Homepage = "https://github.com/andriumon/rsqc"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
