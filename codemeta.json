@@ -1,0 +1,37 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "type": "SoftwareSourceCode",
+    "applicationCategory": "Computer Science",
+    "author": [
+        {
+            "id": "https://orcid.org/0000-0003-0454-7145",
+            "type": "Person",
+            "email": "daniel.garijo@upm.es",
+            "familyName": "Garijo",
+            "givenName": "Daniel"
+        },
+        {
+            "id": "_:author_2",
+            "type": "Person",
+            "email": "andres.montero.martin@upm.es",
+            "familyName": "Montero",
+            "givenName": "Andrés"
+        }
+    ],
+    "codeRepository": "https://github.com/andriumon/rsqc",
+    "dateCreated": "2025-07-01",
+    "description": "Package that performs a series of checks based on a list of research software quality indicators",
+    "isPartOf": "https://everse.software/",
+    "keywords": [
+        "quality",
+        "indicators",
+        "fair"
+    ],
+    "license": "https://spdx.org/licenses/MIT",
+    "name": "RSQC",
+    "operatingSystem": "Linux",
+    "programmingLanguage": "Python",
+    "relatedLink": "https://github.com/EVERSE-ResearchSoftware/indicators",
+    "version": "0.0.1",
+    "developmentStatus": "wip"
+}

@@ -1,5 +1,3 @@
-from string import Template
-
 #Regex
 
 REGEX_ZENODO_BADGE = r'https://zenodo\.org/badge/latestdoi/\d+'

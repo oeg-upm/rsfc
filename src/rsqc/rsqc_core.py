@@ -100,7 +100,6 @@ def _render_template(repo_url, checks):
 
 
     rendered = template.render(**data)
-    print(rendered)
     return json.loads(rendered)
 
 
@@ -159,10 +158,10 @@ def check_somef_documentation(repo_data):
 def check_somef_citation(repo_data):
 
     if 'citation' not in repo_data:
-        output = False
+        output = "false"
         evidence = constants.EVIDENCE_NO_CITATION
     else:
-        output = True
+        output = "true"
         evidence = constants.EVIDENCE_CITATION
         for item in repo_data['citation']:
             if 'source' in item:
@@ -207,7 +206,6 @@ def check_persistent_unique_id(repo_url):
         pattern = constants.REGEX_ZENODO_BADGE
         match = re.search(pattern, readme)
         if match:
-            print(match.group(0))
             if _resolve_doi_url(match.group(0)):
                 output = "true"
                 evidence = constants.EVIDENCE_DOI_IDENTIFIER
