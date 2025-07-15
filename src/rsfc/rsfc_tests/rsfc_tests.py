@@ -755,23 +755,23 @@ def test_metadata_record_in_zenodo_or_software_heritage(repo_data, repo_url):
 
 def test_is_github_repository(repo_url):
 
-    if 'github.com' in repo_url:
+    if 'github.com' in repo_url or 'gitlab.com':
         response = requests.head(repo_url, allow_redirects=True, timeout=5)
         if response.status_code == 200:
             output = "true"
-            evidence = constants.EVIDENCE_IS_IN_GITHUB
+            evidence = constants.EVIDENCE_IS_IN_GITHUB_OR_GITLAB
         elif response.status_code == 404:
             output = "false"
-            evidence = constants.EVIDENCE_NO_RESOLVE_GITHUB_URL
+            evidence = constants.EVIDENCE_NO_RESOLVE_GITHUB_OR_GITLAB_URL
         else:
             output = "false"
             evidence = 'Connection error'
     else:
         output = "true"
-        evidence = constants.EVIDENCE_NO_GITHUB_URL
+        evidence = constants.EVIDENCE_NO_GITHUB_OR_GITLAB_URL
         
     
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_IS_GITHUB_REPOSITORY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY, output, evidence)
     
     return check.convert()
 
@@ -944,7 +944,7 @@ def test_github_action_tests(repo_data):
         evidence = constants.EVIDENCE_NO_WORKFLOWS
     else:
         for item in repo_data['continuous_integration']:
-            if item['result']['value'] and '.github/workflows' in item['result']['value']:
+            if item['result']['value'] and ('.github/workflows' in item['result']['value'] or '.gitlab-ci.yml' in item['result']['value']):
                 if 'test' in item['result']['value'] or 'tests' in item['result']['value']:
                     sources += f'\t\n- {item['result']['value']}'
                     

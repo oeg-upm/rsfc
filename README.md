@@ -1,13 +1,13 @@
-# Research Software Quality Checks (RSQC)
+# Research Software Fairness Checks (RSFC)
 
-A command line interface to automatically evaluate the quality of a Github repository.
+A command line interface to automatically evaluate the quality of a Github or Gitlab repository.
 
 **Authors**: Daniel Garijo, Andrés Montero
 
 
 ## Features
 
-Given a repository URL, RSQC will perform a series of checks based on a list of research software quality indicators (RSQI). The RSQIs currently covered by the package are:
+Given a repository URL, RSFC will perform a series of checks based on a list of research software quality indicators (RSQI). The RSQIs currently covered by the package are:
 
 - software_has_license
 - software_has_citation
@@ -21,9 +21,6 @@ Given a repository URL, RSQC will perform a series of checks based on a list of 
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
 
-## Documentation
-
-See full documentation at 
 
 ## Requirements
 
@@ -36,13 +33,13 @@ Dependencies are available in the requirements.txt file located in the root of t
 To install the package, first clone the repository in your machine
 
 ```
-git clone https://github.com/andriumon/rsqc.git
+git clone https://github.com/oeg-upm/rsfc.git
 ```
 
 Go to the project's root directory
 
 ```
-cd rsqc
+cd rsfc
 ```
 
 And then run in that directory
@@ -56,5 +53,5 @@ pip install .
 After installation, you can use the package by running
 
 ```
-rsqc <repo_url>
+rsfc <repo_url>
 ```
