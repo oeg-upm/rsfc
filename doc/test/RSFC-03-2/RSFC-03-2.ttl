@@ -1,0 +1,50 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix ftr: <https://w3id.org/ftr#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix dpv: <https://w3id.org/dpv#> .
+
+<https://w3id.org/rsfc/test/RSFC-03-2> a ftr:Test, dcat:DataService ;
+    dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
+    dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
+                    <https://github.com/andriumon> ;
+    dcterms:title "Releases have an id and version number"@en ;
+    rdfs:label "RSFC-03-2"^^xsd:string ;
+    vivo:abbreviation "RSFC-03-2"^^xsd:string ;
+    dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:description """This test checks if each release has an identifier and version number. This is achieved by checking if there’s any releases created in the repository and that they have a tag and a URL."""@en ;
+    dcterms:publisher <https://oeg.fi.upm.es> ,
+                      <https://ror.org/03n6nwv02> ;
+    dcat:version "0.0.1"^^xsd:string ;
+    dcterms:identifier <https://w3id.org/rsfc/test/RSFC-03-2> ;
+    dcat:keyword "Number version"@en , "Identifier"@en ,
+                 "Test"@en ;
+    dcat:endpointDescription <https://w3id.org/rsfc/api> ;
+    dcat:endpointURL <https://w3id.org/rsfc/api/assess/test/RSFC-03-2> ;
+    dpv:isApplicableFor <https://schema.org/DefinedTermSet> ;
+    ftr:supportedBy <https://w3id.org/rsfc/> ;
+    <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_has_releases> ; 
+    doap:repository <https://w3id.org/rsfc/repository> .
+<https://orcid.org/0000-0003-0454-7145> a vcard:Individual ;
+    vcard:fn "Daniel Garijo"^^xsd:string ;
+    vcard:hasEmail <mailto:dgarijo@upm.es> .
+<https://github.com/andriumon> a vcard:Individual ;
+    vcard:fn "Andres Montero"^^xsd:string ;
+    vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://oeg.fi.upm.es> a vcard:Organization ;
+    rdfs:label "Ontology Engineering Group" ;
+    vcard:url <https://oeg.fi.upm.es/> .
+<https://ror.org/03n6nwv02> a vcard:Organization ;
+    dcterms:identifier "https://ror.org/02h3v0f81" ;
+    rdfs:label "Universidad Politécnica de Madrid" ;
+    vcard:url <https://www.upm.es/> .
+<https://w3id.org/rsfc/repository>
+    foaf:homePage <https://github.com/oeg-upm/rsfc> ;
+    dcterms:description "Main repository for Research Software Quality Checks (RSFC) code and documentation"@en .
+<https://w3id.org/everse/i/indicators/software_has_releases> a dqv:Metric .

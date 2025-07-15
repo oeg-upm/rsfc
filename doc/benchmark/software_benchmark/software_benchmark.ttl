@@ -1,0 +1,119 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix ftr: <https://w3id.org/ftr#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> a ftr:Benchmark ;
+	dcterms:identifier <https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> ;
+	dcterms:title "General Benchmark for RSFC"@en ;
+    rdfs:label "Benchmark SOFTWARE"^^xsd:string ;
+    vivo:abbreviation "Benchmark SOFTWARE"^^xsd:string ;
+	dcterms:description """ Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."""@en ; 
+	dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
+	dcterms:creator <https://orcid.org/0000-0003-0454-7145> ;
+	dcterms:creator <https://github.com/andriumon> ;
+    dcat:keyword "General Benchmark"@en , "Benchmark"@en , "Default"@en, "RSFC"@en, "Quality checks"@en;
+	dcat:landingPage <https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> ; 
+    dcat:version "0.0.1"^^xsd:string ;
+	dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+	ftr:status "Active"@en ;
+    ftr:hasAssociatedMetric 
+		<https://w3id.org/everse/i/indicators/archived_in_scholarly_repository> ,
+		<https://w3id.org/everse/i/indicators/archived_in_software_heritage> ,
+		<https://w3id.org/everse/i/indicators/codemeta_completeness> ,
+		<https://w3id.org/everse/i/indicators/descriptive_metadata> ,
+	    <https://w3id.org/everse/i/indicators/software_has_citation> ,
+		<https://w3id.org/everse/i/indicators/software_has_license> ,
+		<https://w3id.org/everse/i/indicators/has_no_linting_issues> ,
+		<https://w3id.org/everse/i/indicators/listed_in_registry> ,
+      	<https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> ,
+        <https://w3id.org/everse/i/indicators/requirements_specified> ,
+   		<https://w3id.org/everse/i/indicators/software_documentation> ,
+		<https://w3id.org/everse/i/indicators/software_has_tests> ,
+		<https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes> ,
+		<https://w3id.org/everse/i/indicators/version_control_use> ,
+		<https://w3id.org/everse/i/indicators/versioning_standards_use> .
+<https://orcid.org/0000-0003-0454-7145> a vcard:Individual;
+	vcard:fn "Daniel Garijo"^^xsd:string ;
+	vcard:hasEmail <mailto:dgarijo@upm.es> .
+<https://github.com/andriumon> a vcard:Individual;
+	vcard:fn "Andres Montero"^^xsd:string ;
+	vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/everse/i/indicators/archived_in_scholarly_repository> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/archived_in_scholarly_repository> ;
+	rdfs:label "Software is archived in a scholarly repository"^^xsd:string ;
+    vivo:abbreviation "scholarly repository"^^xsd:string .
+<https://w3id.org/everse/i/indicators/codemeta_completeness> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/codemeta_completeness> ;
+	rdfs:label "CodeMeta completeness"^^xsd:string ;
+    vivo:abbreviation "completeness"^^xsd:string .
+<https://w3id.org/everse/i/indicators/descriptive_metadata> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/descriptive_metadata> ;
+	rdfs:label "Software has descriptive metadata"^^xsd:string ;
+    vivo:abbreviation "descriptive metadata"^^xsd:string .
+<https://w3id.org/everse/i/indicators/software_has_citation> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_citation> ;
+	rdfs:label "Software uses citation"^^xsd:string ;
+    vivo:abbreviation "uses citation"^^xsd:string .
+<https://w3id.org/everse/i/indicators/software_has_license> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_license> ;
+	rdfs:label "Software has license"^^xsd:string ;
+    vivo:abbreviation "has license"^^xsd:string .
+<https://w3id.org/everse/i/indicators/has_no_linting_issues> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/has_no_linting_issues> ;
+	rdfs:label "Software has no linting issues"^^xsd:string ;
+    vivo:abbreviation "no linting issues"^^xsd:string .
+<https://w3id.org/everse/i/indicators/listed_in_registry> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/listed_in_registry> ;
+	rdfs:label "Software is listed in a registry"^^xsd:string ;
+    vivo:abbreviation "listed in registry"^^xsd:string .
+<https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> ;
+	rdfs:label "Software has persistent and unique identifier"^^xsd:string ;
+    vivo:abbreviation "unique identifier"^^xsd:string .
+<https://w3id.org/everse/i/indicators/requirements_specified> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/requirements_specified> ;
+	rdfs:label "Software specifies requirements"^^xsd:string ;
+    vivo:abbreviation "requirements"^^xsd:string .
+<https://w3id.org/everse/i/indicators/software_documentation> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_documentation> ;
+	rdfs:label "Software has documentation"^^xsd:string ;
+    vivo:abbreviation "documentation"^^xsd:string .
+<https://w3id.org/everse/i/indicators/software_has_tests> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_tests> ;
+	rdfs:label "Software provides tests"^^xsd:string ;
+    vivo:abbreviation "has test"^^xsd:string .
+<https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes> ;
+	rdfs:label "Software uses a tool for warnings or mistakes"^^xsd:string ;
+    vivo:abbreviation "tool warnings or mistakes"^^xsd:string .
+<https://w3id.org/everse/i/indicators/version_control_use> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/version_control_use> ;
+	rdfs:label "Software makes use of version control"^^xsd:string ;
+    vivo:abbreviation "version control"^^xsd:string .
+<https://w3id.org/everse/i/indicators/versioning_standards_use> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/versioning_standards_use> ;
+	rdfs:label "Software follows versioning standards"^^xsd:string ;
+    vivo:abbreviation "versioning standard"^^xsd:string .
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
