@@ -1,4 +1,4 @@
-from rsqc.utils import constants
+from rsfc.utils import constants
 
 class Check:
     def __init__(self, indicator_id, process, output, evidence):
@@ -17,9 +17,9 @@ class Check:
             },
             "checkingSoftware": {
                 "@type": "schema:SoftwareApplication",
-                "name": self.checkers_info['rsqc']['name'],
-                "@id": self.checkers_info['rsqc']['id'],
-                "softwareVersion": self.checkers_info['rsqc']['version']
+                "name": self.checkers_info['rsfc']['name'],
+                "@id": self.checkers_info['rsfc']['id'],
+                "softwareVersion": self.checkers_info['rsfc']['version']
             },
             "process": self.process,
             "status": { "@id": "schema:CompletedActionStatus" },

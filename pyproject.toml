@@ -1,7 +1,7 @@
 [project]
-name = "rsqc"
+name = "rsfc"
 version = "0.0.1"
-description = "EVERSE Research Software Quality Checks"
+description = "EVERSE Research Software Fairness Checks"
 authors = [
     { name="Andres Montero", email="andres.montero.martin@upm.es" }
 ]
@@ -18,7 +18,7 @@ dependencies = [
 Homepage = "https://github.com/andriumon/rsqc"
 
 [project.scripts]
-rsqc = "rsqc.main:main"
+rsfc = "rsfc.main:main"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -29,4 +29,7 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+rsfc = ["templates/*.j2"]
 
