@@ -1,65 +1,5 @@
 [
     {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ]
-    },
-    {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://ror.org/03n6nwv02",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://ror.org/02h3v0f81"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Universidad Politécnica de Madrid"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://www.upm.es/"
-            }
-        ]
-    },
-    {
         "@id": "https://w3id.org/rsfc/test/RSFC-01-2",
         "@type": [
             "https://w3id.org/ftr#Test",
@@ -76,7 +16,7 @@
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "This test checks if there is an identifier associated with the software in files like CITATION.cff, codemeta.json and README. This is achieved by looking for an identifier in the files previously mentioned."
+                "@value": "This test checks if there is a  persistent identifier (i.e., Software Heritage ID, Zenodo DOI) associated with the software repository in files like CITATION.cff, codemeta.json and README. This is achieved by looking for an identifier in the files previously mentioned."
             }
         ],
         "http://purl.org/dc/terms/identifier": [
@@ -115,13 +55,11 @@
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "RSFC-01-2"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "RSFC-01-2"
             }
         ],
@@ -152,7 +90,6 @@
         ],
         "http://www.w3.org/ns/dcat#version": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "0.0.1"
             }
         ],
@@ -168,19 +105,39 @@
         ]
     },
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@id": "https://ror.org/03n6nwv02",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
         ],
         "http://www.w3.org/2006/vcard/ns#fn": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
+                "@value": "Andres Montero"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "mailto:dgarijo@upm.es"
+                "@id": "mailto:andres.montero.martin@upm.es"
             }
         ]
     },
@@ -195,6 +152,44 @@
         "http://xmlns.com/foaf/0.1/homePage": [
             {
                 "@id": "https://github.com/oeg-upm/rsfc"
+            }
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
             }
         ]
     }
