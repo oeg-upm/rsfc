@@ -18,7 +18,7 @@
     rdfs:label "RSFC-05-2"^^xsd:string ;
     vivo:abbreviation "RSFC-05-2"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if contact and/or support metadata is found in the repository. This is achieved by checking if there is contact or support information in the README file."""@en ;
+    dcterms:description """This test checks if contact and/or support metadata is found in the repository. This is achieved by checking if there is contact or support information in the README file or any other package file ( (e.g., setup.py, setup.cfg, pom.xml, etc.)."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

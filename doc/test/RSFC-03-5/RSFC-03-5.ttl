@@ -18,7 +18,7 @@
     rdfs:label "RSFC-03-5"^^xsd:string ;
     vivo:abbreviation "RSFC-03-5"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """TThis test checks if the last release tag version number in the repository (if there is one) corresponds to the version number stated in the package file of the repository. This is achieved by checking if the version of the last release created in the repository corresponds to the version stated in the package file in the root of the repository."""@en ;
+    dcterms:description """This test checks if the last release tag version number in the source code repository (if there is one) corresponds to the version number stated in the package file of the repository. This is achieved by checking if the version of the last release created in the repository corresponds to the version stated in the package file in the root of the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

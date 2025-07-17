@@ -18,7 +18,7 @@
     rdfs:label "RSFC-03-1"^^xsd:string ;
     vivo:abbreviation "RSFC-03-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the software has any releases in the repository. This is achieved by checking if there’s any releases created in the repository."""@en ;
+    dcterms:description """This test checks if the software has any releases in the source code repository. This is achieved by checking if there’s any releases created in the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

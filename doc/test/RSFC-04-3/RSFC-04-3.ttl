@@ -18,7 +18,7 @@
     rdfs:label "RSFC-04-03"^^xsd:string ;
     vivo:abbreviation "RSFC-04-03"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the repository has title and description of the software available within any file. This is achieved by checking if description and title are in the README file or in a codemeta.json file."""@en ;
+    dcterms:description """This test checks if the repository has title and description of the software available within any metadata file. This is achieved by checking if description and title are in the README file, codemeta.json file or any other package file  (e.g., setup.py, setup.cfg, pom.xml, etc.)."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

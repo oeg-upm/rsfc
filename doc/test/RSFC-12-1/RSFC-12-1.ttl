@@ -18,7 +18,7 @@
     rdfs:label "RSFC-12-1"^^xsd:string ;
     vivo:abbreviation "RSFC-12-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if there is a referencePublication or a citation file to a paper. This is done by looking for an article citation in the README file or a referencePublication field in the codemeta.json file."""@en ;
+    dcterms:description """This test checks if there is a referencePublication or a citation file to a paper. This is done by looking for an article citation in the README file, for a CITATION.cff file or a referencePublication field in the codemeta.json file."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

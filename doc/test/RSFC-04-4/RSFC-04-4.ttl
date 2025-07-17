@@ -18,7 +18,7 @@
     rdfs:label "RSFC-04-04"^^xsd:string ;
     vivo:abbreviation "RSFC-04-04"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if descriptive metadata within the repository includes description, programming language, date created and keywords. This is done by looking for those fields in codemeta.json, README and CITATION.cff files."""@en ;
+    dcterms:description """This test checks if descriptive metadata within the repository includes description, programming language, date created and keywords. This is done by looking for those fields in codemeta.json, README, CITATION.cff or any package metadata file ( (e.g., setup.py, setup.cfg, pom.xml, etc.)."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

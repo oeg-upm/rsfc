@@ -18,7 +18,7 @@
     rdfs:label "RSFC-01-3"^^xsd:string ;
     vivo:abbreviation "RSFC-01-3"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks that the identifier associated with the software (if there’s one) follows a proper schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID, ORCID, DOI and URL."""@en ;
+    dcterms:description """This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID,, DOI and URL."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
