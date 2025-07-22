@@ -18,7 +18,7 @@
     rdfs:label "RSFC-15-1"^^xsd:string ;
     vivo:abbreviation "RSFC-15-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if there is a LICENSE file in the repository. This is done by looking for a LICENSE file in the root of the repository."""@en ;
+    dcterms:description """This test checks whether the software declares a license. It first looks for a LICENSE (or similarly named) file in the root directory of the repository. If not found, it searches for license information in other common locations such as the README file, metadata files like codemeta.json or CITATION.cff, or configuration files such as setup.py."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;

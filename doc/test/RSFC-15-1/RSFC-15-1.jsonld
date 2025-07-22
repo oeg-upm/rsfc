@@ -21,22 +21,6 @@
         ]
     },
     {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
-        ]
-    },
-    {
         "@id": "https://w3id.org/rsfc/repository",
         "http://purl.org/dc/terms/description": [
             {
@@ -48,28 +32,6 @@
             {
                 "@id": "https://github.com/oeg-upm/rsfc"
             }
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_license",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -89,7 +51,7 @@
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "This test checks if there is a LICENSE file in the repository. This is done by looking for a LICENSE file in the root of the repository."
+                "@value": "This test checks whether the software declares a license. It first looks for a LICENSE (or similarly named) file in the root directory of the repository. If not found, it searches for license information in other common locations such as the README file, metadata files like codemeta.json or CITATION.cff, or configuration files such as setup.py."
             }
         ],
         "http://purl.org/dc/terms/identifier": [
@@ -174,6 +136,44 @@
         "https://w3id.org/ftr#supportedBy": [
             {
                 "@id": "https://w3id.org/rsfc/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/software_has_license",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
             }
         ]
     },

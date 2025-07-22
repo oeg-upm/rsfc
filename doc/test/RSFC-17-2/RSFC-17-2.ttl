@@ -14,11 +14,11 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "There are tickets"@en ;
+    dcterms:title "Repository has an issue tracker enabled"@en ;
     rdfs:label "RSFC-17-2"^^xsd:string ;
     vivo:abbreviation "RSFC-17-2"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the repository has tickets. This is done by checking if there is an issue tracker in the repository."""@en ;
+    dcterms:description """This test checks whether the repository has an issue tracking system enabled. It verifies if the platform (e.g., GitHub or GitLab) has issue tracking activated for the repository, indicating that users can report bugs or request features through tickets."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
