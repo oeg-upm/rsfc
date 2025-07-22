@@ -120,9 +120,19 @@
                 <div class="col-md-9 well"> <a href="{{benchmark_same_as}}" target="_blank"> {{benchmark_same_as}} </a> </div>
             </div>
             {{/benchmark_same_as}}
-            <div class="row row-equal">
+            <!-- <div class="row row-equal">
                 <div class="col-md-3 well tag_div"> <strong>Metric</strong></div>
                 <div class="col-md-9 well">  {{{benchmark_metrics}}}</div>
+            </div> -->
+            <div class="row row-equal">
+            <div class="col-md-3 well tag_div"><strong>Metric</strong></div>
+                <div class="col-md-9 well">
+                    <ul>
+                        {{#benchmark_metrics}}
+                        <li><a href="{{uri}}" target="_blank">{{name}}</a></li>
+                        {{/benchmark_metrics}}
+                    </ul>
+                </div>
             </div>
             <div class="row row-equal">
                 <div class="col-md-3 well tag_div"> <strong>Benchmark Status</strong></div>

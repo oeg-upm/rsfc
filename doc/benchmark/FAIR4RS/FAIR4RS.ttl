@@ -10,17 +10,17 @@
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-<https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> a ftr:Benchmark ;
-	dcterms:identifier <https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> ;
+<https://w3id.org/rsfc/benchmark/FAIR4RS> a ftr:Benchmark ;
+	dcterms:identifier <https://w3id.org/rsfc/benchmark/FAIR4RS> ;
 	dcterms:title "General Benchmark for RSFC"@en ;
-    rdfs:label "Benchmark SOFTWARE"^^xsd:string ;
-    vivo:abbreviation "Benchmark SOFTWARE"^^xsd:string ;
+    rdfs:label "FAIR4RS Benchmark "^^xsd:string ;
+    vivo:abbreviation "FAIR4RS Benchmark "^^xsd:string ;
 	dcterms:description """ Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."""@en ; 
 	dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
 	dcterms:creator <https://orcid.org/0000-0003-0454-7145> ;
 	dcterms:creator <https://github.com/andriumon> ;
     dcat:keyword "General Benchmark"@en , "Benchmark"@en , "Default"@en, "RSFC"@en, "Quality checks"@en;
-	dcat:landingPage <https://w3id.org/rsfc/benchmark/SOFTWARE_BENCHMARK> ; 
+	dcat:landingPage <https://w3id.org/rsfc/benchmark/FAIR4RS> ; 
     dcat:version "0.0.1"^^xsd:string ;
 	dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
 	ftr:status "Active"@en ;
@@ -83,7 +83,7 @@
 	rdfs:label "Software specifies requirements"^^xsd:string ;
     vivo:abbreviation "requirements"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_documentation> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_documentation> ;
+	dcterms:identifier <https://w3id.org/everse/i/indicators/software_documentation> ;
 	rdfs:label "Software has documentation"^^xsd:string ;
     vivo:abbreviation "documentation"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_has_tests> a dqv:Metric ;

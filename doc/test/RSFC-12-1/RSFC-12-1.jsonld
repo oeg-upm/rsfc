@@ -21,19 +21,9 @@
         ]
     },
     {
-        "@id": "https://github.com/andriumon",
+        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
         "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -47,6 +37,38 @@
         "http://xmlns.com/foaf/0.1/homePage": [
             {
                 "@id": "https://github.com/oeg-upm/rsfc"
+            }
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
             }
         ]
     },
@@ -157,28 +179,6 @@
             {
                 "@id": "https://w3id.org/rsfc/"
             }
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {

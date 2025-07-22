@@ -246,11 +246,14 @@ def test_has_releases(repo_data):
             if 'type' in item['result']:
                 if item['result']['type'] == 'Release':
                     if 'name' in item['result']:
-                        evidence += f'\n\t- {item['result']['name']}'
+                        # evidence += f'\n\t- {item['result']['name']}'
+                        evidence += f'\n\t- {item["result"]["name"]}'
                     elif 'tag' in item['result']:
-                        evidence += f'\n\t- {item['result']['tag']}'
+                        # evidence += f'\n\t- {item['result']['tag']}'
+                        evidence += f'\n\t- {item["result"]["tag"]}'
                     else:
-                        evidence += f'\n\t- {item['result']['url']}'
+                        # evidence += f'\n\t- {item['result']['url']}'
+                        evidence += f'\n\t- {item["result"]["url"]}'
                         
     check = ch.Check(constants.INDICATORS_DICT['has_releases'], constants.PROCESS_RELEASES, output, evidence)
 
@@ -341,7 +344,11 @@ def test_latest_release_consistency(repo_data):
         latest_release = get_latest_release(repo_data)
         
     if 'version' in repo_data:
-        version = repo_data['version'][0]['result']['tag']
+        # print('-------------> version')
+        # print(repo_data['version'][0])
+        # version = repo_data['version'][0]['result']['tag']
+        version_data = repo_data['version'][0]['result']
+        version = version_data.get('tag') or version_data.get('value')
     
     if version == None or latest_release == None:
         output = "error"
@@ -845,7 +852,8 @@ def test_dependencies_declared(repo_data):
         for item in repo_data['requirements']:
             if 'source' in item:
                 if item['source'] not in evidence:
-                    evidence += f'\n\t- {item['source']}'
+                    # evidence += f'\n\t- {item['source']}'
+                    evidence += f'\n\t- {item["source"]}'
 
     check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], constants.PROCESS_REQUIREMENTS, output, evidence)
     
@@ -946,7 +954,8 @@ def test_github_action_tests(repo_data):
         for item in repo_data['continuous_integration']:
             if item['result']['value'] and ('.github/workflows' in item['result']['value'] or '.gitlab-ci.yml' in item['result']['value']):
                 if 'test' in item['result']['value'] or 'tests' in item['result']['value']:
-                    sources += f'\t\n- {item['result']['value']}'
+                    # sources += f'\t\n- {item['result']['value']}'
+                    sources += f'\t\n- {item["result"]["value"]}'
                     
     if sources:
         output = "true"
@@ -970,7 +979,8 @@ def test_repository_workflows(repo_data):
         evidence = constants.EVIDENCE_WORKFLOWS
     
         for item in repo_data['continuous_integration']:
-            evidence += f'\n\t- {item['result']['value']}'
+            # evidence += f'\n\t- {item['result']['value']}'
+            evidence += f'\n\t- {item["result"]["value"]}'
 
     check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], constants.PROCESS_WORKFLOWS, output, evidence)
     
@@ -987,8 +997,8 @@ def test_has_license(repo_data):
         evidence = constants.EVIDENCE_LICENSE
         for item in repo_data['license']:
             if 'source' in item:
-                evidence += f'\n\t- {item['source']}'
-                
+                # evidence += f'\n\t- {item['source']}'
+                evidence += f'\n\t- {item["source"]}'
     check = ch.Check(constants.INDICATORS_DICT['software_has_license'], constants.PROCESS_LICENSE, output, evidence)
     
     return check.convert()
@@ -1146,7 +1156,8 @@ def test_has_citation(repo_data):
         for item in repo_data['citation']:
             if 'source' in item:
                 if item['source'] not in evidence:
-                    evidence += f'\n\t- {item['source']}'
+                    # evidence += f'\n\t- {item['source']}'
+                    evidence += f'\n\t- {item["source"]}'
         
     check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], constants.PROCESS_CITATION, output, evidence)
     
