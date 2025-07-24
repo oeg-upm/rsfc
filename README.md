@@ -48,6 +48,58 @@ And then run in that directory
 pip install .
 ```
 
+You all can install the package with Poetry
+This project uses Poetry for dependency and environment management.
+
+Install Poetry (if you haven’t already)
+
+```
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Make sure Poetry is available in your PATH
+
+```
+poetry --version
+```
+
+Clone de repository
+
+```
+git clone https://github.com/juanjemdIos/oeg_rsfc.git
+cd oeg_rsfc
+```
+
+Create the virtual environment and install dependencies
+
+```
+poetry install
+```
+
+Activate the virtual environment (Optional)
+
+```
+source $(poetry env info --path)/bin/activate
+```
+
+Your terminal prompt should now show something like:
+
+```
+(rsfc-py3.11) your-user@your-machine oeg_rsfc %
+```
+
+With virtual environment activated you can tried like this:
+
+```
+rsfc --help
+```
+
+Without poetry virtual environment activated you need to use the poetry run:
+
+```
+poetry run rsfc --help
+```
+
 ## Usage
 
 After installation, you can use the package by running
