@@ -2,111 +2,9 @@ from rsfc.utils import constants
 from rsfc.model import check as ch
 import regex as re
 import requests
-import base64
 import json
 import urllib
-from datetime import datetime
-
-
-def get_github_api_url(repo_url):
-    parsed_url = urllib.parse.urlparse(repo_url)
-    path_parts = parsed_url.path.strip("/").split("/")
-    if len(path_parts) < 2:
-        raise ValueError("Error when getting Github API URL")
-    owner, repo = path_parts[-2], path_parts[-1]
-    
-    url = f"https://api.github.com/repos/{owner}/{repo}"
-    
-    return url
-
-
-def decode_github_content(content_json):
-    encoded_content = content_json.get('content', '')
-    encoding = content_json.get('encoding', '')
-
-    if encoding == 'base64':
-        return base64.b64decode(encoded_content).decode('utf-8', errors='ignore')
-    else:
-        return encoded_content
-
-
-def subtest_author_and_role(codemeta):
-    
-    #Follows codemeta standards v2.0 and v3.0
-    
-    output = "false"
-    
-    if 'author' in codemeta:
-        author_roles = {}
-        for item in codemeta['author']:
-            type_field = None
-            id_field = None
-            
-            if 'type' in item:
-                type_field = 'type'
-            elif '@type' in item:
-                type_field = '@type'
-                
-            if 'id' in item:
-                id_field = 'id'
-            elif '@id' in item:
-                id_field = '@id'
-                
-                
-            if type_field != None and id_field != None:
-                if item[type_field] == 'Person':
-                    if item[id_field] not in author_roles:
-                        author_roles[item[id_field]] = None
-                elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
-                    if item['schema:author'] in author_roles:
-                        if 'roleName' in item:
-                            author_roles[item['schema:author']] = item['roleName']
-                        elif 'schema:roleName' in item:
-                            author_roles[item['schema:author']] = item['schema:roleName']
-            else:
-                continue
-    else:
-        evidence = constants.EVIDENCE_NO_AUTHORS_IN_CODEMETA
-                        
-
-    if all(value is not None for value in author_roles.values()):
-        output = "true"
-        evidence = constants.EVIDENCE_AUTHOR_ROLES
-    else:
-        evidence = constants.EVIDENCE_NO_ALL_AUTHOR_ROLES
-        
-    return output, evidence
-
-
-def build_url_pattern(url):
-    base_url = url.rsplit('/', 1)[0]
-    escaped = re.escape(base_url)
-    pattern_str = f"^{escaped}/\\d+$"
-    return re.compile(pattern_str)
-
-
-def get_latest_release(repo_data):
-    if 'releases' in repo_data:
-        latest_release = None
-        latest_date = None
-        for item in repo_data['releases']:
-            if item['result']['date_published'] and item['result']['tag']:
-                dt = item['result']['date_published']
-                try:
-                    dt = datetime.fromisoformat(dt.rstrip('Z'))
-                except ValueError:
-                    continue
-                
-                if latest_release is None or dt > latest_date:
-                    latest_release = item['result']['tag']
-                    latest_date = dt
-    else:
-        latest_release = None
-                
-    if latest_release != None:
-        return latest_release
-    else:
-        return None
+from rsfc.utils import rsfc_helpers
 
 
 ################################################### FRSM_01 ###################################################
@@ -168,7 +66,7 @@ def test_id_proper_schema(repo_data):
     return check.convert()
 
 
-def test_id_associated_with_software(repo_data, repo_url):
+def test_id_associated_with_software(repo_data, repo_url, repo_type, repo_branch):
     
     id_locations = {
         'codemeta_id': False,
@@ -177,17 +75,32 @@ def test_id_associated_with_software(repo_data, repo_url):
         'readme': False
     }
     
-    base_url = get_github_api_url(repo_url)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    url = base_url + "/contents/codemeta.json"
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    codemeta_content = None
 
-    response = requests.get(url, headers)
+    if repo_type == "GITHUB":
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        url = base_url + "/contents/codemeta.json"
+        response = requests.get(url, headers=headers)
 
-    if response.status_code == 200:
-        content_json = response.json()
-        raw_content = decode_github_content(content_json)
+        if response.status_code == 200:
+            content_json = response.json()
+            codemeta_content = rsfc_helpers.decode_github_content(content_json)
 
-        codemeta_json = json.loads(raw_content)
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote("codemeta.json", safe="")
+        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            codemeta_content = response.text
+
+    else:
+        raise ValueError("Unsupported repository type")
+
+    if codemeta_content:
+        codemeta_json = json.loads(codemeta_content)
+
         if 'identifier' in codemeta_json:
             id_locations['codemeta_id'] = True
             
@@ -320,7 +233,7 @@ def test_version_scheme(repo_data):
             if item['result']['url']:
                 url = item['result']['url']
                 if not scheme:
-                    scheme = build_url_pattern(url)
+                    scheme = rsfc_helpers.build_url_pattern(url)
                 if not scheme.match(url):
                     output = "false"
                     evidence = constants.EVIDENCE_NO_VERSION_SCHEME_COMPLIANT
@@ -341,12 +254,9 @@ def test_latest_release_consistency(repo_data):
     version = None
     
     if 'releases' in repo_data:
-        latest_release = get_latest_release(repo_data)
+        latest_release = rsfc_helpers.get_latest_release(repo_data)
         
     if 'version' in repo_data:
-        # print('-------------> version')
-        # print(repo_data['version'][0])
-        # version = repo_data['version'][0]['result']['tag']
         version_data = repo_data['version'][0]['result']
         version = version_data.get('tag') or version_data.get('value')
     
@@ -367,7 +277,7 @@ def test_latest_release_consistency(repo_data):
 
 ################################################### FRSM_04 ###################################################
 
-def test_metadata_exists(repo_data, repo_url):
+def test_metadata_exists(repo_data, repo_url, repo_type, repo_branch):
     
     metadata_files = {
         'citation': False,
@@ -381,14 +291,22 @@ def test_metadata_exists(repo_data, repo_url):
     if 'has_package_file' in repo_data:
         metadata_files['package_file'] = True
         
-    base_url = get_github_api_url(repo_url)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    url = base_url + "/contents/codemeta.json"
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    if repo_type == "GITHUB":
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        url = base_url + "/contents/codemeta.json"
+        response = requests.get(url, headers=headers)
 
-    response = requests.get(url, headers)
+        if response.status_code == 200:
+            metadata_files['codemeta'] = True
 
-    if response.status_code == 200:
-        metadata_files['codemeta'] = True
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote("codemeta.json", safe="")
+        url = f"{base_url}/repository/files/{file_path}?ref={repo_branch}"
+        response = requests.head(url)
+
+        if response.status_code == 200:
+            metadata_files['codemeta'] = True
         
     if all(metadata_files.values()):
         output = "true"
@@ -481,12 +399,20 @@ def test_descriptive_metadata(repo_data):
         
         
 
-def test_codemeta_exists(repo_url):
-    base_url = get_github_api_url(repo_url)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    url = base_url + "/contents/codemeta.json"
+def test_codemeta_exists(repo_url, repo_type, repo_branch):
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    if repo_type == "GITHUB":
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        url = base_url + "/contents/codemeta.json"
+        response = requests.get(url, headers=headers)
 
-    response = requests.get(url, headers)
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote("codemeta.json", safe="")
+        url = f"{base_url}/repository/files/{file_path}?ref={repo_branch}"
+        response = requests.head(url)
+
+    else:
+        raise ValueError("Unsupported repository type")
 
     if response.status_code == 200:
         output = "true"
@@ -623,27 +549,49 @@ def test_authors_orcids(repo_data):
     return check.convert()
 
 
-def test_authors_roles(repo_url):
-    base_url = get_github_api_url(repo_url)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    url = base_url + "/contents/codemeta.json"
+def test_author_roles(repo_url, repo_type, repo_branch):
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    if repo_type == "GITHUB":
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        url = base_url + "/contents/codemeta.json"
+        response = requests.get(url, headers=headers)
 
-    response = requests.get(url, headers)
+        if response.status_code == 200:
+            content_json = response.json()
+            codemeta_content = rsfc_helpers.decode_github_content(content_json)
+            try:
+                codemeta = json.loads(codemeta_content)
+                output, evidence = rsfc_helpers.subtest_author_and_role(codemeta)
+            except json.JSONDecodeError:
+                raise ValueError("Not a valid codemeta.json file")
+        elif response.status_code == 404:
+            output = "false"
+            evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
+        else:
+            output = "false"
+            evidence = None
 
-    if response.status_code == 200:
-        content_json = response.json()
-        raw_content = decode_github_content(content_json)
-        try:
-            codemeta = json.loads(raw_content)
-            output, evidence = subtest_author_and_role(codemeta)
-        except json.JSONDecodeError:
-            raise ValueError("El archivo codemeta.json no es un JSON válido.")
-    elif response.status_code == 404:
-        output = "false"
-        evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote("codemeta.json", safe="")
+        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            codemeta_content = response.text
+            try:
+                codemeta = json.loads(codemeta_content)
+                output, evidence = rsfc_helpers.subtest_author_and_role(codemeta)
+            except json.JSONDecodeError:
+                raise ValueError("El archivo codemeta.json no es un JSON válido.")
+        elif response.status_code == 404:
+            output = "false"
+            evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
+        else:
+            output = "false"
+            evidence = None
+
     else:
-        output = "false"
-        evidence = None
+        raise ValueError("Unsupported repository type")
         
         
     check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_AUTHOR_ROLES, output, evidence)
@@ -716,7 +664,7 @@ def test_identifier_resolves_to_software(repo_data):
 
 ################################################### FRSM_08 ###################################################
 
-def test_metadata_record_in_zenodo_or_software_heritage(repo_data, repo_url):
+def test_metadata_record_in_zenodo_or_software_heritage(repo_data, repo_url, repo_type, repo_branch):
     zenodo = False
     swh = False
     
@@ -726,15 +674,29 @@ def test_metadata_record_in_zenodo_or_software_heritage(repo_data, repo_url):
                     zenodo = True
     
     
-    base_url = get_github_api_url(repo_url)
-    url = base_url+"/readme"
-    headers = {'Accept': 'application/vnd.github.v3.raw'}
-    
-    response = requests.get(url, headers)
-    
-    if response.status_code == 200:
-        content_json = response.json()
-        readme = decode_github_content(content_json)
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    readme = None
+
+    if repo_type == "GITHUB":
+        url = base_url + "/readme"
+        headers = {'Accept': 'application/vnd.github.v3.raw'}
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            readme = response.text
+
+    elif repo_type == "GITLAB":
+        for filename in ["README.md", "README.rst", "README.txt", "README"]:
+            file_path = urllib.parse.quote(filename, safe="")
+            url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
+            response = requests.get(url)
+            if response.status_code == 200:
+                readme = response.text
+                break
+    else:
+        raise ValueError("Unsupported repository type")
+
+    if readme:
         pattern = constants.REGEX_SOFTWARE_HERITAGE_BADGE
         match = re.search(pattern, readme)
         if match:
@@ -784,28 +746,40 @@ def test_is_github_repository(repo_url):
 
 ################################################### FRSM_12 ###################################################
 
-def test_reference_publication(repo_data, repo_url):
+def test_reference_publication(repo_data, repo_url, repo_type, repo_branch):
     
-    base_url = get_github_api_url(repo_url)
-    headers = {'Accept': 'application/vnd.github.v3+json'}
-    url = base_url + "/contents/codemeta.json"
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    codemeta_content = None
 
-    response = requests.get(url, headers)
-    
-    if response.status_code == 200:
-        try:
+    if repo_type == "GITHUB":
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        url = base_url + "/contents/codemeta.json"
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
             content_json = response.json()
-            raw_content = decode_github_content(content_json)
-            codemeta = json.loads(raw_content)
+            codemeta_content = rsfc_helpers.decode_github_content(content_json)
 
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote("codemeta.json", safe="")
+        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            codemeta_content = response.text
+
+    else:
+        raise ValueError("Unsupported repository type")
+
+    if codemeta_content:
+        try:
+            codemeta = json.loads(codemeta_content)
             if 'referencePublication' in codemeta and codemeta['referencePublication']:
                 referencePub = True
             else:
                 referencePub = False
-
         except json.JSONDecodeError:
             referencePub = False
-
     elif response.status_code == 404:
         referencePub = False
     else:
@@ -914,29 +888,43 @@ def test_dependencies_in_machine_readable_file(repo_data):
 
 ################################################### FRSM_14 ###################################################
 
-def test_presence_of_tests(repo_url):
-    base_url = get_github_api_url(repo_url)
-    tree_url = f"{base_url}/git/trees/HEAD?recursive=1"
-    resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
-    if resp.status_code != 200:
-        output = "error"
-        evidence = None
+def test_presence_of_tests(repo_url, repo_type, repo_branch):
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    entries = []
+
+    if repo_type == "GITHUB":
+        tree_url = f"{base_url}/git/trees/HEAD?recursive=1"
+        resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
+        if resp.status_code == 200:
+            entries = resp.json().get("tree", [])
+
+    elif repo_type == "GITLAB":
+        tree_url = f"{base_url}/repository/tree?recursive=true&ref={repo_branch}&per_page=100"
+        resp = requests.get(tree_url)
+        if resp.status_code == 200:
+            entries = [{"path": item["path"]} for item in resp.json()]
+
     else:
-        entries = resp.json().get("tree", [])
+        raise ValueError("Unsupported repository type")
+
+    if entries:
         rx = re.compile(r'tests?', re.IGNORECASE)
-        
         sources = ""
+
         for e in entries:
             path = e["path"]
             if rx.search(path):
                 sources += f"\t\n- {path}"
-                
+
         if sources:
             output = "true"
             evidence = constants.EVIDENCE_TESTS + sources
         else:
             output = "false"
             evidence = constants.EVIDENCE_NO_TESTS
+    else:
+        output = "error"
+        evidence = None
             
             
     check = ch.Check(constants.INDICATORS_DICT['software_tests'], constants.PROCESS_TESTS, output, evidence)
@@ -1007,10 +995,12 @@ def test_has_license(repo_data):
 
 def test_license_spdx_compliant(repo_data):
     output = "false"
+    evidence = None
     if 'license' not in repo_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_LICENSE
     else:
+        print('Se mete')
         for item in repo_data['license']:
             if 'result' in item and 'spdx_id' in item['result']:
                 if item['result']['spdx_id'] in constants.SPDX_LICENSE_WHITELIST:
@@ -1018,9 +1008,12 @@ def test_license_spdx_compliant(repo_data):
                 else:
                     output = "false"
                     evidence = constants.EVIDENCE_NO_SPDX_COMPLIANT
+                    break
         
         if output == "true":
             evidence = constants.EVIDENCE_SPDX_COMPLIANT
+        elif output == "false" and evidence == None:
+            evidence = constants.EVIDENCE_LICENSE_NOT_CLEAR
             
     check = ch.Check(constants.INDICATORS_DICT['software_has_license'], constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
     
@@ -1028,7 +1021,7 @@ def test_license_spdx_compliant(repo_data):
 
 ################################################### FRSM_16 ###################################################
 
-def test_license_info_in_metadata_files(repo_data, repo_url):
+def test_license_info_in_metadata_files(repo_data, repo_url, repo_type, repo_branch):
     
     license_info = {
         'codemeta': False,
@@ -1039,7 +1032,7 @@ def test_license_info_in_metadata_files(repo_data, repo_url):
     if 'license' in repo_data:
         for item in repo_data['license']:
             if 'source' in item:
-                if 'pyproject.toml' in item['source'] or 'setup.py' in item['source'] or 'node.json' in item['source']:
+                if 'pyproject.toml' in item['source'] or 'setup.py' in item['source'] or 'node.json' in item['source'] or 'pom.xml' in item['source'] or 'package.json' in item['source']:
                     license_info['package'] = True
                     break
                     
@@ -1050,18 +1043,31 @@ def test_license_info_in_metadata_files(repo_data, repo_url):
                 license_info['citation'] = True
                 
                 
-    base_url = get_github_api_url(repo_url)
-    url = base_url+'/contents/codemeta.json'
-    
-    res = requests.get(url)
-    
-    if res.status_code == 200:
-        content_json = res.json()
-        decoded_content = decode_github_content(content_json)
-        
-        codemeta_data = json.loads(decoded_content)
-        if 'license' in codemeta_data:
-            license_info['codemeta'] = True
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    if repo_type == "GITHUB":
+        url = base_url + '/contents/codemeta.json'
+        res = requests.get(url)
+
+        if res.status_code == 200:
+            content_json = res.json()
+            decoded_content = rsfc_helpers.decode_github_content(content_json)
+            codemeta_data = json.loads(decoded_content)
+
+            if 'license' in codemeta_data:
+                license_info['codemeta'] = True
+
+    elif repo_type == "GITLAB":
+        file_path = urllib.parse.quote('codemeta.json', safe='')
+        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
+        res = requests.get(url)
+
+        if res.status_code == 200:
+            decoded_content = res.text
+            codemeta_data = json.loads(decoded_content)
+
+            if 'license' in codemeta_data:
+                license_info['codemeta'] = True
+                
             
     if all(license_info.values()):
         output = "true"
@@ -1082,7 +1088,7 @@ def test_license_info_in_metadata_files(repo_data, repo_url):
 
 ################################################### FRSM_17 ###################################################
 
-def test_repo_enabled_and_commits(repo_data, repo_url):
+def test_repo_enabled_and_commits(repo_data, repo_url, repo_type, repo_branch):
     
     if 'repository_status' in repo_data and repo_data['repository_status'][0]['result']['value']:
         if '#active' in repo_data['repository_status'][0]['result']['value']:
@@ -1092,22 +1098,28 @@ def test_repo_enabled_and_commits(repo_data, repo_url):
     else:
         repo = False
         
-    base_url = get_github_api_url(repo_url)
-    commit_url = base_url+'/commits'
+    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+    if repo_type == "GITHUB":
+        commit_url = base_url + "/commits"
+        headers = {'Accept': 'application/vnd.github.v3.raw'}
+        response = requests.get(commit_url, headers=headers)
+
+    elif repo_type == "GITLAB":
+        commit_url = f"{base_url}/repository/commits?ref_name={repo_branch}"
+        response = requests.get(commit_url)
+
+    else:
+        raise ValueError("Unsupported repository type")
     
-    headers = {'Accept': 'application/vnd.github.v3.raw'}
-    
-    #Check commits
-    response = requests.get(commit_url, headers)
     
     if response.status_code == 200:
-        if isinstance(response.json(), list) and len(response.json()) > 0:
+        json_data = response.json()
+        if isinstance(json_data, list) and len(json_data) > 0:
             commits = True
         else:
             commits = False
     else:
         raise ConnectionError(f"Error accessing the repository: {response.status_code}")
-    
     
     if repo:
         if commits:

@@ -130,6 +130,7 @@ EVIDENCE_METADATA_EXISTS = 'Found codemeta, citation and package files in the re
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
+EVIDENCE_LICENSE_NOT_CLEAR = 'Could not recognize a license clearer enough to detect which one it is'
 EVIDENCE_NO_DOI_IDENTIFIER = 'Could not find any DOI in the README file of the repository'
 EVIDENCE_NO_IDENTIFIER_FOUND = 'Could not find any identifier in the repository'
 EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER = 'DOI found but not resolvable'
@@ -137,7 +138,7 @@ EVIDENCE_NO_CITATION = 'Could not find any citation in the repository'
 EVIDENCE_NO_WORKFLOWS = 'Could not find any workflows in the repository'
 EVIDENCE_NO_DEPENDENCIES = 'Could not find any dependencies indicated in the repository'
 EVIDENCE_NO_METADATA_CODEMETA = 'Could not find a codemeta.json file in the repository'
-EVIDENCE_NO_DESCRIPTIVE_METADATA = 'Could not find any of the following metadata:'
+EVIDENCE_NO_DESCRIPTIVE_METADATA = 'Could not find any of the following metadata: '
 EVIDENCE_NO_README_AND_READTHEDOCS = 'Could not find neither README file or Read The Docs badge'
 EVIDENCE_NO_DOCUMENTATION_README = 'Could not find a README file in the repository'
 EVIDENCE_NO_RELEASES = 'Could not find any releases in the repository'
@@ -202,9 +203,15 @@ INDICATORS_DICT = {
 CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
-        'id' : 'https://github.com/andriumon/rsfc',
+        'id' : 'https://github.com/oeg-upm/rsfc',
         'version' : '0.0.1'
     }
+}
+
+
+REPO_TYPES = {
+    0: 'GITHUB',
+    1: 'GITLAB'
 }
 
 
