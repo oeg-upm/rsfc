@@ -26,11 +26,12 @@ For more information about these RSQIs, you can check https://github.com/EVERSE-
 
 Python 3.10.8 or higher
 
-Dependencies are available in the requirements.txt file located in the root of the repository
+Dependencies are available in the requirements.txt or pyproject.toml file located in the root of the repository
 
-## Install from Github
+## Install from Github with Poetry
 
-To install the package, first clone the repository in your machine
+To install the package, first clone the repository in your machine.
+This project uses Poetry for dependency and environment management.
 
 ```
 git clone https://github.com/oeg-upm/rsfc.git
@@ -42,15 +43,6 @@ Go to the project's root directory
 cd rsfc
 ```
 
-And then run in that directory
-
-```
-pip install .
-```
-
-You all can install the package with Poetry
-This project uses Poetry for dependency and environment management.
-
 Install Poetry (if you haven’t already)
 
 ```
@@ -61,13 +53,6 @@ Make sure Poetry is available in your PATH
 
 ```
 poetry --version
-```
-
-Clone de repository
-
-```
-git clone https://github.com/juanjemdIos/oeg_rsfc.git
-cd oeg_rsfc
 ```
 
 Create the virtual environment and install dependencies
@@ -85,7 +70,7 @@ source $(poetry env info --path)/bin/activate
 Your terminal prompt should now show something like:
 
 ```
-(rsfc-py3.11) your-user@your-machine oeg_rsfc %
+(rsfc-py3.11) your-user@your-machine rsfc %
 ```
 
 With virtual environment activated you can tried like this:
@@ -102,8 +87,14 @@ poetry run rsfc --help
 
 ## Usage
 
-After installation, you can use the package by running
+After installation, you can use the package by running if you activated the poetry env
 
 ```
 rsfc <repo_url>
+```
+
+or like this without the poetry env
+
+```
+poetry ruyn rsfc <repo_url>
 ```
