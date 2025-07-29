@@ -116,7 +116,7 @@
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "RSFC-04-01"
+                "@value": "RSFC-04-1"
             }
         ],
         "http://www.w3.org/ns/dcat#contactPoint": [
