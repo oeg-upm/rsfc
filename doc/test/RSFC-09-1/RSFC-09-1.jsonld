@@ -1,5 +1,11 @@
 [
     {
+        "@id": "https://w3id.org/everse/i/indicators/version_control_use",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ]
+    },
+    {
         "@id": "https://github.com/andriumon",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
@@ -17,9 +23,34 @@
         ]
     },
     {
-        "@id": "https://w3id.org/everse/i/indicators/version_control_use",
+        "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/repository",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
+            }
+        ],
+        "http://xmlns.com/foaf/0.1/homePage": [
+            {
+                "@id": "https://github.com/oeg-upm/rsfc"
+            }
         ]
     },
     {
@@ -109,16 +140,6 @@
                 "@id": "https://orcid.org/0000-0003-0454-7145"
             }
         ],
-        "http://www.w3.org/ns/dcat#endpointDescription": [
-            {
-                "@id": "https://w3id.org/rsfc/api"
-            }
-        ],
-        "http://www.w3.org/ns/dcat#endpointURL": [
-            {
-                "@id": "https://w3id.org/rsfc/api/assess/test/RSFC-09-1"
-            }
-        ],
         "http://www.w3.org/ns/dcat#keyword": [
             {
                 "@language": "en",
@@ -141,7 +162,7 @@
         ],
         "https://w3id.org/dpv#isApplicableFor": [
             {
-                "@id": "https://schema.org/DefinedTermSet"
+                "@id": "https://schema.org/SoftwareSourceCode"
             }
         ],
         "https://w3id.org/ftr#supportedBy": [
@@ -168,37 +189,6 @@
         "http://www.w3.org/2006/vcard/ns#url": [
             {
                 "@id": "https://www.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/repository",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
-            }
-        ],
-        "http://xmlns.com/foaf/0.1/homePage": [
-            {
-                "@id": "https://github.com/oeg-upm/rsfc"
             }
         ]
     }
