@@ -18,17 +18,18 @@
             "givenName": "Andrés"
         }
     ],
-    "codeRepository": "https://github.com/andriumon/rsqc",
+    "codeRepository": "https://github.com/oeg-upm/rsfc",
     "dateCreated": "2025-07-01",
-    "description": "Package that performs a series of checks based on a list of research software quality indicators",
+    "description": "Package that performs a series of checks based on a list of research software fairness indicators",
     "isPartOf": "https://everse.software/",
     "keywords": [
         "quality",
         "indicators",
-        "fair"
+        "fair",
+        "fairness"
     ],
     "license": "https://spdx.org/licenses/MIT",
-    "name": "RSQC",
+    "name": "RSFC",
     "operatingSystem": "Linux",
     "programmingLanguage": "Python",
     "relatedLink": "https://github.com/EVERSE-ResearchSoftware/indicators",

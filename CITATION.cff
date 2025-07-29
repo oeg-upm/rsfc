@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: 'RSQC: Research Software Quality Checks'
+title: 'RSFC: Research Software Fairness Checks'
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -16,10 +16,11 @@ authors:
   - given-names: Andrés
     family-names: Montero
     email: andres.montero.martin@upm.es
-repository-code: 'https://github.com/andriumon/rsqc'
+repository-code: 'https://github.com/oeg-upm/rsfc'
 keywords:
   - quality
   - fair
   - indicators
+  - fairness
 license: MIT
 version: 0.0.1
