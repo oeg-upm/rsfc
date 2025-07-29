@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481)
+
+
 # Research Software Fairness Checks (RSFC)
 
 A command line interface to automatically evaluate the quality of a Github or Gitlab repository.
@@ -27,6 +30,14 @@ For more information about these RSQIs, you can check https://github.com/EVERSE-
 Python 3.10.8 or higher
 
 Dependencies are available in the requirements.txt or pyproject.toml file located in the root of the repository
+
+## Install from PyPI
+
+Just run in your terminal the following command:
+
+```
+pip install rsfc
+```
 
 ## Install from Github with Poetry
 
@@ -96,5 +107,5 @@ rsfc <repo_url>
 or like this without the poetry env
 
 ```
-poetry ruyn rsfc <repo_url>
+poetry run rsfc <repo_url>
 ```

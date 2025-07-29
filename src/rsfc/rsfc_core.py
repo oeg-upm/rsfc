@@ -7,16 +7,16 @@ from rsfc.model import assessedSoftware as soft
 from rsfc.rsfc_tests import rsfc_tests as rt
 from importlib.resources import files
 from rsfc.utils import constants, rsfc_helpers
-
-#################################### Auxs Functions ########################################
+import io
+import contextlib
 
 
 def somef_assessment(repo_url, threshold):
     
-    repo_data = somef_cli.cli_get_data(threshold=threshold,
-                                    ignore_classifiers=True,
-                                    repo_url=repo_url,
-                                    readme_only=False)
+    print("Extracting repository metadata with SOMEF...")
+    
+    with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+        repo_data = somef_cli.cli_get_data(threshold=threshold, ignore_classifiers=True, repo_url=repo_url, readme_only=False)
         
     repo_data = json.loads(json.dumps(repo_data.results))
     
@@ -29,6 +29,8 @@ def somef_assessment(repo_url, threshold):
 
 
 def render_template(repo_url, repo_type, checks):
+    
+    print("Rendering assessment...")
     
     data = dict()
     
@@ -58,6 +60,10 @@ def render_template(repo_url, repo_type, checks):
 
 def build_assessment(repo_url):
     
+    somef_data = somef_assessment(repo_url, 0.8)
+    
+    print("Assessing repository...")
+    
     if "github" in repo_url:
         repo_type = constants.REPO_TYPES[0]
         repo_branch = None
@@ -65,8 +71,6 @@ def build_assessment(repo_url):
         repo_type = constants.REPO_TYPES[1]
         repo_base_api_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
         repo_branch = rsfc_helpers.get_gitlab_default_branch(repo_base_api_url, repo_type)
-    
-    somef_data = somef_assessment(repo_url, 0.8)
 
     checks = [
         rt.test_has_license(somef_data),
@@ -109,6 +113,8 @@ def build_assessment(repo_url):
     ]
     
     results = render_template(repo_url, repo_type, checks)
+    
+    print("Saving assessment locally...")
     
     output_path = './outputs/rsfc_assessment.json'
 

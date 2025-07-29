@@ -1000,7 +1000,6 @@ def test_license_spdx_compliant(repo_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_LICENSE
     else:
-        print('Se mete')
         for item in repo_data['license']:
             if 'result' in item and 'spdx_id' in item['result']:
                 if item['result']['spdx_id'] in constants.SPDX_LICENSE_WHITELIST:
