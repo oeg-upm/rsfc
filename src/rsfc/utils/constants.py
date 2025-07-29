@@ -196,7 +196,7 @@ INDICATORS_DICT = {
     'software_documentation': 'https://w3id.org/everse/i/indicators/software_documentation',
     'persistent_and_unique_identifier': 'https://w3id.org/everse/i/indicators/persistent_and_unique_identifier',
     'descriptive_metadata': 'https://w3id.org/everse/i/indicators/descriptive_metadata',
-    'semantic_versioning': 'https://w3id.org/everse/i/indicators/semantic_versioning',
+    'versioning_standards_use': 'https://w3id.org/everse/i/indicators/versioning_standards_use',
     'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage'
 }
 
@@ -204,7 +204,7 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://github.com/oeg-upm/rsfc',
-        'version' : '0.0.1'
+        'version' : '0.0.2'
     }
 }
 

@@ -6,20 +6,20 @@ from rsfc.utils import constants, rsfc_helpers
 
 class AssessedSoftware:
     def __init__(self, repo_url):
-        self.software_url = repo_url
-        self.repo_type = self.get_repo_type(repo_url)
-        base_url = self.get_repo_base_url(repo_url)
-        self.software_name = self.get_soft_name(unquote(base_url))
-        self.software_version = self.get_soft_version(base_url)
-        self.software_id = None
+        self.url = repo_url
+        self.repo_type = self.get_repo_type()
+        base_url = self.get_repo_base_url()
+        self.name = self.get_soft_name(unquote(base_url))
+        self.version = self.get_soft_version(base_url)
+        self.id = None
         self.repo_branch = rsfc_helpers.get_gitlab_default_branch(base_url, self.repo_type)
         
         
-    def get_repo_base_url(self, repo_url):
-        parsed_url = urllib.parse.urlparse(repo_url)
+    def get_repo_base_url(self):
+        parsed_url = urllib.parse.urlparse(self.url)
         path_parts = parsed_url.path.strip("/").split("/")
         if len(path_parts) < 2:
-            raise ValueError("Error when getting repository API URL")
+            raise ValueError("Error when parsing repository API URL")
 
         owner, repo = path_parts[-2], path_parts[-1]
 
@@ -39,9 +39,9 @@ class AssessedSoftware:
         return name
 
 
-    def get_soft_version(self, url, repo_type):
+    def get_soft_version(self, base_url):
         try:
-            releases_url = f"{url}/releases"
+            releases_url = f"{base_url}/releases"
 
             response = requests.get(releases_url)
             response.raise_for_status()
@@ -51,10 +51,10 @@ class AssessedSoftware:
             latest_date = None
 
             for release in releases:
-                if repo_type == "GITHUB":
+                if self.repo_type == "GITHUB":
                     date_str = release.get("published_at")
                     tag = release.get("tag_name")
-                elif repo_type == "GITLAB":
+                elif self.repo_type == "GITLAB":
                     date_str = release.get("released_at")
                     tag = release.get("tag_name")
                 else:
@@ -73,14 +73,14 @@ class AssessedSoftware:
             return latest_release
 
         except Exception as e:
-            print(f"Error fetching releases from {repo_type} at {releases_url}: {e}")
+            print(f"Error fetching releases from {self.repo_type} at {releases_url}: {e}")
             return None
 
 
-    def get_repo_type(self, repo_url):
-        if "github" in repo_url:
+    def get_repo_type(self):
+        if "github" in self.url:
             repo_type = constants.REPO_TYPES[0]
-        elif "gitlab" in repo_url:
+        elif "gitlab" in self.url:
             repo_type = constants.REPO_TYPES[1]
             
         return repo_type

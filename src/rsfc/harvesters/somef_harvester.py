@@ -12,7 +12,7 @@ class SomefExtractor:
         
         
         
-    def somef_assessment(repo_url, threshold):
+    def somef_assessment(self, repo_url, threshold):
     
         print("Extracting repository metadata with SOMEF...")
         
@@ -21,8 +21,8 @@ class SomefExtractor:
             
         repo_data = json.loads(json.dumps(repo_data.results))
         
-        '''os.makedirs('./outputs', exist_ok=True)
+        os.makedirs('./outputs', exist_ok=True)
         with open('./outputs/somef_assessment.json', 'w', encoding='utf-8') as f:
-            json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
+            json.dump(repo_data, f, indent=4, ensure_ascii=False)
         
         return repo_data

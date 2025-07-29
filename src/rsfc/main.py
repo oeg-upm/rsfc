@@ -6,8 +6,10 @@ def main():
 
     args = parser.parse_args()
     
-    from rsfc.rsfc_core import build_assessment
-    build_assessment(args.repo_url)
+    print("Making preparations...")
+    
+    from rsfc.rsfc_core import start_assessment
+    start_assessment(args.repo_url)
 
 if __name__ == "__main__":
     main()

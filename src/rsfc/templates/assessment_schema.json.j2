@@ -18,6 +18,7 @@
     {% for check in checks -%}
     {
       "@type": "CheckResult",
+      "test_id": "{{ check['test_id'] }}",
       "assessesIndicator": { "@id": "{{ check['assessesIndicator']['@id'] }}" },
       "checkingSoftware": {
         "@type": "schema:SoftwareApplication",
