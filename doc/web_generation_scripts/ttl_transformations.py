@@ -20,7 +20,7 @@ PREFIX doap: <http://usefulinc.com/ns/doap#>
 PREFIX dpv: <https://w3id.org/dpv#> 
 
 SELECT DISTINCT ?s ?title ?label ?description ?keywords ?version ?label_dimension ?desc_dimension ?license
-?publisher_uri ?publisher_label ?metric ?creator_name ?creator_orcid ?contact_orcid ?contact_name ?contact_mail ?endpoint_desc ?endpoint_url 
+?publisher_uri ?publisher_label ?metric ?creator_name ?creator_orcid ?contact_orcid ?contact_name ?contact_mail 
 ?applicable_for ?supported_by ?web_repository
 WHERE {
     ?s a ftr:Test .
@@ -32,8 +32,6 @@ WHERE {
     ?publisher_uri rdfs:label ?publisher_label .
     ?s dcat:keyword ?keywords .
     ?s dcat:version ?version .
-    ?s dcat:endpointDescription ?endpoint_desc .
-    ?s dcat:endpointURL ?endpoint_url .
     ?s dpv:isApplicableFor ?applicable_for .
     ?s ftr:supportedBy ?supported_by .
     ?metric a dqv:Metric .
@@ -143,8 +141,6 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         'test_turtle': '',
         'test_contactName': '',
         'test_contactMail': '',
-        'test_endpoint_desc': '',
-        'test_endpoint_url': '',
         'test_applicable_for': '',
         'test_supported_by': ''
     }
@@ -172,8 +168,6 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         data['test_metric'] = row.metric
         data['test_repository'] = row.web_repository
         data['test_turtle'] = row.label + '.ttl'
-        data['test_endpoint_desc'] = row.endpoint_desc
-        data['test_endpoint_url'] = row.endpoint_url
         data['test_applicable_for'] = row.applicable_for
         data['test_supported_by'] = row.supported_by
 
