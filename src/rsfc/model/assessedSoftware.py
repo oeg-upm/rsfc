@@ -8,11 +8,11 @@ class AssessedSoftware:
     def __init__(self, repo_url):
         self.url = repo_url
         self.repo_type = self.get_repo_type()
-        base_url = self.get_repo_base_url()
-        self.name = self.get_soft_name(unquote(base_url))
-        self.version = self.get_soft_version(base_url)
+        self.base_url = self.get_repo_base_url()
+        self.name = self.get_soft_name()
+        self.version = self.get_soft_version()
         self.id = None
-        self.repo_branch = rsfc_helpers.get_gitlab_default_branch(base_url, self.repo_type)
+        self.repo_branch = rsfc_helpers.get_gitlab_default_branch(self.base_url, self.repo_type)
         
         
     def get_repo_base_url(self):
@@ -34,14 +34,15 @@ class AssessedSoftware:
         return url
         
         
-    def get_soft_name(self, base_url):
+    def get_soft_name(self):
+        base_url = unquote(self.base_url)
         name = base_url.rstrip("/").split("/")[-1]
         return name
 
 
-    def get_soft_version(self, base_url):
+    def get_soft_version(self):
         try:
-            releases_url = f"{base_url}/releases"
+            releases_url = f"{self.base_url}/releases"
 
             response = requests.get(releases_url)
             response.raise_for_status()

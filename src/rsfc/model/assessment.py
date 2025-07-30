@@ -41,12 +41,12 @@ class Assessment:
         
         for check in self.checks:
             rows.append([
-                check["assessesIndicator"]["@id"],
                 check["test_id"],
+                check["assessesIndicator"]["@id"],
                 str(check["output"])
             ])
 
-        headers = ["Indicator", "Test ID", "Output"]
+        headers = ["TEST ID", "Assessed Indicator ID", "Output"]
         table = tabulate(rows, headers, tablefmt="grid")
         info = "\n\nFor rationale on the tests performed, please check the assessment file created in the outputs folder.\n"
         table = table +info
