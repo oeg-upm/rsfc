@@ -2,14 +2,14 @@ from rsfc.rsfc_tests import rsfc_tests as rt
 
 class Indicator:
     
-    def __init__(self, sw, somef):
+    def __init__(self, sw, somef, cd, cf):
         
         self.indicator_functions = {
             "persistent_and_unique_identifier": [
                 (rt.test_id_presence_and_resolves, [somef.somef_data]),
-                (rt.test_id_proper_schema, [somef.somef_data]),
-                (rt.test_id_associated_with_software, [somef.somef_data, sw.url, sw.repo_type, sw.repo_branch]),
-                (rt.test_identifier_in_readme_citation, [somef.somef_data]),
+                (rt.test_id_associated_with_software, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
+                (rt.test_id_common_schema, [somef.somef_data]),
+                (rt.test_identifier_in_readme_citation, [somef.somef_data, cf.cff_data]),
                 (rt.test_identifier_resolves_to_software, [somef.somef_data])
             ],
             "requirements_specified": [
@@ -27,7 +27,7 @@ class Indicator:
                 (rt.test_version_scheme, [somef.somef_data])
             ],
             "software_tests": [
-                (rt.test_presence_of_tests, [sw.url, sw.repo_type, sw.repo_branch])
+                (rt.test_presence_of_tests, [sw])
             ],
             "repository_workflows": [
                 (rt.test_github_action_tests, [somef.somef_data]),
@@ -35,32 +35,35 @@ class Indicator:
             ],
             "version_control_use": [
                 (rt.test_is_github_repository, [sw.url]),
-                (rt.test_repo_enabled_and_commits, [somef.somef_data, sw.url, sw.repo_type, sw.repo_branch]),
+                (rt.test_repo_enabled_and_commits, [somef.somef_data, sw]),
                 (rt.test_repo_status, [somef.somef_data])
             ],
             "software_has_license": [
                 (rt.test_has_license, [somef.somef_data]),
                 (rt.test_license_spdx_compliant, [somef.somef_data]),
-                (rt.test_license_info_in_metadata_files, [somef.somef_data, sw.url, sw.repo_type, sw.repo_branch])
+                (rt.test_license_info_in_metadata_files, [somef.somef_data, cd.codemeta_data, cf.cff_data])
             ],
             "descriptive_metadata": [
                 (rt.test_authors_contribs, [somef.somef_data]),
-                (rt.test_authors_orcids, [somef.somef_data]),
-                (rt.test_author_roles, [sw.url, sw.repo_type, sw.repo_branch]),
-                (rt.test_metadata_exists, [somef.somef_data, sw.url, sw.repo_type, sw.repo_branch]),
-                (rt.test_codemeta_exists, [sw.url, sw.repo_type, sw.repo_branch]),
+                (rt.test_authors_orcids, [cd.codemeta_data, cf.cff_data]),
+                (rt.test_author_roles, [cd.codemeta_data]),
+                (rt.test_metadata_exists, [somef.somef_data, sw]),
+                (rt.test_codemeta_exists, [cd.codemeta_data]),
                 (rt.test_descriptive_metadata, [somef.somef_data]),
                 (rt.test_title_description, [somef.somef_data])
             ],
             "software_has_citation": [
                 (rt.test_has_citation, [somef.somef_data]),
-                (rt.test_reference_publication, [somef.somef_data, sw.url, sw.repo_type, sw.repo_branch])
+                (rt.test_reference_publication, [somef.somef_data, cd.codemeta_data])
             ],
             "software_documentation": [
                 (rt.test_software_documentation, [somef.somef_data]),
                 (rt.test_readme_exists, [somef.somef_data]),
                 (rt.test_contact_support_documentation, [somef.somef_data]),
                 (rt.test_installation_instructions, [somef.somef_data])
+            ],
+            "archived_in_software_heritage": [
+                (rt.test_metadata_record_in_zenodo_or_software_heritage, [somef.somef_data])
             ]
         }
         

@@ -4,7 +4,7 @@ class CodemetaHarvester:
     
     def __init__(self, sw):
         codemeta = self.get_codemeta_file(sw)
-        self.codemeta_info = self.harvest_codemeta(codemeta)
+        self.codemeta_data = self.harvest_codemeta(codemeta)
         
         
     def get_codemeta_file(self, sw):
@@ -38,7 +38,7 @@ class CodemetaHarvester:
     def harvest_codemeta(self, codemeta):
         codemeta_info = {
             "license": None,
-            "authors": None,
+            "author": None,
             "contributor": None,
             "identifier": None,
             "referencePublication": None,

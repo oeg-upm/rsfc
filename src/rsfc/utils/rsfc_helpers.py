@@ -41,15 +41,46 @@ def decode_github_content(content_json):
     else:
         return encoded_content
 
-def subtest_author_and_role(codemeta):
+def subtest_author_roles(authors):
     
     #Follows codemeta standards v2.0 and v3.0
     
-    output = "false"
+    author_roles = {}
+    for item in authors:
+        type_field = None
+        id_field = None
+        
+        if 'type' in item:
+            type_field = 'type'
+        elif '@type' in item:
+            type_field = '@type'
+            
+        if 'id' in item:
+            id_field = 'id'
+        elif '@id' in item:
+            id_field = '@id'
+            
+            
+        if type_field != None and id_field != None:
+            if item[type_field] == 'Person':
+                if item[id_field] not in author_roles:
+                    author_roles[item[id_field]] = None
+            elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
+                if item['schema:author'] in author_roles:
+                    if 'roleName' in item:
+                        author_roles[item['schema:author']] = item['roleName']
+                    elif 'schema:roleName' in item:
+                        author_roles[item['schema:author']] = item['schema:roleName']
+        else:
+            continue
+        
+    return author_roles
+
+
+def subtest_author_orcids(file_data):
     
-    if 'author' in codemeta:
-        author_roles = {}
-        for item in codemeta['author']:
+    if "author" in file_data: #Codemeta
+        for item in file_data["author"]:
             type_field = None
             id_field = None
             
@@ -65,28 +96,23 @@ def subtest_author_and_role(codemeta):
                 
                 
             if type_field != None and id_field != None:
-                if item[type_field] == 'Person':
-                    if item[id_field] not in author_roles:
-                        author_roles[item[id_field]] = None
-                elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
-                    if item['schema:author'] in author_roles:
-                        if 'roleName' in item:
-                            author_roles[item['schema:author']] = item['roleName']
-                        elif 'schema:roleName' in item:
-                            author_roles[item['schema:author']] = item['schema:roleName']
-            else:
+                if type_field in item and item[type_field] == "Person":
+                    if id_field in item and "https://orcid.org/" in item[id_field]:
+                        continue
+                    else:
+                        return False
+    elif "authors" in file_data: #CFF
+        for item in file_data["authors"]:
+            if "orcid" in item:
                 continue
+            else:
+                return False
     else:
-        evidence = constants.EVIDENCE_NO_AUTHORS_IN_CODEMETA
-                        
-
-    if all(value is not None for value in author_roles.values()):
-        output = "true"
-        evidence = constants.EVIDENCE_AUTHOR_ROLES
-    else:
-        evidence = constants.EVIDENCE_NO_ALL_AUTHOR_ROLES
+        return False
         
-    return output, evidence
+    return True
+        
+
 
 def build_url_pattern(url):
     base_url = url.rsplit('/', 1)[0]

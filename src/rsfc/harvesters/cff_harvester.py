@@ -5,7 +5,7 @@ class CFFHarvester:
     
     def __init__(self, sw):
         cff = self.get_cff_file(sw)
-        self.cff_info = self.harvest_cff(cff)
+        self.cff_data = self.harvest_cff(cff)
     
     
     def get_cff_file(self, sw):
