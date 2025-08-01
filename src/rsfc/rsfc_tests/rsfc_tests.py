@@ -460,6 +460,8 @@ def test_authors_contribs(somef_data):
 
 
 def test_authors_orcids(codemeta_data, cff_data):
+    author_orcids_codemeta = False
+    author_orcids_cff = None
     
     if codemeta_data != None:
         if codemeta_data["author"] != None:
@@ -635,7 +637,7 @@ def test_reference_publication(somef_data, codemeta_data):
     
     referencePub = False
         
-    if codemeta_data["referencePublication"] != None:
+    if codemeta_data != None and codemeta_data["referencePublication"] != None:
         referencePub = True
     
     article_citation = False
@@ -740,17 +742,16 @@ def test_dependencies_in_machine_readable_file(somef_data):
 ################################################### FRSM_14 ###################################################
 
 def test_presence_of_tests(sw):
-    base_url = rsfc_helpers.get_repo_api_url(sw.url, sw.repo_type)
     entries = []
 
     if sw.repo_type == "GITHUB":
-        tree_url = f"{base_url}/git/trees/HEAD?recursive=1"
+        tree_url = f"{sw.base_url}/git/trees/HEAD?recursive=1"
         resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
         if resp.status_code == 200:
             entries = resp.json().get("tree", [])
 
     elif sw.repo_type == "GITLAB":
-        tree_url = f"{base_url}/repository/tree?recursive=true&ref={sw.repo_branch}&per_page=100"
+        tree_url = f"{sw.base_url}/repository/tree?recursive=true&ref={sw.repo_branch}&per_page=100"
         resp = requests.get(tree_url)
         if resp.status_code == 200:
             entries = [{"path": item["path"]} for item in resp.json()]
@@ -866,10 +867,10 @@ def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):
                     license_info['package'] = True
                     break
                     
-    if cff_data["license"] != None:
+    if cff_data != None and cff_data["license"] != None:
         license_info["citation"] = True
 
-    if codemeta_data["license"] != None:
+    if codemeta_data != None and codemeta_data["license"] != None:
         license_info["codemeta"] = True
                 
             
@@ -902,14 +903,13 @@ def test_repo_enabled_and_commits(somef_data, sw):
     else:
         repo = False
         
-    base_url = rsfc_helpers.get_repo_api_url(sw.url, sw.repo_type)
     if sw.repo_type == "GITHUB":
-        commit_url = base_url + "/commits"
+        commit_url = sw.base_url + "/commits"
         headers = {'Accept': 'application/vnd.github.v3.raw'}
         response = requests.get(commit_url, headers=headers)
 
     elif sw.repo_type == "GITLAB":
-        commit_url = f"{base_url}/repository/commits?ref_name={sw.repo_branch}"
+        commit_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
         response = requests.get(commit_url)
 
     else:

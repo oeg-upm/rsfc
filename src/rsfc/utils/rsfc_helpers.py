@@ -1,36 +1,14 @@
-import urllib
 from datetime import datetime
 import regex as re
 import base64
-from rsfc.utils import constants
 import requests
-
-
-def get_repo_api_url(repo_url, repo_type):
-        parsed_url = urllib.parse.urlparse(repo_url)
-        path_parts = parsed_url.path.strip("/").split("/")
-        if len(path_parts) < 2:
-            raise ValueError("Error when getting repository API URL")
-
-        owner, repo = path_parts[-2], path_parts[-1]
-
-        if repo_type == 'GITHUB':
-            url = f"https://api.github.com/repos/{owner}/{repo}"
-        elif repo_type == "GITLAB":
-            project_path = urllib.parse.quote(f"{owner}/{repo}", safe="")
-            url = f"https://gitlab.com/api/v4/projects/{project_path}"
-        else:
-            raise ValueError("URL not within supported types (Github and Gitlab)")
-
-        return url
   
 def get_gitlab_default_branch(base_url, repo_type):
     if repo_type == "GITLAB":
         res = requests.get(base_url)
         res.raise_for_status()
-        return res.json().get("default_branch", "main")
-    else:
-        return None
+        data = res.json()
+        return data.get("default_branch", "main")
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')

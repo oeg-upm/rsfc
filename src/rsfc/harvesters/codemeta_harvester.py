@@ -9,15 +9,14 @@ class CodemetaHarvester:
         
     def get_codemeta_file(self, sw):
         req_url = sw.base_url + '/contents/codemeta.json'
-        headers = {
-            'Accept': 'application/vnd.github.v3.raw'
-        }
         
         try:
-            if sw.repo_type == "github":
+            if sw.repo_type == "GITHUB":
                 req_url = sw.base_url + '/contents/codemeta.json'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
-                response = requests.get(req_url, headers=headers)
+                params = {'ref': sw.repo_branch}
+
+                response = requests.get(req_url, headers=headers, params=params)
                 response.raise_for_status()
                 return response.json()
             elif sw.repo_type == "gitlab":
@@ -36,32 +35,35 @@ class CodemetaHarvester:
         
     
     def harvest_codemeta(self, codemeta):
-        codemeta_info = {
-            "license": None,
-            "author": None,
-            "contributor": None,
-            "identifier": None,
-            "referencePublication": None,
-            "version": None
-        }
-        
-        if "license" in codemeta:
-            codemeta_info["license"] = codemeta["license"]
+        if codemeta != None:
+            codemeta_info = {
+                "license": None,
+                "author": None,
+                "contributor": None,
+                "identifier": None,
+                "referencePublication": None,
+                "version": None
+            }
             
-        if "identifier" in codemeta:
-            codemeta_info["identifier"] = codemeta["identifier"]
-            
-        if "referencePublication" in codemeta:
-            codemeta_info["referencePublication"] = codemeta["referencePublication"]
-            
-        if "author" in codemeta:
-            codemeta_info["author"] = codemeta["author"]
-            
-        if "contributor" in codemeta:
-            codemeta_info["contributor"] = codemeta["contributor"]
-            
-        if "version" in codemeta:
-            codemeta_info["version"] = codemeta["version"]
-            
-        return codemeta_info
+            if "license" in codemeta:
+                codemeta_info["license"] = codemeta["license"]
+                
+            if "identifier" in codemeta:
+                codemeta_info["identifier"] = codemeta["identifier"]
+                
+            if "referencePublication" in codemeta:
+                codemeta_info["referencePublication"] = codemeta["referencePublication"]
+                
+            if "author" in codemeta:
+                codemeta_info["author"] = codemeta["author"]
+                
+            if "contributor" in codemeta:
+                codemeta_info["contributor"] = codemeta["contributor"]
+                
+            if "version" in codemeta:
+                codemeta_info["version"] = codemeta["version"]
+                
+            return codemeta_info
+        else:
+            return None
             

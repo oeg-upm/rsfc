@@ -47,7 +47,7 @@ class Indicator:
                 (rt.test_authors_contribs, [somef.somef_data]),
                 (rt.test_authors_orcids, [cd.codemeta_data, cf.cff_data]),
                 (rt.test_author_roles, [cd.codemeta_data]),
-                (rt.test_metadata_exists, [somef.somef_data, sw]),
+                (rt.test_metadata_exists, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
                 (rt.test_codemeta_exists, [cd.codemeta_data]),
                 (rt.test_descriptive_metadata, [somef.somef_data]),
                 (rt.test_title_description, [somef.somef_data])
