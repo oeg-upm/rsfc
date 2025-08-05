@@ -11,7 +11,7 @@ from rsfc.harvesters import cff_harvester as cf
 def start_assessment(repo_url):
     
     sw = soft.AssessedSoftware(repo_url)
-    somef = som.SomefExtractor(repo_url)
+    somef = som.SomefHarvester(repo_url)
     code = cm.CodemetaHarvester(sw)
     cff = cf.CFFHarvester(sw)
     
