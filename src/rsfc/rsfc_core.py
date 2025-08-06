@@ -1,5 +1,3 @@
-import os
-import json
 from rsfc.model import assessedSoftware as soft
 from rsfc.model import indicator as ind
 from rsfc.model import assessment as asmt
@@ -23,16 +21,6 @@ def start_assessment(repo_url):
     assess = asmt.Assessment(checks)
     
     rsfc_asmt = assess.render_template(sw)
-    output_path = './outputs/rsfc_assessment.json'
-    
-    print("Saving assessment locally...")
-
-    if os.path.exists(output_path):
-        os.remove(output_path)
-
-    with open(output_path, 'w') as f:
-        json.dump(rsfc_asmt, f, indent=4)
-    
     table = assess.to_terminal_table()
-    print("Creating terminal output...")
-    print(table)
+    
+    return rsfc_asmt, table
