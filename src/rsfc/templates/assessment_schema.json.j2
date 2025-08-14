@@ -27,7 +27,7 @@
         "softwareVersion": "{{ check['checkingSoftware']['softwareVersion'] }}"
       },
       "process": "{{ check['process'] }}",
-      "status": { "@id": "{{ check['status'] }}" },
+      "status": { "@id": "{{ check['status']['@id'] }}" },
       "output": "{{ check['output'] }}",
       "evidence": {{ check.evidence | tojson }}
     }{{ "," if not loop.last else "" }}
