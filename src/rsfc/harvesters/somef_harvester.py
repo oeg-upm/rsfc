@@ -2,6 +2,7 @@ import io
 import contextlib
 import json
 from somef import somef_cli
+import os
 
 class SomefHarvester:
     

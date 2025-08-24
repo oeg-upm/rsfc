@@ -50,7 +50,8 @@ class Indicator:
                 (rt.test_metadata_exists, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
                 (rt.test_codemeta_exists, [cd.codemeta_data]),
                 (rt.test_descriptive_metadata, [somef.somef_data]),
-                (rt.test_title_description, [somef.somef_data])
+                (rt.test_title_description, [somef.somef_data]),
+                (rt.test_version_number_in_metadata, [somef.somef_data, cd.codemeta_data, cf.cff_data])
             ],
             "software_has_citation": [
                 (rt.test_has_citation, [somef.somef_data]),

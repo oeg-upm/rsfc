@@ -73,6 +73,7 @@ PROCESS_ID_RESOLVES_TO_SOFTWARE = 'Checks if the identifier found in the README 
 PROCESS_AUTHORS_AND_CONTRIBS = 'Searches for authors and contributors in the varios files of the repository (e.g. CITATION.cff, AUTHORS.md, codemeta.json)'
 PROCESS_AUTHOR_ORCIDS = 'Checks if all authors stated in the CITATION.cff file have an ORCID assigned'
 PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file have a role assigned '
+PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
 
 
 
@@ -129,6 +130,7 @@ EVIDENCE_AUTOMATED_TESTS = 'There are workflows or actions that perform automate
 EVIDENCE_TESTS = 'Files and/or directories that mention test were found at:'
 EVIDENCE_RELEASE_CONSISTENCY = 'Latest release matches the latest version stated'
 EVIDENCE_METADATA_EXISTS = 'Found codemeta, citation and package files in the repository'
+EVIDENCE_VERSION_IN_METADATA = 'Found the software version in one of the specified files'
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
@@ -183,6 +185,7 @@ EVIDENCE_NO_AUTOMATED_TESTS = 'Could not find any workflows or actions that ment
 EVIDENCE_NO_RELEASE_CONSISTENCY = 'Latest release does not match the latest version stated'
 EVIDENCE_NOT_ENOUGH_RELEASE_INFO = 'Could not get the necessary information to perform the test, it being releases and/or version in package file'
 EVIDENCE_NO_METADATA_EXISTS = 'Could not find any of the following metadata files: '
+EVIDENCE_NO_VERSION_IN_METADATA = 'Could not find a version number for the software in any of the specified files'
 
 
 #Dictionaries

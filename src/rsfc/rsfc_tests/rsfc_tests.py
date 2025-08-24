@@ -113,6 +113,34 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
 
 ################################################### FRSM_03 ###################################################
 
+
+def test_version_number_in_metadata(somef_data, codemeta_data, cff_data):
+    
+    cff = False
+    codemeta = False
+    somef = False
+    
+    if cff_data != None and cff_data['version'] != None:
+        cff = True
+        
+    if codemeta_data != None and codemeta_data['version'] != None:
+        codemeta = True
+        
+    if 'version' in somef_data:
+        somef = True
+        
+    if cff or codemeta or somef:
+        output = "true"
+        evidence = constants.EVIDENCE_VERSION_IN_METADATA
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_VERSION_IN_METADATA
+        
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-03-6', constants.PROCESS_VERSION_IN_METADATA, output, evidence)
+
+    return check.convert()
+
+
 def test_has_releases(somef_data):
     if 'releases' not in somef_data:
         output = "false"
