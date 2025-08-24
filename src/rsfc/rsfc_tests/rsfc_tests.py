@@ -2,8 +2,6 @@ from rsfc.utils import constants
 from rsfc.model import check as ch
 import regex as re
 import requests
-import json
-import urllib
 from rsfc.utils import rsfc_helpers
 
 
