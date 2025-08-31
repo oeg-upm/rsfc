@@ -442,8 +442,9 @@ def test_software_documentation(somef_data):
                     sources += f"\t\n- {item['source']}"
     if 'readme_url' in somef_data:
         readme = True
-        if item['result']['value'] not in sources:
-            sources += f"\t\n- {item['result']['value']}"
+        for item in somef_data['readme_url']:
+            if item['result']['value'] not in sources:
+                sources += f"\t\n- {item['result']['value']}"
         
         
     if not readme and not rtd:
