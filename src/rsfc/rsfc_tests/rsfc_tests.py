@@ -460,27 +460,40 @@ def test_software_documentation(somef_data):
 
 ################################################### FRSM_06 ###################################################
 
-def test_authors_contribs(somef_data):
-    authors = False
-    contribs = False
+def test_authors(somef_data, codemeta_data, cff_data):
     
     if 'authors' in somef_data:
-        authors = True
+        evidence = constants.EVIDENCE_AUTHORS
+        output = "true"
+    elif codemeta_data != None and codemeta_data["author"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_AUTHORS
+    elif cff_data != None and cff_data["authors"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTORS
     else:
         evidence = constants.EVIDENCE_NO_AUTHORS
         output = "false"
+
         
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', constants.PROCESS_AUTHORS, output, evidence)
+    
+    return check.convert()
+
+
+def test_contributors(somef_data, codemeta_data):
+    
     if 'contributors' in somef_data:
-        contribs = True
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTORS
+    elif codemeta_data != None and codemeta_data["contributor"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTORS
     else:
         evidence = constants.EVIDENCE_NO_CONTRIBUTORS
         output = "false"
         
-    if authors and contribs:
-        evidence = constants.EVIDENCE_AUTHORS_AND_CONTRIBUTORS
-        output = "true"
-        
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', constants.PROCESS_AUTHORS_AND_CONTRIBS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', constants.PROCESS_CONTRIBUTORS, output, evidence)
     
     return check.convert()
 
@@ -510,7 +523,7 @@ def test_authors_orcids(codemeta_data, cff_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
     
     return check.convert()
 
@@ -534,7 +547,7 @@ def test_author_roles(codemeta_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_CODEMETA_FOUND
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', constants.PROCESS_AUTHOR_ROLES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-4', constants.PROCESS_AUTHOR_ROLES, output, evidence)
     
     return check.convert()
 
@@ -964,6 +977,60 @@ def test_repo_enabled_and_commits(somef_data, sw):
         
         
     check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-1', constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence)
+    
+    return check.convert()
+
+
+def test_commits_linked_issues(sw):
+    
+    if sw.repo_type == "GITHUB":
+
+        commits_url = sw.base_url + "/commits"
+        commits_headers = {'Accept': 'application/vnd.github.v3.raw'}
+        commits_response = requests.get(commits_url, headers=commits_headers)
+
+        issues_url = sw.base_url + "/issues"
+        issues_headers = {'Accept': 'application/vnd.github.v3.raw'}
+        issues_response = requests.get(issues_url, headers=issues_headers)
+
+    elif sw.repo_type == "GITLAB":
+
+        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
+        commits_response = requests.get(commits_url)
+
+        issues_url = f"{sw.base_url}/issues"
+        issues_response = requests.get(issues_url)
+
+    else:
+        raise ValueError("Unsupported repository type")
+
+
+    if commits_response.status_code == 200:
+        commits = commits_response.json()
+    else:
+        commits = []
+        
+    if issues_response.status_code == 200:
+        issues = issues_response.json()
+    else:
+        issues = []
+
+
+    if not commits or not issues:
+        output = "false"
+        evidence = constants.EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO
+    else:
+        linked = rsfc_helpers.cross_check_any_issue(issues, commits)
+        
+        if linked:
+            output = "true"
+            evidence = constants.EVIDENCE_COMMITS_LINKED_TO_ISSUES
+        else:
+            output = "false"
+            evidence = constants.EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES
+            
+
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
     
     return check.convert()
 

@@ -7,6 +7,10 @@ REGEX_DOI_URL = r'https://doi\.org/\S+'
 
 REGEX_SOFTWARE_HERITAGE_BADGE = r'https://archive\.softwareheritage\.org/badge/(origin|swh):[^\)\]\s]+'
 
+#Issue reference Regex
+
+REGEX_ISSUE_REF = r"(?:closes|fixes)\s+#(\d+)"
+
 
 #Versioning Regex
 
@@ -70,11 +74,12 @@ PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY = 'Checks if the URL provided is indeed a
 PROCESS_ZENODO_SOFTWARE_HERITAGE = 'Searches for Zenodo and Software Heritage badges in the README file of the repository'
 PROCESS_IDENTIFIER_IN_README_CITATION = 'Searches for an identifier in the README or CITATION.cff files of the repository'
 PROCESS_ID_RESOLVES_TO_SOFTWARE = 'Checks if the identifier found in the README file of the repository resolves to the software'
-PROCESS_AUTHORS_AND_CONTRIBS = 'Searches for authors and contributors in the varios files of the repository (e.g. CITATION.cff, AUTHORS.md, codemeta.json)'
+PROCESS_AUTHORS = 'Searches for authors in various files of the repository (i.e. CITATION.cff, AUTHORS.md, codemeta.json)'
+PROCESS_CONTRIBUTORS = "Searches for contributors in various files of the repository (i.e. codemeta.json, pyproject.toml, pom.xml)'"
 PROCESS_AUTHOR_ORCIDS = 'Checks if all authors stated in the CITATION.cff file have an ORCID assigned'
 PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file have a role assigned '
 PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
-
+PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
 
 
 
@@ -108,7 +113,8 @@ EVIDENCE_REPO_ENABLED_AND_HAS_COMMITS = 'Repository is enabled and has commits'
 EVIDENCE_AUTHOR_ORCIDS_CODEMETA = 'All authors in the codemeta.json file have an orcid identifier'
 EVIDENCE_AUTHOR_ORCIDS_CFF = 'All authors in the CITATION.cff file have an orcid identifier'
 EVIDENCE_AUTHOR_ORCIDS_BOTH = 'All authors in both the codemeta.json and CITATION.cff files have an orcid identifier'
-EVIDENCE_AUTHORS_AND_CONTRIBUTORS = 'Authors and contributors were found in the repository'
+EVIDENCE_AUTHORS = 'Authors were found in the repository'
+EVIDENCE_CONTRIBUTORS = "Contributors were found in the repository"
 EVIDENCE_AUTHOR_ROLES = 'All authors defined in the codemeta file have roles assigned'
 EVIDENCE_REFERENCE_PUBLICATION = 'A reference publication was found in the codemeta file of the repository'
 EVIDENCE_CITATION_TO_ARTICLE = 'A citation to an article was found in the repository'
@@ -131,6 +137,8 @@ EVIDENCE_TESTS = 'Files and/or directories that mention test were found at:'
 EVIDENCE_RELEASE_CONSISTENCY = 'Latest release matches the latest version stated'
 EVIDENCE_METADATA_EXISTS = 'Found codemeta, citation and package files in the repository'
 EVIDENCE_VERSION_IN_METADATA = 'Found the software version in one of the specified files'
+EVIDENCE_CONTRIBUTORS = 'Found contributors metadata in the codemeta or package files'
+EVIDENCE_COMMITS_LINKED_TO_ISSUES = 'There is at least one commit linked to an issue'
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
@@ -186,6 +194,8 @@ EVIDENCE_NO_RELEASE_CONSISTENCY = 'Latest release does not match the latest vers
 EVIDENCE_NOT_ENOUGH_RELEASE_INFO = 'Could not get the necessary information to perform the test, it being releases and/or version in package file'
 EVIDENCE_NO_METADATA_EXISTS = 'Could not find any of the following metadata files: '
 EVIDENCE_NO_VERSION_IN_METADATA = 'Could not find a version number for the software in any of the specified files'
+EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO = 'Could not get the necessary information to perform the test, it being the commits record or repository issues'
+EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any issues in the repository'
 
 
 #Dictionaries

@@ -36,7 +36,8 @@ class Indicator:
             "version_control_use": [
                 (rt.test_is_github_repository, [sw.url]),
                 (rt.test_repo_enabled_and_commits, [somef.somef_data, sw]),
-                (rt.test_repo_status, [somef.somef_data])
+                (rt.test_repo_status, [somef.somef_data]),
+                (rt.test_commits_linked_issues, [sw])
             ],
             "software_has_license": [
                 (rt.test_has_license, [somef.somef_data]),
@@ -44,7 +45,8 @@ class Indicator:
                 (rt.test_license_info_in_metadata_files, [somef.somef_data, cd.codemeta_data, cf.cff_data])
             ],
             "descriptive_metadata": [
-                (rt.test_authors_contribs, [somef.somef_data]),
+                (rt.test_authors, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
+                (rt.test_contributors, [somef.somef_data, cd.codemeta_data]),
                 (rt.test_authors_orcids, [cd.codemeta_data, cf.cff_data]),
                 (rt.test_author_roles, [cd.codemeta_data]),
                 (rt.test_metadata_exists, [somef.somef_data, cd.codemeta_data, cf.cff_data]),

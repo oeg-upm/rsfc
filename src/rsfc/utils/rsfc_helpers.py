@@ -2,6 +2,8 @@ from datetime import datetime
 import regex as re
 import base64
 import requests
+from rsfc.utils import constants
+from concurrent.futures import ThreadPoolExecutor, as_completed
   
 def get_gitlab_default_branch(base_url, repo_type):
     if repo_type == "GITLAB":
@@ -120,3 +122,37 @@ def get_latest_release(repo_data):
         return latest_release
     else:
         return None
+    
+    
+def extract_issue_refs(commits):
+    
+    issue_regex_compiled = re.compile(constants.REGEX_ISSUE_REF, re.IGNORECASE)
+    
+    issue_refs = set()
+    for commit in commits:
+        message = commit.get("commit", {}).get("message", "")
+        matches = issue_regex_compiled.findall(message)
+        issue_refs.update(matches)
+    return issue_refs
+
+
+def check_issue(issue, issue_refs):
+
+    issue_id = str(issue.get("number") or issue.get("iid"))  # GitHub -> number, GitLab -> iid
+    return issue_id in issue_refs
+
+
+def cross_check_any_issue(issues, commits, max_workers=8):
+
+    issue_refs = extract_issue_refs(commits)
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {}
+        for issue in issues:
+            future = executor.submit(check_issue, issue, issue_refs)
+            futures[future] = issue
+        for future in as_completed(futures):
+            if future.result():
+                executor.shutdown(cancel_futures=True)
+                return True
+    return False
