@@ -7,6 +7,10 @@ REGEX_DOI_URL = r'https://doi\.org/\S+'
 
 REGEX_SOFTWARE_HERITAGE_BADGE = r'https://archive\.softwareheritage\.org/badge/(origin|swh):[^\)\]\s]+'
 
+#Issue reference Regex
+
+REGEX_ISSUE_REF = r"(?:closes|fixes)\s+#(\d+)"
+
 
 #Versioning Regex
 
@@ -46,7 +50,7 @@ PROCESS_SEMANTIC_VERSIONING = 'Checks if all of the releases versions follow the
 PROCESS_VERSION_SCHEME = 'Checks if all of the version identifiers follow the same scheme'
 PROCESS_VERSION_CONTROL_USE = "Searches for commits and branches in the repository"
 PROCESS_WORKFLOWS = "Searches for workflows in the repository"
-PROCESS_IDENTIFIER = "Searches for a DOI in the README file of the repository"
+PROCESS_IDENTIFIER = "Searches for an identifier (i.e. DOI or SWHID) in the README file of the repository"
 PROCESS_DESCRIPTIVE_METADATA = "Searches for description, programming languages, date of creation and keywords in the repository"
 PROCESS_README = 'Searches for a README file in the repository'
 PROCESS_DOCUMENTATION = "Searches for a README file in the root repository and other forms of documentation such as a Read The Docs badge or url"
@@ -54,8 +58,8 @@ PROCESS_CONTACT_SUPPORT_DOCUMENTATION = 'Searches for contact and support inform
 PROCESS_INSTALLATION = 'Searches for installation instructions in the README file of the repository'
 PROCESS_DEPENDENCIES_VERSION = 'Checks if all of the dependencies stated in the machine-readable file (e.g. requirements.txt, pyproject.toml, etc.) of the repository have a version indicated'
 PROCESS_DEPENDENCIES_MACHINE_READABLE_FILE = 'Checks if dependencies are indicated in a machine-readable file'
-PROCESS_ID_PROPER_SCHEMA = 'Checks if the identifiers associated with the software follow any of these schemas: DOI, ORCID, URN, GITHUB and SWHID'
-PROCESS_ID_ASSOCIATED_WITH_SOFTWARE = 'Searches for an identifier in CITATION.cff, codemeta.json and README files'
+PROCESS_ID_PROPER_SCHEMA = 'Checks if the identifiers associated with the software follow any of these schemas: DOI, URN, GITHUB and SWHID'
+PROCESS_ID_ASSOCIATED_WITH_SOFTWARE = 'Searches for an identifier in the CITATION.cff, codemeta.json and README files'
 PROCESS_AUTOMATED_TESTS = 'Searches for workflows that contain test or tests in their names'
 PROCESS_TESTS = 'Searches for files and/or directories that mention test in their names'
 PROCESS_RELEASE_CONSISTENCY = 'Checks if the latest release tag matches the version stated in the package file of the repository'
@@ -70,11 +74,13 @@ PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY = 'Checks if the URL provided is indeed a
 PROCESS_ZENODO_SOFTWARE_HERITAGE = 'Searches for Zenodo and Software Heritage badges in the README file of the repository'
 PROCESS_IDENTIFIER_IN_README_CITATION = 'Searches for an identifier in the README or CITATION.cff files of the repository'
 PROCESS_ID_RESOLVES_TO_SOFTWARE = 'Checks if the identifier found in the README file of the repository resolves to the software'
-PROCESS_AUTHORS_AND_CONTRIBS = 'Searches for authors and contributors in the varios files of the repository (e.g. CITATION.cff, AUTHORS.md, codemeta.json)'
+PROCESS_AUTHORS = 'Searches for authors in various files of the repository (i.e. CITATION.cff, AUTHORS.md, codemeta.json)'
+PROCESS_CONTRIBUTORS = "Searches for contributors in various files of the repository (i.e. codemeta.json, pyproject.toml, pom.xml)'"
 PROCESS_AUTHOR_ORCIDS = 'Checks if all authors stated in the CITATION.cff file have an ORCID assigned'
 PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file have a role assigned '
-
-
+PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
+PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
+PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
 
 
 #Evidences
@@ -104,8 +110,11 @@ EVIDENCE_SPDX_COMPLIANT = 'Licenses are SPDX compliant'
 EVIDENCE_LICENSE_INFO_IN_METADATA = 'License information was found in metadata files'
 EVIDENCE_TICKETS = 'Tickets/Issues were found in the repository'
 EVIDENCE_REPO_ENABLED_AND_HAS_COMMITS = 'Repository is enabled and has commits'
-EVIDENCE_AUTHOR_ORCIDS = 'All authors have ORCIDs'
-EVIDENCE_AUTHORS_AND_CONTRIBUTORS = 'Authors and contributors were found in the repository'
+EVIDENCE_AUTHOR_ORCIDS_CODEMETA = 'All authors in the codemeta.json file have an orcid identifier'
+EVIDENCE_AUTHOR_ORCIDS_CFF = 'All authors in the CITATION.cff file have an orcid identifier'
+EVIDENCE_AUTHOR_ORCIDS_BOTH = 'All authors in both the codemeta.json and CITATION.cff files have an orcid identifier'
+EVIDENCE_AUTHORS = 'Authors were found in the repository'
+EVIDENCE_CONTRIBUTORS = "Contributors were found in the repository"
 EVIDENCE_AUTHOR_ROLES = 'All authors defined in the codemeta file have roles assigned'
 EVIDENCE_REFERENCE_PUBLICATION = 'A reference publication was found in the codemeta file of the repository'
 EVIDENCE_CITATION_TO_ARTICLE = 'A citation to an article was found in the repository'
@@ -120,19 +129,23 @@ EVIDENCE_ZENODO_DOI_AND_SOFTWARE_HERITAGE = 'A Zenodo DOI identifier and a Softw
 EVIDENCE_INSTALLATION = 'Installation instructions were found in the repository'
 EVIDENCE_DEPENDENCIES_VERSION = 'All of the dependencies have a version stated'
 EVIDENCE_DEPENDENCIES_MACHINE_READABLE_FILE = 'There is a machine-readable file for dependencies'
-EVIDENCE_ID_RESOLVES = 'There is an identifier and resolves'
-EVIDENCE_ID_PROPER_SCHEMA = 'All of the identifiers detected follow a proper schema'
-EVIDENCE_ID_ASSOCIATED_WITH_SOFTWARE = 'There is an identifier in the CITATION, codemeta and README'
+EVIDENCE_ID_RESOLVES = 'There is an identifier in the README and resolves'
+EVIDENCE_ID_COMMON_SCHEMA = 'All of the identifiers detected follow a common schema'
+EVIDENCE_ID_ASSOCIATED_WITH_SOFTWARE = 'There is an identifier in the CITATION, codemeta and README files'
 EVIDENCE_AUTOMATED_TESTS = 'There are workflows or actions that perform automated tests'
 EVIDENCE_TESTS = 'Files and/or directories that mention test were found at:'
 EVIDENCE_RELEASE_CONSISTENCY = 'Latest release matches the latest version stated'
 EVIDENCE_METADATA_EXISTS = 'Found codemeta, citation and package files in the repository'
+EVIDENCE_VERSION_IN_METADATA = 'Found the software version in one of the specified files'
+EVIDENCE_CONTRIBUTORS = 'Found contributors metadata in the codemeta or package files'
+EVIDENCE_COMMITS_LINKED_TO_ISSUES = 'There is at least one commit linked to an issue'
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
 EVIDENCE_LICENSE_NOT_CLEAR = 'Could not recognize a license clearer enough to detect which one it is'
 EVIDENCE_NO_DOI_IDENTIFIER = 'Could not find any DOI in the README file of the repository'
 EVIDENCE_NO_IDENTIFIER_FOUND = 'Could not find any identifier in the repository'
+EVIDENCE_NO_IDENTIFIER_FOUND_README = 'Could not find any identifier in the README file'
 EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER = 'DOI found but not resolvable'
 EVIDENCE_NO_CITATION = 'Could not find any citation in the repository'
 EVIDENCE_NO_WORKFLOWS = 'Could not find any workflows in the repository'
@@ -170,16 +183,19 @@ EVIDENCE_NO_ZENODO_DOI_OR_SOFTWARE_HERITAGE = 'Could not find neither a Zenodo D
 EVIDENCE_NO_INSTALLATION = 'Could not find any installation instructions in the repository'
 EVIDENCE_NO_DEPENDENCIES_VERSION = 'One or more dependencies do not have a version stated'
 EVIDENCE_NO_DEPENDENCIES_MACHINE_READABLE_FILE = 'Could not find a machine-readable file for dependencies'
-EVIDENCE_NO_ID_RESOLVE = 'There is an identifier but it does not resolve or is not resolvable'
-EVIDENCE_ID_NOT_URL = 'There is an identifier but it is not an URL'
-EVIDENCE_NO_ID_PROPER_SCHEMA = 'One or more of the detected identifiers do not follow a proper schema'
-EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE = 'Could not find an identifier in any of the locations checked'
+EVIDENCE_NO_ID_RESOLVE = 'There is an identifier in the README but it does not resolve or is not resolvable'
+EVIDENCE_ID_NOT_URL = 'There is an identifier in the README but it is not an URL'
+EVIDENCE_NO_ID_COMMON_SCHEMA = 'One or more of the detected identifiers do not follow a common schema'
+EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE = 'Could not find an identifier in any of the CITATION, codemeta or README files'
 EVIDENCE_SOME_ID_ASSOCIATED_WITH_SOFTWARE = 'An identifier was found but could not find it in the following locations: '
 EVIDENCE_NO_TESTS = 'Could not find any files or directories that mention test'
 EVIDENCE_NO_AUTOMATED_TESTS = 'Could not find any workflows or actions that mention test in their names'
 EVIDENCE_NO_RELEASE_CONSISTENCY = 'Latest release does not match the latest version stated'
 EVIDENCE_NOT_ENOUGH_RELEASE_INFO = 'Could not get the necessary information to perform the test, it being releases and/or version in package file'
 EVIDENCE_NO_METADATA_EXISTS = 'Could not find any of the following metadata files: '
+EVIDENCE_NO_VERSION_IN_METADATA = 'Could not find a version number for the software in any of the specified files'
+EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO = 'Could not get the necessary information to perform the test, it being the commits record or repository issues'
+EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any issues in the repository'
 
 
 #Dictionaries
@@ -196,7 +212,7 @@ INDICATORS_DICT = {
     'software_documentation': 'https://w3id.org/everse/i/indicators/software_documentation',
     'persistent_and_unique_identifier': 'https://w3id.org/everse/i/indicators/persistent_and_unique_identifier',
     'descriptive_metadata': 'https://w3id.org/everse/i/indicators/descriptive_metadata',
-    'semantic_versioning': 'https://w3id.org/everse/i/indicators/semantic_versioning',
+    'versioning_standards_use': 'https://w3id.org/everse/i/indicators/versioning_standards_use',
     'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage'
 }
 
@@ -204,7 +220,7 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://github.com/oeg-upm/rsfc',
-        'version' : '0.0.1'
+        'version' : '0.0.2'
     }
 }
 
@@ -256,7 +272,6 @@ VERSIONING_REGEX_LIST = [
 
 ID_SCHEMA_REGEX_LIST = [
     DOI_SCHEMA_REGEX,
-    ORCID_SCHEMA_REGEX,
     SWHID_SCHEMA_REGEX,
     URN_SCHEMA_REGEX,
     GITHUB_SCHEMA_REGEX,

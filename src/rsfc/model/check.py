@@ -1,10 +1,11 @@
 from rsfc.utils import constants
 
 class Check:
-    def __init__(self, indicator_id, process, output, evidence):
+    def __init__(self, indicator_id, test_id, process, output, evidence):
         self.checkers_info = constants.CHECKERS_DICT
         
         self.indicator_id = indicator_id
+        self.test_id = test_id
         self.process = process
         self.output = output
         self.evidence = evidence
@@ -12,6 +13,7 @@ class Check:
     def convert(self):
         return {
             "@type": "CheckResult",
+            "test_id": self.test_id,
             "assessesIndicator": {
                 "@id": self.indicator_id
             },

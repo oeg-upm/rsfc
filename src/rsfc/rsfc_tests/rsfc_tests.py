@@ -2,16 +2,14 @@ from rsfc.utils import constants
 from rsfc.model import check as ch
 import regex as re
 import requests
-import json
-import urllib
 from rsfc.utils import rsfc_helpers
 
 
 ################################################### FRSM_01 ###################################################
 
-def test_id_presence_and_resolves(repo_data):
-    if 'identifier' in repo_data:
-        for item in repo_data['identifier']:
+def test_id_presence_and_resolves(somef_data):
+    if 'identifier' in somef_data:
+        for item in somef_data['identifier']:
             if item['source']:
                 if 'README' in item['source']:
                     id = item['result']['value']
@@ -25,7 +23,7 @@ def test_id_presence_and_resolves(repo_data):
                             else:
                                 output = "false"
                                 evidence = constants.EVIDENCE_NO_ID_RESOLVE
-                        except requests.RequestException as e:
+                        except requests.RequestException:
                             output = "false"
                             evidence = None
                     else:
@@ -36,91 +34,57 @@ def test_id_presence_and_resolves(repo_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
                         
     
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], constants.PROCESS_IDENTIFIER, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-1', constants.PROCESS_IDENTIFIER, output, evidence)
     
     return check.convert()
 
 
-def test_id_proper_schema(repo_data):
-    if 'identifier' in repo_data:
+def test_id_common_schema(somef_data):
+    if 'identifier' in somef_data:
         compiled_patterns = []
         for pattern in constants.ID_SCHEMA_REGEX_LIST:
             compiled = re.compile(pattern)
             compiled_patterns.append(compiled)
             
         output = "true"
-        evidence = constants.EVIDENCE_ID_PROPER_SCHEMA
+        evidence = constants.EVIDENCE_ID_COMMON_SCHEMA
             
-        for item in repo_data['identifier']:
-            if not any(pattern.match(item['result']['value']) for pattern in compiled_patterns):
-                output = "false"
-                evidence = constants.EVIDENCE_NO_ID_PROPER_SCHEMA
-                break
+        for item in somef_data['identifier']:
+            if item['source']:
+                if 'README' in item['source']:
+                    if not any(pattern.match(item['result']['value']) for pattern in compiled_patterns):
+                        output = "false"
+                        evidence = constants.EVIDENCE_NO_ID_COMMON_SCHEMA
+                        break
     else:
         output = "false"
-        evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
+        evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND_README
         
     
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], constants.PROCESS_ID_PROPER_SCHEMA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-3', constants.PROCESS_ID_PROPER_SCHEMA, output, evidence)
     
     return check.convert()
 
 
-def test_id_associated_with_software(repo_data, repo_url, repo_type, repo_branch):
+def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
     
     id_locations = {
-        'codemeta_id': False,
-        'referencePublication': False,
-        'citation': False,
+        'codemeta': False,
+        'cff': False,
         'readme': False
     }
     
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    codemeta_content = None
-
-    if repo_type == "GITHUB":
-        headers = {'Accept': 'application/vnd.github.v3+json'}
-        url = base_url + "/contents/codemeta.json"
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            content_json = response.json()
-            codemeta_content = rsfc_helpers.decode_github_content(content_json)
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote("codemeta.json", safe="")
-        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            codemeta_content = response.text
-
-    else:
-        raise ValueError("Unsupported repository type")
-
-    if codemeta_content:
-        codemeta_json = json.loads(codemeta_content)
-
-        if 'identifier' in codemeta_json:
-            id_locations['codemeta_id'] = True
-            
-        if 'referencePublication' in codemeta_json:
-            for item in codemeta_json['referencePublication']:
-                if item['identifier']:
-                    id_locations['referencePub'] = True
-                    break
-    
-
-    if 'citation' in repo_data:
-        for item in repo_data['citation']:
-            if item['source']:
-                if 'CITATION.cff' in item['source']:
-                    if 'identifiers:' in item['result']['value']:
-                        id_locations['citation'] = True
+    if codemeta_data != None and codemeta_data["identifier"] != None:
+        id_locations["codemeta"] = True
         
-    
-    if 'identifier' in repo_data:
-        id_locations['readme'] = True
+    if cff_data != None and cff_data["identifiers"] != None:
+        id_locations["cff"] = True
+
+    if 'identifier' in somef_data:
+        for item in somef_data['identifier']:
+            if item['source']:
+                if 'README' in item['source']:
+                    id_locations['readme'] = True
         
         
     if all(id_locations.values()):
@@ -138,9 +102,8 @@ def test_id_associated_with_software(repo_data, repo_url, repo_type, repo_branch
         output = "false"
         evidence = constants.EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE
     
-        
-        
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], constants.PROCESS_ID_ASSOCIATED_WITH_SOFTWARE, output, evidence)
+
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-2', constants.PROCESS_ID_ASSOCIATED_WITH_SOFTWARE, output, evidence)
     
     return check.convert()
 
@@ -148,37 +111,62 @@ def test_id_associated_with_software(repo_data, repo_url, repo_type, repo_branch
 
 ################################################### FRSM_03 ###################################################
 
-def test_has_releases(repo_data):
-    if 'releases' not in repo_data:
+
+def test_version_number_in_metadata(somef_data, codemeta_data, cff_data):
+    
+    cff = False
+    codemeta = False
+    somef = False
+    
+    if cff_data != None and cff_data['version'] != None:
+        cff = True
+        
+    if codemeta_data != None and codemeta_data['version'] != None:
+        codemeta = True
+        
+    if 'version' in somef_data:
+        somef = True
+        
+    if cff or codemeta or somef:
+        output = "true"
+        evidence = constants.EVIDENCE_VERSION_IN_METADATA
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_VERSION_IN_METADATA
+        
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-03-6', constants.PROCESS_VERSION_IN_METADATA, output, evidence)
+
+    return check.convert()
+
+
+def test_has_releases(somef_data):
+    if 'releases' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_RELEASES
     else:
         output = "true"
         evidence = constants.EVIDENCE_RELEASES
-        for item in repo_data['releases']:
+        for item in somef_data['releases']:
             if 'type' in item['result']:
                 if item['result']['type'] == 'Release':
                     if 'name' in item['result']:
-                        # evidence += f'\n\t- {item['result']['name']}'
                         evidence += f'\n\t- {item["result"]["name"]}'
                     elif 'tag' in item['result']:
-                        # evidence += f'\n\t- {item['result']['tag']}'
                         evidence += f'\n\t- {item["result"]["tag"]}'
                     else:
-                        # evidence += f'\n\t- {item['result']['url']}'
                         evidence += f'\n\t- {item["result"]["url"]}'
                         
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], constants.PROCESS_RELEASES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-1', constants.PROCESS_RELEASES, output, evidence)
 
     return check.convert()
     
     
-def test_release_id_and_version(repo_data):
-    if 'releases' not in repo_data:
+def test_release_id_and_version(somef_data):
+    if 'releases' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_RELEASES
     else:
-        results = repo_data['releases']
+        results = somef_data['releases']
         for item in results:
             if item['result']['url'] and item['result']['tag']:
                 output = "true"
@@ -188,14 +176,14 @@ def test_release_id_and_version(repo_data):
                 evidence = constants.EVIDENCE_NO_RELEASE_ID_AND_VERSION
                 break
                 
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], constants.PROCESS_RELEASE_ID_VERSION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-2', constants.PROCESS_RELEASE_ID_VERSION, output, evidence)
     
     return check.convert()
 
 
-def test_semantic_versioning_standard(repo_data):
+def test_semantic_versioning_standard(somef_data):
     
-    if 'releases' not in repo_data:
+    if 'releases' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_RELEASES
     else:
@@ -204,7 +192,7 @@ def test_semantic_versioning_standard(repo_data):
             compiled = re.compile(pattern)
             compiled_patterns.append(compiled)
             
-        results = repo_data['releases']
+        results = somef_data['releases']
         for item in results:
             if item['result']['tag']:
                 if any(pattern.match(item['result']['tag']) for pattern in compiled_patterns):
@@ -217,18 +205,18 @@ def test_semantic_versioning_standard(repo_data):
         if output == "true":
             evidence = constants.EVIDENCE_VERSIONING_STANDARD
                 
-    check = ch.Check(constants.INDICATORS_DICT['semantic_versioning'], constants.PROCESS_SEMANTIC_VERSIONING, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['versioning_standards_use'], 'RSFC-03-3', constants.PROCESS_SEMANTIC_VERSIONING, output, evidence)
     
     return check.convert()
         
     
-def test_version_scheme(repo_data):
-    if 'releases' not in repo_data:
+def test_version_scheme(somef_data):
+    if 'releases' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_RELEASES
     else:
         scheme = ''
-        results = repo_data['releases']
+        results = somef_data['releases']
         for item in results:
             if item['result']['url']:
                 url = item['result']['url']
@@ -243,21 +231,21 @@ def test_version_scheme(repo_data):
         if output == "true":
             evidence = constants.EVIDENCE_VERSION_SCHEME_COMPLIANT
         
-    check = ch.Check(constants.INDICATORS_DICT['semantic_versioning'], constants.PROCESS_VERSION_SCHEME, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-4', constants.PROCESS_VERSION_SCHEME, output, evidence)
     
     return check.convert()
 
 
 
-def test_latest_release_consistency(repo_data):
+def test_latest_release_consistency(somef_data):
     latest_release = None
     version = None
     
-    if 'releases' in repo_data:
-        latest_release = rsfc_helpers.get_latest_release(repo_data)
+    if 'releases' in somef_data:
+        latest_release = rsfc_helpers.get_latest_release(somef_data)
         
-    if 'version' in repo_data:
-        version_data = repo_data['version'][0]['result']
+    if 'version' in somef_data:
+        version_data = somef_data['version'][0]['result']
         version = version_data.get('tag') or version_data.get('value')
     
     if version == None or latest_release == None:
@@ -271,42 +259,28 @@ def test_latest_release_consistency(repo_data):
         evidence = constants.EVIDENCE_NO_RELEASE_CONSISTENCY
         
         
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], constants.PROCESS_RELEASE_CONSISTENCY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-5', constants.PROCESS_RELEASE_CONSISTENCY, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_04 ###################################################
 
-def test_metadata_exists(repo_data, repo_url, repo_type, repo_branch):
+def test_metadata_exists(somef_data, codemeta_data, cff_data):
     
     metadata_files = {
-        'citation': False,
+        'cff': False,
         'codemeta': False,
         'package_file': False
     }
     
-    if 'citation' in repo_data:
-        metadata_files['citation'] = True
+    if cff_data != None:
+        metadata_files['cff'] = True
         
-    if 'has_package_file' in repo_data:
+    if codemeta_data != None:
+        metadata_files['codemeta'] = True
+        
+    if 'has_package_file' in somef_data:
         metadata_files['package_file'] = True
-        
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    if repo_type == "GITHUB":
-        headers = {'Accept': 'application/vnd.github.v3+json'}
-        url = base_url + "/contents/codemeta.json"
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            metadata_files['codemeta'] = True
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote("codemeta.json", safe="")
-        url = f"{base_url}/repository/files/{file_path}?ref={repo_branch}"
-        response = requests.head(url)
-
-        if response.status_code == 200:
-            metadata_files['codemeta'] = True
         
     if all(metadata_files.values()):
         output = "true"
@@ -321,31 +295,31 @@ def test_metadata_exists(repo_data, repo_url, repo_type, repo_branch):
         evidence += missing_metadata_txt
     
     
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_METADATA_EXISTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-1', constants.PROCESS_METADATA_EXISTS, output, evidence)
     
     return check.convert()
 
 
-def test_readme_exists(repo_data):
-    if 'readme_url' in repo_data:
+def test_readme_exists(somef_data):
+    if 'readme_url' in somef_data:
         output = "true"
         evidence = constants.EVIDENCE_DOCUMENTATION_README
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_DOCUMENTATION_README
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], constants.PROCESS_README, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-04-2', constants.PROCESS_README, output, evidence)
     
     return check.convert()
 
 
-def test_title_description(repo_data):
-    if 'full_title' in repo_data:
+def test_title_description(somef_data):
+    if 'full_title' in somef_data:
         title = True
     else:
         title = False
         
-    if 'description' in repo_data:
+    if 'description' in somef_data:
         desc = True
     else:
         desc = False
@@ -364,12 +338,12 @@ def test_title_description(repo_data):
         evidence = constants.EVIDENCE_NO_TITLE_AND_DESCRIPTION
         
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_TITLE_DESCRIPTION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-3', constants.PROCESS_TITLE_DESCRIPTION, output, evidence)
     
     return check.convert()
 
 
-def test_descriptive_metadata(repo_data):
+def test_descriptive_metadata(somef_data):
     
     metadata = {
         'description': None,
@@ -378,7 +352,7 @@ def test_descriptive_metadata(repo_data):
         'keywords': None
     }
     
-    metadata = {key: key in repo_data for key in metadata}
+    metadata = {key: key in somef_data for key in metadata}
         
         
     if all(metadata.values()):
@@ -393,44 +367,28 @@ def test_descriptive_metadata(repo_data):
         
         evidence += missing_metadata_txt
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_DESCRIPTIVE_METADATA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-4', constants.PROCESS_DESCRIPTIVE_METADATA, output, evidence)
     
     return check.convert()
         
         
 
-def test_codemeta_exists(repo_url, repo_type, repo_branch):
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    if repo_type == "GITHUB":
-        headers = {'Accept': 'application/vnd.github.v3+json'}
-        url = base_url + "/contents/codemeta.json"
-        response = requests.get(url, headers=headers)
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote("codemeta.json", safe="")
-        url = f"{base_url}/repository/files/{file_path}?ref={repo_branch}"
-        response = requests.head(url)
-
-    else:
-        raise ValueError("Unsupported repository type")
-
-    if response.status_code == 200:
+def test_codemeta_exists(codemeta_data):
+    if codemeta_data != None:
         output = "true"
         evidence = constants.EVIDENCE_METADATA_CODEMETA
-    elif response.status_code == 404:
+    else:
         output = "false"
         evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
-    else:
-        raise ConnectionError(f"Error accessing the repository: {response.status_code}")
     
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_CODEMETA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-5', constants.PROCESS_CODEMETA, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_05 ###################################################
 
-def test_repo_status(repo_data):
-    if 'repository_status' in repo_data:
+def test_repo_status(somef_data):
+    if 'repository_status' in somef_data:
         output = "true"
         evidence = constants.EVIDENCE_REPO_STATUS
     else:
@@ -438,19 +396,19 @@ def test_repo_status(repo_data):
         evidence = constants.EVIDENCE_NO_REPO_STATUS
         
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_REPO_STATUS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-05-1', constants.PROCESS_REPO_STATUS, output, evidence)
     
     return check.convert()
 
 
-def test_contact_support_documentation(repo_data):
+def test_contact_support_documentation(somef_data):
     sources = {
         'contact': None,
         'support': None,
         'support_channels': None
     }
     
-    sources = {key: key in repo_data for key in sources}
+    sources = {key: key in somef_data for key in sources}
         
         
     if all(sources.values()):
@@ -465,27 +423,28 @@ def test_contact_support_documentation(repo_data):
         
         evidence += missing_sources_txt
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], constants.PROCESS_CONTACT_SUPPORT_DOCUMENTATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-2', constants.PROCESS_CONTACT_SUPPORT_DOCUMENTATION, output, evidence)
     
     return check.convert()
 
 
-def test_software_documentation(repo_data):
+def test_software_documentation(somef_data):
     rtd = False
     readme = False
     
     sources = ''
     
-    if 'documentation' in repo_data:
-        for item in repo_data['documentation']:
+    if 'documentation' in somef_data:
+        for item in somef_data['documentation']:
             if 'readthedocs' in item['result']['value']:
                 rtd = True
                 if item['source'] not in sources:
                     sources += f"\t\n- {item['source']}"
-    if 'readme_url' in repo_data:
+    if 'readme_url' in somef_data:
         readme = True
-        if item['result']['value'] not in sources:
-            sources += f"\t\n- {item['result']['value']}"
+        for item in somef_data['readme_url']:
+            if item['result']['value'] not in sources:
+                sources += f"\t\n- {item['result']['value']}"
         
         
     if not readme and not rtd:
@@ -496,123 +455,115 @@ def test_software_documentation(repo_data):
         output = "true"
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], constants.PROCESS_DOCUMENTATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-3', constants.PROCESS_DOCUMENTATION, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_06 ###################################################
 
-#Tiene que haber otra forma de averiguar los contributors
-def test_authors_contribs(repo_data):
-    authors = False
-    contribs = False
+def test_authors(somef_data, codemeta_data, cff_data):
     
-    if 'authors' in repo_data:
-        authors = True
+    if 'authors' in somef_data:
+        evidence = constants.EVIDENCE_AUTHORS
+        output = "true"
+    elif codemeta_data != None and codemeta_data["author"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_AUTHORS
+    elif cff_data != None and cff_data["authors"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_AUTHORS
     else:
         evidence = constants.EVIDENCE_NO_AUTHORS
         output = "false"
+
         
-    if 'contributors' in repo_data:
-        contribs = True
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', constants.PROCESS_AUTHORS, output, evidence)
+    
+    return check.convert()
+
+
+def test_contributors(somef_data, codemeta_data):
+    
+    if 'contributors' in somef_data:
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTORS
+    elif codemeta_data != None and codemeta_data["contributor"] != None:
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTORS
     else:
         evidence = constants.EVIDENCE_NO_CONTRIBUTORS
         output = "false"
         
-    if authors and contribs:
-        evidence = constants.EVIDENCE_AUTHORS_AND_CONTRIBUTORS
-        output = "true"
-        
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_AUTHORS_AND_CONTRIBS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', constants.PROCESS_CONTRIBUTORS, output, evidence)
     
     return check.convert()
 
 
-def test_authors_orcids(repo_data):
+def test_authors_orcids(codemeta_data, cff_data):
+    author_orcids_codemeta = False
+    author_orcids_cff = None
     
-    if 'citation' in repo_data:
-        if repo_data['citation'][0]['result']['author']:
-            authors = repo_data['citation'][0]['result']['author']
-            output = "true"
-            evidence = constants.EVIDENCE_AUTHOR_ORCIDS
-            for author in authors:
-                if 'url' not in author:
-                    output = "false"
-                    evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS
-                    break
+    if codemeta_data != None:
+        if codemeta_data["author"] != None:
+            author_orcids_codemeta = rsfc_helpers.subtest_author_orcids(codemeta_data)
+    
+    if cff_data != None:
+        if cff_data["authors"] != None:
+            author_orcids_cff = rsfc_helpers.subtest_author_orcids(cff_data)
+    
+    if author_orcids_codemeta and author_orcids_cff:
+        output = "true"
+        evidence = constants.EVIDENCE_AUTHOR_ORCIDS_BOTH
+    elif author_orcids_codemeta:
+        output = "improvable"
+        evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CODEMETA
+    elif author_orcids_cff:
+        output = "improvable"
+        evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CFF
     else:
         output = "false"
-        evidence = constants.EVIDENCE_NO_CITATION
+        evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
     
     return check.convert()
 
 
-def test_author_roles(repo_url, repo_type, repo_branch):
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    if repo_type == "GITHUB":
-        headers = {'Accept': 'application/vnd.github.v3+json'}
-        url = base_url + "/contents/codemeta.json"
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            content_json = response.json()
-            codemeta_content = rsfc_helpers.decode_github_content(content_json)
-            try:
-                codemeta = json.loads(codemeta_content)
-                output, evidence = rsfc_helpers.subtest_author_and_role(codemeta)
-            except json.JSONDecodeError:
-                raise ValueError("Not a valid codemeta.json file")
-        elif response.status_code == 404:
-            output = "false"
-            evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
+def test_author_roles(codemeta_data):
+    
+    if codemeta_data != None:
+        if codemeta_data["author"] != None:
+            author_roles = rsfc_helpers.subtest_author_roles(codemeta_data["author"])
+            
+            if all(value is not None for value in author_roles.values()):
+                output = "true"
+                evidence = constants.EVIDENCE_AUTHOR_ROLES
+            else:
+                output = "false"
+                evidence = constants.EVIDENCE_NO_ALL_AUTHOR_ROLES
         else:
             output = "false"
-            evidence = None
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote("codemeta.json", safe="")
-        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            codemeta_content = response.text
-            try:
-                codemeta = json.loads(codemeta_content)
-                output, evidence = rsfc_helpers.subtest_author_and_role(codemeta)
-            except json.JSONDecodeError:
-                raise ValueError("El archivo codemeta.json no es un JSON válido.")
-        elif response.status_code == 404:
-            output = "false"
-            evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
-        else:
-            output = "false"
-            evidence = None
-
+            evidence = constants.EVIDENCE_NO_AUTHORS_IN_CODEMETA
     else:
-        raise ValueError("Unsupported repository type")
+        output = "false"
+        evidence = constants.EVIDENCE_NO_CODEMETA_FOUND
         
-        
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], constants.PROCESS_AUTHOR_ROLES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-4', constants.PROCESS_AUTHOR_ROLES, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_07 ###################################################
 
-def test_identifier_in_readme_citation(repo_data):
+def test_identifier_in_readme_citation(somef_data, cff_data):
     readme = False
     citation = False
     
-    if 'identifier' in repo_data:
+    if 'identifier' in somef_data:
         readme = True
         
-    if 'citation' in repo_data:
-        for item in repo_data['citation']:
-            if item['source']:
-                if 'CITATION.cff' in item['source']:
-                    if 'identifiers:' in item['result']['value']:
-                        citation = True
+    if cff_data != None:
+        if "identifiers" in cff_data:
+            citation = True
         
     if readme and not citation:
         output = "true"
@@ -628,18 +579,18 @@ def test_identifier_in_readme_citation(repo_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_IN_README_OR_CITATION
         
         
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], constants.PROCESS_IDENTIFIER_IN_README_CITATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-1', constants.PROCESS_IDENTIFIER_IN_README_CITATION, output, evidence)
     
     return check.convert()
 
 
 
-def test_identifier_resolves_to_software(repo_data):
+def test_identifier_resolves_to_software(somef_data): #CAMBIAR. Este debe coger el id que este en el readme, codemeta o cff y mirar que resuelva a la url del software
     
     output = "false"
     
-    if 'identifier' in repo_data:
-        for item in repo_data['identifier']:
+    if 'identifier' in somef_data:
+        for item in somef_data['identifier']:
             if item['source']:
                 if 'README' in item['source']:
                     id = item['result']['value']
@@ -658,65 +609,41 @@ def test_identifier_resolves_to_software(repo_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
 
 
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-2', constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_08 ###################################################
 
-def test_metadata_record_in_zenodo_or_software_heritage(repo_data, repo_url, repo_type, repo_branch):
+def test_metadata_record_in_zenodo_or_software_heritage(somef_data): #CAMBIAR
     zenodo = False
     swh = False
     
-    if 'identifier' in repo_data:
-        for item in repo_data['identifier']:
-            if item['result']['value'] and 'zenodo' in item['result']['value']:
-                    zenodo = True
-    
-    
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    readme = None
-
-    if repo_type == "GITHUB":
-        url = base_url + "/readme"
-        headers = {'Accept': 'application/vnd.github.v3.raw'}
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            readme = response.text
-
-    elif repo_type == "GITLAB":
-        for filename in ["README.md", "README.rst", "README.txt", "README"]:
-            file_path = urllib.parse.quote(filename, safe="")
-            url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
-            response = requests.get(url)
-            if response.status_code == 200:
-                readme = response.text
-                break
-    else:
-        raise ValueError("Unsupported repository type")
-
-    if readme:
-        pattern = constants.REGEX_SOFTWARE_HERITAGE_BADGE
-        match = re.search(pattern, readme)
-        if match:
-            swh = True
+    if 'identifier' in somef_data:
+        for item in somef_data['identifier']:
+            if item['result']['value'] and ('zenodo' in item['result']['value'] or 'softwareheritage' in item['result']['value']):
+                    if 'zenodo' in item['result']['value']:
+                        zenodo = True
+                    elif 'softwareheritage' in item['result']['value']:
+                        swh = True
+                    else:
+                        continue
             
-    if zenodo and not swh:
-        output = "true"
-        evidence = constants.EVIDENCE_ZENODO_DOI
-    elif swh and not zenodo:
-        output = "true"
-        evidence = constants.EVIDENCE_SOFTWARE_HERITAGE_BADGE
-    elif zenodo and swh:
+    if zenodo and swh:
         output = "true"
         evidence = constants.EVIDENCE_ZENODO_DOI_AND_SOFTWARE_HERITAGE
+    elif swh:
+        output = "true"
+        evidence = constants.EVIDENCE_SOFTWARE_HERITAGE_BADGE
+    elif zenodo:
+        output = "true"
+        evidence = constants.EVIDENCE_ZENODO_DOI
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_ZENODO_DOI_OR_SOFTWARE_HERITAGE
         
         
-    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], constants.PROCESS_ZENODO_SOFTWARE_HERITAGE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], 'RSFC-08-1', constants.PROCESS_ZENODO_SOFTWARE_HERITAGE, output, evidence)
     
     return check.convert()
 
@@ -740,121 +667,87 @@ def test_is_github_repository(repo_url):
         evidence = constants.EVIDENCE_NO_GITHUB_OR_GITLAB_URL
         
     
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-09-1', constants.PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_12 ###################################################
 
-def test_reference_publication(repo_data, repo_url, repo_type, repo_branch):
+def test_reference_publication(somef_data, codemeta_data):
     
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    codemeta_content = None
-
-    if repo_type == "GITHUB":
-        headers = {'Accept': 'application/vnd.github.v3+json'}
-        url = base_url + "/contents/codemeta.json"
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            content_json = response.json()
-            codemeta_content = rsfc_helpers.decode_github_content(content_json)
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote("codemeta.json", safe="")
-        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            codemeta_content = response.text
-
-    else:
-        raise ValueError("Unsupported repository type")
-
-    if codemeta_content:
-        try:
-            codemeta = json.loads(codemeta_content)
-            if 'referencePublication' in codemeta and codemeta['referencePublication']:
-                referencePub = True
-            else:
-                referencePub = False
-        except json.JSONDecodeError:
-            referencePub = False
-    elif response.status_code == 404:
-        referencePub = False
-    else:
-        referencePub = False
+    referencePub = False
         
+    if codemeta_data != None and codemeta_data["referencePublication"] != None:
+        referencePub = True
     
     article_citation = False
     
-    if 'citation' in repo_data:
-        for item in repo_data['citation']:
+    if 'citation' in somef_data:
+        for item in somef_data['citation']:
             if 'format' in item['result'] and item['result']['format'] == 'bibtex':
                 article_citation = True
                 break
             
     
-    if referencePub and not article_citation:
-        output = "true"
-        evidence = constants.EVIDENCE_REFERENCE_PUBLICATION
-    elif article_citation and not referencePub:
-        output = "true"
-        evidence = constants.EVIDENCE_CITATION_TO_ARTICLE
-    elif article_citation and referencePub:
+    if article_citation and referencePub:
         output = "true"
         evidence = constants.EVIDENCE_REFERENCE_PUBLICATION_AND_CITATION_TO_ARTICLE
+    elif article_citation:
+        output = "true"
+        evidence = constants.EVIDENCE_CITATION_TO_ARTICLE
+    elif referencePub:
+        output = "true"
+        evidence = constants.EVIDENCE_REFERENCE_PUBLICATION
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_REFERENCE_PUBLICATION_OR_CITATION_TO_ARTICLE
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], constants.PROCESS_REFERENCE_PUBLICATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-12-1', constants.PROCESS_REFERENCE_PUBLICATION, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_13 ###################################################
 
-def test_dependencies_declared(repo_data):
-    if 'requirements' not in repo_data:
+def test_dependencies_declared(somef_data):
+    if 'requirements' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_DEPENDENCIES
     else:
         output = "true"
         evidence = constants.EVIDENCE_DEPENDENCIES
         
-        for item in repo_data['requirements']:
+        for item in somef_data['requirements']:
             if 'source' in item:
                 if item['source'] not in evidence:
-                    # evidence += f'\n\t- {item['source']}'
                     evidence += f'\n\t- {item["source"]}'
 
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], constants.PROCESS_REQUIREMENTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-1', constants.PROCESS_REQUIREMENTS, output, evidence)
     
     return check.convert()
 
 
-def test_installation_instructions(repo_data):
-    if 'installation' in repo_data:
+def test_installation_instructions(somef_data):
+    if 'installation' in somef_data:
         output = "true"
         evidence = constants.EVIDENCE_INSTALLATION
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_INSTALLATION
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], constants.PROCESS_INSTALLATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-13-2', constants.PROCESS_INSTALLATION, output, evidence)
     
     return check.convert()
 
 
-def test_dependencies_have_version(repo_data):
-    if 'requirements' not in repo_data:
+def test_dependencies_have_version(somef_data):
+    if 'requirements' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_DEPENDENCIES
     else:
         output = "true"
         evidence = constants.EVIDENCE_DEPENDENCIES_VERSION
-        for item in repo_data['requirements']:
+        for item in somef_data['requirements']:
             if 'README' not in item['source'] and item['result']['version']:
                 continue
             else:
@@ -862,44 +755,43 @@ def test_dependencies_have_version(repo_data):
                 evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
                 break
     
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], constants.PROCESS_DEPENDENCIES_VERSION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-3', constants.PROCESS_DEPENDENCIES_VERSION, output, evidence)
     
     return check.convert()
 
 
-def test_dependencies_in_machine_readable_file(repo_data):
-    if 'requirements' not in repo_data:
+def test_dependencies_in_machine_readable_file(somef_data):
+    if 'requirements' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_DEPENDENCIES
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_DEPENDENCIES_MACHINE_READABLE_FILE
         
-        for item in repo_data['requirements']:
+        for item in somef_data['requirements']:
             if item['source'] and 'README' not in item['source']:
                 output = "true"
                 evidence = constants.EVIDENCE_DEPENDENCIES_MACHINE_READABLE_FILE
                 break
             
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], constants.PROCESS_DEPENDENCIES_MACHINE_READABLE_FILE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-4', constants.PROCESS_DEPENDENCIES_MACHINE_READABLE_FILE, output, evidence)
     
     return check.convert()
 
 
 ################################################### FRSM_14 ###################################################
 
-def test_presence_of_tests(repo_url, repo_type, repo_branch):
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
+def test_presence_of_tests(sw):
     entries = []
 
-    if repo_type == "GITHUB":
-        tree_url = f"{base_url}/git/trees/HEAD?recursive=1"
+    if sw.repo_type == "GITHUB":
+        tree_url = f"{sw.base_url}/git/trees/HEAD?recursive=1"
         resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
         if resp.status_code == 200:
             entries = resp.json().get("tree", [])
 
-    elif repo_type == "GITLAB":
-        tree_url = f"{base_url}/repository/tree?recursive=true&ref={repo_branch}&per_page=100"
+    elif sw.repo_type == "GITLAB":
+        tree_url = f"{sw.base_url}/repository/tree?recursive=true&ref={sw.repo_branch}&per_page=100"
         resp = requests.get(tree_url)
         if resp.status_code == 200:
             entries = [{"path": item["path"]} for item in resp.json()]
@@ -927,22 +819,21 @@ def test_presence_of_tests(repo_url, repo_type, repo_branch):
         evidence = None
             
             
-    check = ch.Check(constants.INDICATORS_DICT['software_tests'], constants.PROCESS_TESTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_tests'], 'RSFC-14-1', constants.PROCESS_TESTS, output, evidence)
     
     return check.convert()
 
 
-def test_github_action_tests(repo_data):
+def test_github_action_tests(somef_data):
     sources = ''
     
-    if 'continuous_integration' not in repo_data:
+    if 'continuous_integration' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_WORKFLOWS
     else:
-        for item in repo_data['continuous_integration']:
+        for item in somef_data['continuous_integration']:
             if item['result']['value'] and ('.github/workflows' in item['result']['value'] or '.gitlab-ci.yml' in item['result']['value']):
                 if 'test' in item['result']['value'] or 'tests' in item['result']['value']:
-                    # sources += f'\t\n- {item['result']['value']}'
                     sources += f'\t\n- {item["result"]["value"]}'
                     
     if sources:
@@ -952,55 +843,36 @@ def test_github_action_tests(repo_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_AUTOMATED_TESTS
 
-    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], constants.PROCESS_AUTOMATED_TESTS, output, evidence)
-    
-    return check.convert()
-
-
-def test_repository_workflows(repo_data):
-
-    if 'continuous_integration' not in repo_data:
-        output = "false"
-        evidence = constants.EVIDENCE_NO_WORKFLOWS
-    else:
-        output = "true"
-        evidence = constants.EVIDENCE_WORKFLOWS
-    
-        for item in repo_data['continuous_integration']:
-            # evidence += f'\n\t- {item['result']['value']}'
-            evidence += f'\n\t- {item["result"]["value"]}'
-
-    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], constants.PROCESS_WORKFLOWS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-14-2', constants.PROCESS_AUTOMATED_TESTS, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_15 ###################################################
 
-def test_has_license(repo_data):
-    if 'license' not in repo_data:
+def test_has_license(somef_data):
+    if 'license' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_LICENSE
     else:
         output = "true"
         evidence = constants.EVIDENCE_LICENSE
-        for item in repo_data['license']:
+        for item in somef_data['license']:
             if 'source' in item:
-                # evidence += f'\n\t- {item['source']}'
                 evidence += f'\n\t- {item["source"]}'
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], constants.PROCESS_LICENSE, output, evidence)
+                
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-1', constants.PROCESS_LICENSE, output, evidence)
     
     return check.convert()
 
 
-
-def test_license_spdx_compliant(repo_data):
+def test_license_spdx_compliant(somef_data):
     output = "false"
     evidence = None
-    if 'license' not in repo_data:
+    if 'license' not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_LICENSE
     else:
-        for item in repo_data['license']:
+        for item in somef_data['license']:
             if 'result' in item and 'spdx_id' in item['result']:
                 if item['result']['spdx_id'] in constants.SPDX_LICENSE_WHITELIST:
                     output = "true"
@@ -1014,13 +886,13 @@ def test_license_spdx_compliant(repo_data):
         elif output == "false" and evidence == None:
             evidence = constants.EVIDENCE_LICENSE_NOT_CLEAR
             
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-2', constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_16 ###################################################
 
-def test_license_info_in_metadata_files(repo_data, repo_url, repo_type, repo_branch):
+def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):
     
     license_info = {
         'codemeta': False,
@@ -1028,44 +900,18 @@ def test_license_info_in_metadata_files(repo_data, repo_url, repo_type, repo_bra
         'package': False
     }
     
-    if 'license' in repo_data:
-        for item in repo_data['license']:
+    if 'license' in somef_data:
+        for item in somef_data['license']:
             if 'source' in item:
                 if 'pyproject.toml' in item['source'] or 'setup.py' in item['source'] or 'node.json' in item['source'] or 'pom.xml' in item['source'] or 'package.json' in item['source']:
                     license_info['package'] = True
                     break
                     
-                    
-    if 'citation' in repo_data:
-        if repo_data['citation'][0]['result']['value']:
-            if 'license:' in repo_data['citation'][0]['result']['value']:
-                license_info['citation'] = True
-                
-                
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    if repo_type == "GITHUB":
-        url = base_url + '/contents/codemeta.json'
-        res = requests.get(url)
+    if cff_data != None and cff_data["license"] != None:
+        license_info["citation"] = True
 
-        if res.status_code == 200:
-            content_json = res.json()
-            decoded_content = rsfc_helpers.decode_github_content(content_json)
-            codemeta_data = json.loads(decoded_content)
-
-            if 'license' in codemeta_data:
-                license_info['codemeta'] = True
-
-    elif repo_type == "GITLAB":
-        file_path = urllib.parse.quote('codemeta.json', safe='')
-        url = f"{base_url}/repository/files/{file_path}/raw?ref={repo_branch}"
-        res = requests.get(url)
-
-        if res.status_code == 200:
-            decoded_content = res.text
-            codemeta_data = json.loads(decoded_content)
-
-            if 'license' in codemeta_data:
-                license_info['codemeta'] = True
+    if codemeta_data != None and codemeta_data["license"] != None:
+        license_info["codemeta"] = True
                 
             
     if all(license_info.values()):
@@ -1081,30 +927,29 @@ def test_license_info_in_metadata_files(repo_data, repo_url, repo_type, repo_bra
         evidence += missing_license_info_txt
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], constants.PROCESS_LICENSE_INFO_IN_METADATA_FILES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-16-1', constants.PROCESS_LICENSE_INFO_IN_METADATA_FILES, output, evidence)
     
     return check.convert()
 
 ################################################### FRSM_17 ###################################################
 
-def test_repo_enabled_and_commits(repo_data, repo_url, repo_type, repo_branch):
+def test_repo_enabled_and_commits(somef_data, sw):
     
-    if 'repository_status' in repo_data and repo_data['repository_status'][0]['result']['value']:
-        if '#active' in repo_data['repository_status'][0]['result']['value']:
+    if 'repository_status' in somef_data and somef_data['repository_status'][0]['result']['value']:
+        if '#active' in somef_data['repository_status'][0]['result']['value']:
             repo = True
         else:
             repo = False
     else:
         repo = False
         
-    base_url = rsfc_helpers.get_repo_api_url(repo_url, repo_type)
-    if repo_type == "GITHUB":
-        commit_url = base_url + "/commits"
+    if sw.repo_type == "GITHUB":
+        commit_url = sw.base_url + "/commits"
         headers = {'Accept': 'application/vnd.github.v3.raw'}
         response = requests.get(commit_url, headers=headers)
 
-    elif repo_type == "GITLAB":
-        commit_url = f"{base_url}/repository/commits?ref_name={repo_branch}"
+    elif sw.repo_type == "GITLAB":
+        commit_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
         response = requests.get(commit_url)
 
     else:
@@ -1132,24 +977,88 @@ def test_repo_enabled_and_commits(repo_data, repo_url, repo_type, repo_branch):
         evidence = constants.EVIDENCE_NO_REPO_STATUS
         
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-1', constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence)
     
     return check.convert()
-            
 
 
-def test_has_tickets(repo_data):
-    output = "false"
-    evidence = constants.EVIDENCE_NO_TICKETS
+def test_commit_history(sw):
+
+    if sw.repo_type == "GITHUB":
+        
+        commits_url = sw.base_url + "/commits"
+        headers = {'Accept': 'application/vnd.github.v3.raw'}
+        response = requests.get(commits_url, headers=headers)
+        
+    elif sw.repo_type == "GITLAB":
+        
+        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
+        response = requests.get(commits_url)
+        
+    else:
+        raise ValueError("Unsupported repository type")
     
-    if 'issue_tracker' in repo_data:
-        for item in repo_data['issue_tracker']:
-            if item['technique'] == 'GitHub_API':
-                output = "true"
-                evidence = constants.EVIDENCE_TICKETS
-                break
+    if response.status_code == 200:
+        output = "true"
+        evidence = constants.EVIDENCE_COMMITS
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_COMMITS
+        
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', constants.PROCESS_COMMITS_HISTORY, output, evidence)
+    
+    return check.convert()
+
+def test_commits_linked_issues(sw):
+    
+    if sw.repo_type == "GITHUB":
+
+        commits_url = sw.base_url + "/commits"
+        commits_headers = {'Accept': 'application/vnd.github.v3.raw'}
+        commits_response = requests.get(commits_url, headers=commits_headers)
+
+        issues_url = sw.base_url + "/issues"
+        issues_headers = {'Accept': 'application/vnd.github.v3.raw'}
+        issues_response = requests.get(issues_url, headers=issues_headers)
+
+    elif sw.repo_type == "GITLAB":
+
+        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
+        commits_response = requests.get(commits_url)
+
+        issues_url = f"{sw.base_url}/issues"
+        issues_response = requests.get(issues_url)
+
+    else:
+        raise ValueError("Unsupported repository type")
+
+
+    if commits_response.status_code == 200:
+        commits = commits_response.json()
+    else:
+        commits = []
+        
+    if issues_response.status_code == 200:
+        issues = issues_response.json()
+    else:
+        issues = []
+
+
+    if not commits or not issues:
+        output = "false"
+        evidence = constants.EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO
+    else:
+        linked = rsfc_helpers.cross_check_any_issue(issues, commits)
+        
+        if linked:
+            output = "true"
+            evidence = constants.EVIDENCE_COMMITS_LINKED_TO_ISSUES
+        else:
+            output = "false"
+            evidence = constants.EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES
             
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], constants.PROCESS_TICKETS, output, evidence)
+
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-3', constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
     
     return check.convert()
 
@@ -1157,19 +1066,35 @@ def test_has_tickets(repo_data):
 ################################################### MISC ###################################################
 
 
-def test_has_citation(repo_data):
-    if 'citation' not in repo_data:
+def test_has_citation(somef_data):
+    if 'citation' not in somef_data:
             output = "false"
             evidence = constants.EVIDENCE_NO_CITATION
     else:
         output = "true"
         evidence = constants.EVIDENCE_CITATION
-        for item in repo_data['citation']:
+        for item in somef_data['citation']:
             if 'source' in item:
                 if item['source'] not in evidence:
-                    # evidence += f'\n\t- {item['source']}'
                     evidence += f'\n\t- {item["source"]}'
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], constants.PROCESS_CITATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-18-1', constants.PROCESS_CITATION, output, evidence)
+    
+    return check.convert()
+
+
+def test_repository_workflows(somef_data):
+
+    if 'continuous_integration' not in somef_data:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_WORKFLOWS
+    else:
+        output = "true"
+        evidence = constants.EVIDENCE_WORKFLOWS
+    
+        for item in somef_data['continuous_integration']:
+            evidence += f'\n\t- {item["result"]["value"]}'
+
+    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-19-1', constants.PROCESS_WORKFLOWS, output, evidence)
     
     return check.convert()

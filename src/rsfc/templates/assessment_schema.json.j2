@@ -18,6 +18,7 @@
     {% for check in checks -%}
     {
       "@type": "CheckResult",
+      "test_id": "{{ check['test_id'] }}",
       "assessesIndicator": { "@id": "{{ check['assessesIndicator']['@id'] }}" },
       "checkingSoftware": {
         "@type": "schema:SoftwareApplication",
@@ -26,7 +27,7 @@
         "softwareVersion": "{{ check['checkingSoftware']['softwareVersion'] }}"
       },
       "process": "{{ check['process'] }}",
-      "status": { "@id": "{{ check['status'] }}" },
+      "status": { "@id": "{{ check['status']['@id'] }}" },
       "output": "{{ check['output'] }}",
       "evidence": {{ check.evidence | tojson }}
     }{{ "," if not loop.last else "" }}
