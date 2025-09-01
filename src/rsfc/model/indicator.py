@@ -37,7 +37,7 @@ class Indicator:
                 (rt.test_is_github_repository, [sw.url]),
                 (rt.test_repo_enabled_and_commits, [somef.somef_data, sw]),
                 (rt.test_repo_status, [somef.somef_data]),
-                (rt.test_commit_history, [sw])
+                (rt.test_commit_history, [sw]),
                 (rt.test_commits_linked_issues, [sw])
             ],
             "software_has_license": [
