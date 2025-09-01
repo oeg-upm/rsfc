@@ -471,7 +471,7 @@ def test_authors(somef_data, codemeta_data, cff_data):
         evidence = constants.EVIDENCE_AUTHORS
     elif cff_data != None and cff_data["authors"] != None:
         output = "true"
-        evidence = constants.EVIDENCE_CONTRIBUTORS
+        evidence = constants.EVIDENCE_AUTHORS
     else:
         evidence = constants.EVIDENCE_NO_AUTHORS
         output = "false"
@@ -982,6 +982,33 @@ def test_repo_enabled_and_commits(somef_data, sw):
     return check.convert()
 
 
+def test_commit_history(sw):
+
+    if sw.repo_type == "GITHUB":
+        
+        commits_url = sw.base_url + "/commits"
+        headers = {'Accept': 'application/vnd.github.v3.raw'}
+        response = requests.get(commits_url, headers=headers)
+        
+    elif sw.repo_type == "GITLAB":
+        
+        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
+        response = requests.get(commits_url)
+        
+    else:
+        raise ValueError("Unsupported repository type")
+    
+    if response.status_code == 200:
+        output = "true"
+        evidence = constants.EVIDENCE_COMMITS
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_COMMITS
+        
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', constants.PROCESS_COMMITS_HISTORY, output, evidence)
+    
+    return check.convert()
+
 def test_commits_linked_issues(sw):
     
     if sw.repo_type == "GITHUB":
@@ -1031,7 +1058,7 @@ def test_commits_linked_issues(sw):
             evidence = constants.EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES
             
 
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-3', constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
     
     return check.convert()
 

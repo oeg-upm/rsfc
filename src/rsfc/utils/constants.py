@@ -80,7 +80,7 @@ PROCESS_AUTHOR_ORCIDS = 'Checks if all authors stated in the CITATION.cff file h
 PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file have a role assigned '
 PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
 PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
-
+PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
 
 
 #Evidences
