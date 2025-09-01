@@ -1,36 +1,16 @@
-import urllib
 from datetime import datetime
 import regex as re
 import base64
-from rsfc.utils import constants
 import requests
-
-
-def get_repo_api_url(repo_url, repo_type):
-        parsed_url = urllib.parse.urlparse(repo_url)
-        path_parts = parsed_url.path.strip("/").split("/")
-        if len(path_parts) < 2:
-            raise ValueError("Error when getting repository API URL")
-
-        owner, repo = path_parts[-2], path_parts[-1]
-
-        if repo_type == 'GITHUB':
-            url = f"https://api.github.com/repos/{owner}/{repo}"
-        elif repo_type == "GITLAB":
-            project_path = urllib.parse.quote(f"{owner}/{repo}", safe="")
-            url = f"https://gitlab.com/api/v4/projects/{project_path}"
-        else:
-            raise ValueError("URL not within supported types (Github and Gitlab)")
-
-        return url
+from rsfc.utils import constants
+from concurrent.futures import ThreadPoolExecutor, as_completed
   
 def get_gitlab_default_branch(base_url, repo_type):
     if repo_type == "GITLAB":
         res = requests.get(base_url)
         res.raise_for_status()
-        return res.json().get("default_branch", "main")
-    else:
-        return None
+        data = res.json()
+        return data.get("default_branch", "main")
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')
@@ -41,15 +21,46 @@ def decode_github_content(content_json):
     else:
         return encoded_content
 
-def subtest_author_and_role(codemeta):
+def subtest_author_roles(authors):
     
     #Follows codemeta standards v2.0 and v3.0
     
-    output = "false"
+    author_roles = {}
+    for item in authors:
+        type_field = None
+        id_field = None
+        
+        if 'type' in item:
+            type_field = 'type'
+        elif '@type' in item:
+            type_field = '@type'
+            
+        if 'id' in item:
+            id_field = 'id'
+        elif '@id' in item:
+            id_field = '@id'
+            
+            
+        if type_field != None and id_field != None:
+            if item[type_field] == 'Person':
+                if item[id_field] not in author_roles:
+                    author_roles[item[id_field]] = None
+            elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
+                if item['schema:author'] in author_roles:
+                    if 'roleName' in item:
+                        author_roles[item['schema:author']] = item['roleName']
+                    elif 'schema:roleName' in item:
+                        author_roles[item['schema:author']] = item['schema:roleName']
+        else:
+            continue
+        
+    return author_roles
+
+
+def subtest_author_orcids(file_data):
     
-    if 'author' in codemeta:
-        author_roles = {}
-        for item in codemeta['author']:
+    if "author" in file_data: #Codemeta
+        for item in file_data["author"]:
             type_field = None
             id_field = None
             
@@ -65,28 +76,23 @@ def subtest_author_and_role(codemeta):
                 
                 
             if type_field != None and id_field != None:
-                if item[type_field] == 'Person':
-                    if item[id_field] not in author_roles:
-                        author_roles[item[id_field]] = None
-                elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
-                    if item['schema:author'] in author_roles:
-                        if 'roleName' in item:
-                            author_roles[item['schema:author']] = item['roleName']
-                        elif 'schema:roleName' in item:
-                            author_roles[item['schema:author']] = item['schema:roleName']
-            else:
+                if type_field in item and item[type_field] == "Person":
+                    if id_field in item and "https://orcid.org/" in item[id_field]:
+                        continue
+                    else:
+                        return False
+    elif "authors" in file_data: #CFF
+        for item in file_data["authors"]:
+            if "orcid" in item:
                 continue
+            else:
+                return False
     else:
-        evidence = constants.EVIDENCE_NO_AUTHORS_IN_CODEMETA
-                        
-
-    if all(value is not None for value in author_roles.values()):
-        output = "true"
-        evidence = constants.EVIDENCE_AUTHOR_ROLES
-    else:
-        evidence = constants.EVIDENCE_NO_ALL_AUTHOR_ROLES
+        return False
         
-    return output, evidence
+    return True
+        
+
 
 def build_url_pattern(url):
     base_url = url.rsplit('/', 1)[0]
@@ -116,3 +122,37 @@ def get_latest_release(repo_data):
         return latest_release
     else:
         return None
+    
+    
+def extract_issue_refs(commits):
+    
+    issue_regex_compiled = re.compile(constants.REGEX_ISSUE_REF, re.IGNORECASE)
+    
+    issue_refs = set()
+    for commit in commits:
+        message = commit.get("commit", {}).get("message", "")
+        matches = issue_regex_compiled.findall(message)
+        issue_refs.update(matches)
+    return issue_refs
+
+
+def check_issue(issue, issue_refs):
+
+    issue_id = str(issue.get("number") or issue.get("iid"))  # GitHub -> number, GitLab -> iid
+    return issue_id in issue_refs
+
+
+def cross_check_any_issue(issues, commits, max_workers=8):
+
+    issue_refs = extract_issue_refs(commits)
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {}
+        for issue in issues:
+            future = executor.submit(check_issue, issue, issue_refs)
+            futures[future] = issue
+        for future in as_completed(futures):
+            if future.result():
+                executor.shutdown(cancel_futures=True)
+                return True
+    return False
