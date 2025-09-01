@@ -1,190 +1,24 @@
 [
     {
-        "@id": "https://w3id.org/everse/i/indicators/archived_in_scholarly_repository",
+        "@id": "https://w3id.org/everse/i/indicators/descriptive_metadata",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
         ],
         "http://purl.org/dc/terms/identifier": [
             {
-                "@id": "https://w3id.org/everse/i/indicators/archived_in_scholarly_repository"
+                "@id": "https://w3id.org/everse/i/indicators/descriptive_metadata"
             }
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
-                "@value": "scholarly repository"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "descriptive metadata"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@value": "Software is archived in a scholarly repository"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_tests",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/software_has_tests"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "has test"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software provides tests"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/software_has_citation"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "uses citation"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software uses citation"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "unique identifier"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software has persistent and unique identifier"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_documentation",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/software_documentation"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "documentation"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software has documentation"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/has_no_linting_issues",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/has_no_linting_issues"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "no linting issues"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software has no linting issues"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/requirements_specified",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/requirements_specified"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "requirements"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software specifies requirements"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_license",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/software_has_license"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "has license"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software has license"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "tool warnings or mistakes"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software uses a tool for warnings or mistakes"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software has descriptive metadata"
             }
         ]
     },
@@ -200,65 +34,14 @@
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "version control"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "Software makes use of version control"
-            }
-        ]
-    },
-    {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/descriptive_metadata",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/descriptive_metadata"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@value": "descriptive metadata"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Software has descriptive metadata"
-            }
-        ]
-    },
-    {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
             }
         ]
     },
@@ -274,12 +57,37 @@
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "completeness"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "CodeMeta completeness"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/requirements_specified",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/requirements_specified"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "requirements"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software specifies requirements"
             }
         ]
     },
@@ -320,11 +128,13 @@
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "FAIR4RS Benchmark "
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "FAIR4RS Benchmark "
             }
         ],
@@ -362,6 +172,7 @@
         ],
         "http://www.w3.org/ns/dcat#version": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "0.0.1"
             }
         ],
@@ -420,23 +231,128 @@
         ]
     },
     {
-        "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use",
+        "@id": "https://w3id.org/everse/i/indicators/has_no_linting_issues",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
         ],
         "http://purl.org/dc/terms/identifier": [
             {
-                "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use"
+                "@id": "https://w3id.org/everse/i/indicators/has_no_linting_issues"
             }
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
-                "@value": "versioning standard"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "no linting issues"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@value": "Software follows versioning standards"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software has no linting issues"
+            }
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/software_has_citation"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "uses citation"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software uses citation"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "unique identifier"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software has persistent and unique identifier"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/software_has_tests",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/software_has_tests"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "has test"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software provides tests"
             }
         ]
     },
@@ -452,12 +368,129 @@
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "listed in registry"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "Software is listed in a registry"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/software_documentation",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/software_documentation"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "documentation"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software has documentation"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "tool warnings or mistakes"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software uses a tool for warnings or mistakes"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/software_has_license",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/software_has_license"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "has license"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software has license"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "versioning standard"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software follows versioning standards"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/archived_in_scholarly_repository",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/everse/i/indicators/archived_in_scholarly_repository"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "scholarly repository"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Software is archived in a scholarly repository"
             }
         ]
     }

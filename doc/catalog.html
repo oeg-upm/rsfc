@@ -66,27 +66,11 @@
                 } 
                 showSection(currentHash || "#test");
 
-                // function showSection(uri) {
-                //     const sections = {
-                //         "https://w3id.org/foops/test/": "#div_test",
-                //         "https://w3id.org/foops/metric/": "#div_metric",
-                //         "https://w3id.org/foops/benchmark/": "#div_benchmark"
-                //     };
 
-                //     $("#div_test, #div_metric, #div_benchmark").hide();
-
-                //     // Mostrar el div correspondiente al URI o la de "Test" por defecto
-                //     const sectionToShow = sections[uri] || "#div_test";
-                //     $(sectionToShow).show();
-                // }
-       
-                // const currentURI = window.location.href;
-                // showSection(currentURI);
-
-                $("#btn_metric").click(function(){
-                    updateURL("metric"); 
-                    showSection("#metric");
-                });
+                // $("#btn_metric").click(function(){
+                //     updateURL("metric"); 
+                //     showSection("#metric");
+                // });
                 
                 $("#btn_test").click(function(){
                     updateURL("test"); 
@@ -97,6 +81,11 @@
                     updateURL("benchmark"); 
                     showSection("#benchmark");
                 });
+
+                 $("#btn_about").click(function(){
+                    window.location.href = 'about.html';
+                });
+
             });
             
         </script>
@@ -106,7 +95,7 @@
             <div class="row">
                 <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
                     <button id="btn_test" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Test</button>
-                    <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button>
+                    <!-- <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button> -->
                     <button id="btn_benchmark" type="button" class="btn btn-primary" style="margin-right: 10px;"">Benchmark</button>
                     <button id="btn_about" type="button" class="btn btn-primary" style="margin-right: 10px;"">About</button>
                 </div>
@@ -212,32 +201,32 @@
                             <td class="keywords">Version number, Release, Test</td>
                         </tr>
                         <tr>
-                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-01">https://w3id.org/rsfc/test/RSFC-04-01</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-01"><strong>RSFC-04-01</strong></a></td>
+                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-1">https://w3id.org/rsfc/test/RSFC-04-1</a></td> -->
+                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-1"><strong>RSFC-04-1</strong></a></td>
                             <td class="titles">Metadata exists</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
                             <td class="keywords">Metadata, Test</td>
                         </tr>
                         <tr>
-                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-02">https://w3id.org/rsfc/test/RSFC-04-02</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-02"><strong>RSFC-04-02</strong></a></td>
+                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-2">https://w3id.org/rsfc/test/RSFC-04-2</a></td> -->
+                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-2"><strong>RSFC-04-2</strong></a></td>
                             <td class="titles">There is a README</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
                             <td class="keywords">Readme, Test</td>
                         </tr>
                         <tr>
-                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-03">https://w3id.org/rsfc/test/RSFC-04-03</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-03"><strong>RSFC-04-03</strong></a></td>
+                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-3">https://w3id.org/rsfc/test/RSFC-04-3</a></td> -->
+                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-3"><strong>RSFC-04-3</strong></a></td>
                             <td class="titles">There are title and description</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
                             <td class="keywords">Title, Description, Test</td>
                         </tr>
                         <tr>
-                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-04">https://w3id.org/rsfc/test/RSFC-04-04</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-04"><strong>RSFC-04-04</strong></a></td>
+                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-4">https://w3id.org/rsfc/test/RSFC-04-4</a></td> -->
+                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-4"><strong>RSFC-04-4</strong></a></td>
                             <td class="titles">Software has descriptive metadata</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
@@ -326,7 +315,7 @@
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-09-1">https://w3id.org/rsfc/test/RSFC-09-1</a></td> -->
                             <td><a href="https://w3id.org/rsfc/test/RSFC-09-1"><strong>RSFC-09-1</strong></a></td>
-                            <td class="titles">Repository uses a version control system</td>
+                            <td class="titles">Repository is from Github/Gitlab</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
                             <td class="keywords">URL, Github, Test</td>
@@ -415,14 +404,6 @@
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-17-1">https://w3id.org/rsfc/test/RSFC-17-1</a></td> -->
                             <td><a href="https://w3id.org/rsfc/test/RSFC-17-1"><strong>RSFC-17-1</strong></a></td>
                             <td class="titles">Repository active</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
-                            <td class="keywords">Active, Repository, Test</td>
-                        </tr>
-                        <tr>
-                            <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-17-2">https://w3id.org/rsfc/test/RSFC-17-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-17-2"><strong>RSFC-17-2</strong></a></td>
-                            <td class="titles">Repository has an issue tracker enabled</td>
                             <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
                             <td>0.0.1</td>
                             <td class="keywords">Active, Repository, Test</td>

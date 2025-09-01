@@ -25,9 +25,7 @@
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-03-1> ;
     dcat:keyword "Releases"@en ,
                  "Test"@en ;
-    dcat:endpointDescription <https://w3id.org/rsfc/api> ;
-    dcat:endpointURL <https://w3id.org/rsfc/api/assess/test/RSFC-03-1> ;
-    dpv:isApplicableFor <https://schema.org/DefinedTermSet> ;
+    dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_has_releases> ; 
     doap:repository <https://w3id.org/rsfc/repository> .

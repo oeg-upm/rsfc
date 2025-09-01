@@ -66,27 +66,10 @@
                 } 
                 showSection(currentHash || "#test");
 
-                // function showSection(uri) {
-                //     const sections = {
-                //         "https://w3id.org/foops/test/": "#div_test",
-                //         "https://w3id.org/foops/metric/": "#div_metric",
-                //         "https://w3id.org/foops/benchmark/": "#div_benchmark"
-                //     };
-
-                //     $("#div_test, #div_metric, #div_benchmark").hide();
-
-                //     // Mostrar el div correspondiente al URI o la de "Test" por defecto
-                //     const sectionToShow = sections[uri] || "#div_test";
-                //     $(sectionToShow).show();
-                // }
-       
-                // const currentURI = window.location.href;
-                // showSection(currentURI);
-
-                $("#btn_metric").click(function(){
-                    updateURL("metric"); 
-                    showSection("#metric");
-                });
+                // $("#btn_metric").click(function(){
+                //     updateURL("metric"); 
+                //     showSection("#metric");
+                // });
                 
                 $("#btn_test").click(function(){
                     updateURL("test"); 
@@ -97,6 +80,10 @@
                     updateURL("benchmark"); 
                     showSection("#benchmark");
                 });
+
+                $("#btn_about").click(function(){
+                    window.location.href = 'about.html';
+                });
             });
             
         </script>
@@ -106,7 +93,7 @@
             <div class="row">
                 <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
                     <button id="btn_test" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Test</button>
-                    <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button>
+                    <!-- <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button> -->
                     <button id="btn_benchmark" type="button" class="btn btn-primary" style="margin-right: 10px;"">Benchmark</button>
                     <button id="btn_about" type="button" class="btn btn-primary" style="margin-right: 10px;"">About</button>
                 </div>

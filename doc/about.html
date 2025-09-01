@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <title>About RSFC</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+  table.outer {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #444;
+  }
+  table.outer th,
+  table.outer td {
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #444;
+  }
+  table.outer td:first-child {
+    min-width: 300px; 
+  }
+
+  table.inner {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  table.inner td {
+    padding: 4px;
+    border: none; 
+  }
+
+</style>
+<body style="position: relative; min-height: 100vh; padding-top: 60px;">
+  <button id="btn_back"
+          type="button"
+          class="btn btn-primary"
+          onclick="window.location.href='catalog.html#test';"
+          style="position: absolute; top: 10px; right: 10px;">
+    Back
+  </button>
+  <section style="max-width: 800px; margin: auto; line-height: 1.6;">
+    <h1>About RSFC</h1>
+    <p><em>RSFC</em> (Research Software Fairness Checks) is a command‑line tool a Python library developed at the Ontology Engineering Group – Universidad Politécnica de Madrid.</p>
+    <p>Given a GitHub or GitLab repository URL, RSFC performs a series of checks based on a list of research software quality indicators (RSQI).</p>
+
+  <h2>Covered indicators and FRSM metrics </h2>
+    <table class="outer">
+    <thead>
+        <tr><th>Indicator ID</th><th>FRSM metric</th></tr>
+    </thead>
+<tbody>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/persistent_and_unique_identifier">
+            Software has persistent and unique identifier
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑01</td></tr>
+          <tr><td>FRSM‑07</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/has_releases">
+            Software has releases
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑03</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/versioning_standards_use">
+            Software follows versioning standards
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑03</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/descriptive_metadata">
+            Software has descriptive metadata
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑04</td></tr>
+          <tr><td>FRSM‑05</td></tr>
+          <tr><td>FRSM‑06</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/software_documentation">
+            Software has documentation
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑04</td></tr>
+          <tr><td>FRSM‑05</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/version_control_use">
+            Software makes use of version control       
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑05</td></tr>
+          <tr><td>FRSM‑09</td></tr>
+          <tr><td>FRSM‑17</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/archived_in_software_heritage">
+            Software is archived in Software Heritage
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑08</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/software_has_citation">
+            Software uses citation 
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑12</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/requirements_specified">
+            Software specifies requirements
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑13</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/software_has_tests">
+            Software provides tests
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑14</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/software_has_ci-tests">
+            Software has continuous integration tests
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑14</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="https://w3id.org/everse/i/indicators/software_has_license">
+          Software has license
+        </a>
+      </td>
+      <td>
+        <table class="inner">
+          <tr><td>FRSM‑15</td></tr>
+          <tr><td>FRSM‑16</td></tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+    </table>
+    <p>More information on FRSM metrics is available here: <a href="https://zenodo.org/records/15535629" target="_blank">10.5281/zenodo.15535629</a></p>
+    <h2>Authors & Maintainers</h2>
+    <p>
+    Daniel Garijo (OEG‑UPM)<br>
+    Andrés Montero (OEG‑UPM)<br>
+    Juan Jesús Mendoza (OEG‑UPM)
+    </p>
+    <h2>More information</h2>
+    <p>Explore the project on <a href="https://github.com/oeg-upm/rsfc" target="_blank">GitHub</a> or visit the <a href="https://oeg.fi.upm.es" target="_blank">OEG‑UPM homepage</a>.</p>
+  </section>
+</body>
+</html>

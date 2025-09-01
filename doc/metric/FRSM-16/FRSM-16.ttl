@@ -1,0 +1,59 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix ftr: <https://w3id.org/ftr#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> . 
+@prefix dpv: <https://w3id.org/dpv#> .
+
+<https://w3id.org/rsfc/metric/FRSM-16> a dqv:Metric ;
+	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-16> ;
+	dcterms:title "Does the software metadata record include licensing information?"@en ;
+	dcterms:description """ 
+It is important for licensing information to be on the publicly searchable and accessible metadata record.
+
+Source: This metric is an instance of FSRM-16 developed within the FAIR-IMPACT project. More information about the project is available at https://doi.org/10.5281/zenodo.15535629
+
+	"""@en ;
+	rdfs:label "FRSM-16 metric: Does the software metadata record include licensing information?"^^xsd:string ;
+	vivo:abbreviation "FRSM-16-M"^^xsd:string ;	
+    dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
+    dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
+                    <https://github.com/andriumon> ;
+	dqv:inDimension  <https://w3id.org/fair/principles/terms/R1.1>;
+    dcterms:publisher <https://oeg.fi.upm.es> ,
+                      <https://ror.org/03n6nwv02> ;
+	dcat:version "1.1"^^xsd:string ;
+	dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+	dcat:keyword  "Metric"@en, "FAIR"@en ;
+	dpv:isApplicableFor <https://schema.org/DefinedTermSet> ;
+    ftr:supportedBy <https://w3id.org/rsfc/>;
+	<http://semanticscience.org/resource/SIO_000234> <https://w3id.org/rsfc/test/RSFC-16-1>;
+	dcat:landingPage <https://w3id.org/rsfc/metric/FRSM-16> ; 
+	ftr:hasBenchmark <https://w3id.org/rsfc/benchmark/FAIR4RS> ; 
+	ftr:status "Active"@en .
+<https://orcid.org/0000-0003-0454-7145> a vcard:Individual ;
+    vcard:fn "Daniel Garijo"^^xsd:string ;
+    vcard:hasEmail <mailto:dgarijo@upm.es> .
+<https://github.com/andriumon> a vcard:Individual ;
+    vcard:fn "Andres Montero"^^xsd:string ;
+    vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/fair/principles/terms/R1.1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R1.1"^^xsd:string ;
+	vivo:abbreviation "R1.1"^^xsd:string ;
+	dcterms:description "Software is given a clear and accessible licence."@en .
+<https://oeg.fi.upm.es> a vcard:Organization ;
+    rdfs:label "Ontology Engineering Group" ;
+    vcard:url <https://oeg.fi.upm.es/> .
+<https://ror.org/03n6nwv02> a vcard:Organization ;
+    dcterms:identifier "https://ror.org/02h3v0f81" ;
+    rdfs:label "Universidad Politécnica de Madrid" ;
+    vcard:url <https://www.upm.es/> .
+<https://w3id.org/rsfc/test/RSFC-16-1> a ftr:Test .
+<https://w3id.org/rsfc/benchmark/FAIR4RS> a ftr:Benchmark;
+    dcterms:title "General Benchmark for RSFC"@en ;
+    dcterms:description "Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."@en . 
