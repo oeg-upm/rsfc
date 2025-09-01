@@ -1283,15 +1283,15 @@ files = [
 
 [[package]]
 name = "nvidia-nccl-cu12"
-version = "2.27.6"
+version = "2.27.7"
 description = "NVIDIA Collective Communication Library (NCCL) Runtime"
 optional = false
 python-versions = ">=3"
 groups = ["main"]
 markers = "platform_system == \"Linux\" and platform_machine != \"aarch64\""
 files = [
-    {file = "nvidia_nccl_cu12-2.27.6-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:75f802521688026853ede67ec0337846214905a2f1571bb6e01ca3bb97c586ce"},
-    {file = "nvidia_nccl_cu12-2.27.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:8be9c0a7d7f95489f407593ad3842ba66bbb7c3370622c3592efb6dd67540968"},
+    {file = "nvidia_nccl_cu12-2.27.7-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:4617839f3bb730c3845bf9adf92dbe0e009bc53ca5022ed941f2e23fb76e6f17"},
+    {file = "nvidia_nccl_cu12-2.27.7-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:de5ba5562f08029a19cb1cd659404b18411ed0d6c90ac5f52f30bf99ad5809aa"},
 ]
 
 [[package]]
