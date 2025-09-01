@@ -89,7 +89,7 @@ tzdata = "2025.2"
 urllib3 = "2.5.0"
 validators = "0.22.0"
 xgboost = "2.1.4"
-pystache = "^0.6.8"
+pystache = "0.6.8"
 
 [tool.poetry.scripts]
 rsfc = "rsfc.main:main"
