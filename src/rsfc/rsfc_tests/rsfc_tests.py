@@ -890,6 +890,26 @@ def test_license_spdx_compliant(somef_data):
     
     return check.convert()
 
+
+def test_license_information_provided(somef_data):
+    
+    if 'license' not in somef_data:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_LICENSE
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_LICENSE_INFORMATION_PROVIDED
+        for item in somef_data['license']:
+            if 'source' in item:
+                if 'README' in item['source']:
+                    output = "true"
+                    evidence = constants.EVIDENCE_LICENSE_INFORMATION_PROVIDED
+                    
+                
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-3', constants.PROCESS_LICENSE_INFORMATION_PROVIDED, output, evidence)
+    
+    return check.convert()
+
 ################################################### FRSM_16 ###################################################
 
 def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):

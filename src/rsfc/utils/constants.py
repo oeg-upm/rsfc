@@ -81,6 +81,7 @@ PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file hav
 PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
 PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
 PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
+PROCESS_LICENSE_INFORMATION_PROVIDED = 'Checks if license information is found in the README file of the repository'
 
 
 #Evidences
@@ -108,6 +109,7 @@ EVIDENCE_REPO_STATUS = 'A repo status badge was found in the repository'
 EVIDENCE_CONTACT_INFO = 'Contact and support information was found in the repository'
 EVIDENCE_SPDX_COMPLIANT = 'Licenses are SPDX compliant'
 EVIDENCE_LICENSE_INFO_IN_METADATA = 'License information was found in metadata files'
+EVIDENCE_LICENSE_INFORMATION_PROVIDED = 'License information was found in the README file of the repository'
 EVIDENCE_TICKETS = 'Tickets/Issues were found in the repository'
 EVIDENCE_REPO_ENABLED_AND_HAS_COMMITS = 'Repository is enabled and has commits'
 EVIDENCE_AUTHOR_ORCIDS_CODEMETA = 'All authors in the codemeta.json file have an orcid identifier'
@@ -165,6 +167,7 @@ EVIDENCE_NO_REPO_STATUS = 'Could not find a repo status badge in the repository'
 EVIDENCE_NO_CONTACT_INFO = 'Could not find any of the following information: '
 EVIDENCE_NO_SPDX_COMPLIANT = 'There is one or more licenses that are not SPDX compliant'
 EVIDENCE_NO_LICENSE_INFO_IN_METADATA = 'Could not find any licensing information in the following metadata files: '
+EVIDENCE_NO_LICENSE_INFORMATION_PROVIDED = 'Could not find license information in the README file of the repository'
 EVIDENCE_NO_TICKETS = 'Could not find tickets/issues in the repository'
 EVIDENCE_NO_REPO_ENABLED = 'Repository is not enabled'
 EVIDENCE_NO_COMMITS = 'Could not find any commits in the repository'
