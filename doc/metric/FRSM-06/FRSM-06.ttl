@@ -32,7 +32,7 @@ Source: This metric is an instance of FSRM-06, developed within the FAIR-IMPACT 
 	dcat:keyword  "Metric"@en, "FAIR"@en ;
 	dpv:isApplicableFor <https://schema.org/DefinedTermSet> ;
     ftr:supportedBy <https://w3id.org/rsfc/>;
-	<http://semanticscience.org/resource/SIO_000234> <https://w3id.org/rsfc/test/RSFC-06-1>, <https://w3id.org/rsfc/test/RSFC-06-2>, <https://w3id.org/rsfc/test/RSFC-06-3>;
+	<http://semanticscience.org/resource/SIO_000234> <https://w3id.org/rsfc/test/RSFC-06-1>, <https://w3id.org/rsfc/test/RSFC-06-2>, <https://w3id.org/rsfc/test/RSFC-06-3>,  <https://w3id.org/rsfc/test/RSFC-06-4>;
 	dcat:landingPage <https://w3id.org/rsfc/metric/FRSM-06> ; 
 	ftr:hasBenchmark <https://w3id.org/rsfc/benchmark/FAIR4RS> ; 
 	ftr:status "Active"@en .
@@ -60,6 +60,7 @@ Source: This metric is an instance of FSRM-06, developed within the FAIR-IMPACT 
 <https://w3id.org/rsfc/test/RSFC-06-1> a ftr:Test .
 <https://w3id.org/rsfc/test/RSFC-06-2> a ftr:Test .
 <https://w3id.org/rsfc/test/RSFC-06-3> a ftr:Test .
+<https://w3id.org/rsfc/test/RSFC-06-4> a ftr:Test .
 <https://w3id.org/rsfc/benchmark/FAIR4RS> a ftr:Benchmark;
     dcterms:title "General Benchmark for RSFC"@en ;
     dcterms:description "Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."@en . 

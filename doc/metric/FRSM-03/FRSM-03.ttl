@@ -62,6 +62,7 @@ Source: This metric is an instance of FSRM-03, developed within the FAIR-IMPACT 
 <https://w3id.org/rsfc/test/RSFC-03-3> a ftr:Test .
 <https://w3id.org/rsfc/test/RSFC-03-4> a ftr:Test .
 <https://w3id.org/rsfc/test/RSFC-03-5> a ftr:Test .
+<https://w3id.org/rsfc/test/RSFC-03-6> a ftr:Test .
 <https://w3id.org/rsfc/benchmark/FAIR4RS> a ftr:Benchmark;
     dcterms:title "General Benchmark for RSFC"@en ;
     dcterms:description "Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."@en . 

@@ -45,6 +45,54 @@ WHERE {
 }
 """
 
+QUERY_METRICS = """
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX ftr: <https://w3id.org/ftr#>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX dpv: <https://w3id.org/dpv#> 
+PREFIX owl: <http://www.w3.org/2002/07/owl#> 
+PREFIX vivo: <http://vivoweb.org/ontology/core#> 
+
+SELECT DISTINCT ?s ?title ?label ?abbreviation ?description ?keywords ?version ?license ?indimension ?label_dimension ?desc_indimension
+?publisher_uri ?publisher_label ?test ?creator_name ?creator_orcid ?landing_page ?benchmark ?bm_title ?bm_desc ?metric_status ?contact_orcid ?contact_name 
+?contact_mail ?applicable_for ?supported_by ?same_as
+WHERE {
+    ?s a dqv:Metric .
+    ?s dcterms:title ?title .
+    ?s rdfs:label ?label .
+    ?s vivo:abbreviation ?abbreviation .
+    ?s dcterms:description ?description .
+    ?s dcterms:publisher ?publisher_uri .
+    ?publisher_uri rdfs:label ?publisher_label .
+    ?s dcat:keyword ?keywords .
+    ?s dcat:version ?version .
+    ?s dcterms:license ?license .
+    ?s dcat:landingPage ?landing_page .
+    ?s dqv:inDimension ?indimension .
+    OPTIONAL { ?s owl:sameAs ?same_as . }
+    ?s ftr:status ?metric_status .
+    ?s ftr:hasBenchmark ?benchmark .
+    ?s dpv:isApplicableFor ?applicable_for .
+    ?s ftr:supportedBy ?supported_by .
+    ?indimension rdfs:label ?label_dimension .
+    ?indimension dcterms:description ?desc_indimension .
+    ?benchmark a ftr:Benchmark ;
+        dcterms:title ?bm_title;
+        dcterms:description ?bm_desc .
+    ?test a ftr:Test .
+    ?s dcterms:creator ?creator_orcid .
+    ?creator_orcid vcard:fn ?creator_name .
+    ?s dcat:contactPoint ?contact_orcid .
+    ?contact_orcid vcard:fn ?contact_name .
+    ?contact_orcid vcard:hasEmail ?contact_mail .
+}
+"""
+
 
 QUERY_BENCHMARK = """
 PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -241,6 +289,157 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     print(f'Archivo creado: {path_html}')
 
 
+def ttl_to_html_metrics(path_ttl, path_mustache, pquery):
+
+    g = Graph()
+    g.parse(path_ttl, format="turtle")
+
+    results = g.query(pquery)
+
+    data = {
+        'metric_identifier': '',
+        'metric_title': '',
+        'metric_name': '',
+        'metric_description': '',
+        'metric_keywords': '',
+        'metric_version': '',
+        'metric_license': '',
+        'metric_uri_inDimension': '',
+        'metric_inDimension': '',
+        'metric_desc_dimension': '',
+        'metric_publisher': '',
+        'metric_test': '',
+        'metric_creators': '',
+        'metric_landing_page': '',
+        'metric_benchmark': '',
+        'metric_benchmark_title': '',
+        'metric_benchmark_desc': '',
+        'metric_status': '',
+        'metric_turtle': '',
+        'metric_contactName': '',
+        'metric_contactMail': '',
+        'metric_applicable_for': '',
+        'metric_supported_by': '',
+        'metric_same_as': ''
+    }
+
+    # como hay varias keywords normalemnte, las meto en un array y
+    # luego las uno en un string separadas por comas.
+    keywords = []
+    benchmarks = []
+    benchmarks_title = []
+    benchmarks_desc = []
+    # lo mismo ocurre con los creadores que son dos
+    creators = []
+    creators_orcid = []
+
+    publishers = []
+    publishers_link = []
+
+    contacts = []
+    contacts_orcid = []
+    contacts_mail = []
+
+    for row in results:
+
+        data['metric_identifier'] = row.s
+        data['metric_title'] = row.title
+        data['metric_name'] = row.label
+        data['metric_description'] = markdown.markdown(row.description)
+        data['metric_version'] = row.version
+        data['metric_license'] = row.license
+        data['metric_uri_inDimension'] = row.indimension
+        data['metric_inDimension'] = row.label_dimension
+        data['metric_desc_dimension'] = row.desc_indimension
+        # data['metric_publisher'] = row.publisher
+        data['metric_test'] = row.test
+        data['metric_landing_page'] = row.landing_page
+        data['metric_status'] = row.metric_status
+        name_ttl = data['metric_identifier']
+        basename_ttl = name_ttl.rsplit('/', 1)[-1]
+        data['metric_turtle'] = basename_ttl + '.ttl'
+        # data['metric_turtle'] = row.label.replace('Metric ', '') + '.ttl'
+        data['metric_applicable_for'] = row.applicable_for
+        data['metric_supported_by'] = row.supported_by
+        data['metric_same_as'] = row.same_as
+
+        if str(row.keywords) not in keywords:
+            keywords.append(str(row.keywords))
+
+        if str(row.creator_name) not in creators:
+            creators.append(str(row.creator_name))
+
+        if str(row.creator_orcid) not in creators_orcid:
+            creators_orcid.append(str(row.creator_orcid))
+
+        if str(row.benchmark) not in benchmarks:
+            benchmarks.append(str(row.benchmark))
+        if str(row.bm_title) not in benchmarks_title:
+            benchmarks_title.append(str(row.bm_title))
+        if str(row.bm_desc) not in benchmarks_desc:
+            benchmarks_desc.append(str(row.bm_desc))
+
+        if str(row.contact_name) not in contacts:
+            contacts.append(str(row.contact_name))
+        if str(row.contact_orcid) not in contacts_orcid:
+            contacts_orcid.append(str(row.contact_orcid))
+        if str(row.contact_mail) not in contacts_mail:
+            contacts_mail.append(str(row.contact_mail))
+
+        if str(row.publisher_label) not in publishers:
+            publishers.append(str(row.publisher_label))
+        if str(row.publisher_uri) not in publishers_link:
+            publishers_link.append(str(row.publisher_uri))
+
+    all_keywords = ", ".join(keywords)
+
+    result = []
+    for nombre, orcid in zip(creators, creators_orcid):
+        result.append(f'<a href="{orcid}" target="_blank">{nombre}</a>')
+
+    result_benchmarks = []
+
+    for benchmark, title, desc in zip(benchmarks, benchmarks_title, benchmarks_desc):
+        result_benchmarks.append(
+            f'<a href="{benchmark}" target="_blank">{title}</a>: {desc}')
+
+    result_contacts = []
+    for nombre, mail, orcid in zip(contacts, contacts_mail, contacts_orcid):
+        # clean_mail = mail.replace('mailto:', '')
+        result_contacts.append(
+            f'<a href="{orcid}" target="_blank">{nombre}</a> at <a href="https://www.upm.es" target="_blank">upm.es</a>')
+    
+    result_publishers = []
+    for name, uri in zip(publishers, publishers_link):
+        result_publishers.append(f'<a href="{uri}" target="_blank">{name}</a>')
+
+    all_creators = ', '.join(result)
+    all_benchmarks = '<br>'.join(result_benchmarks)
+    all_contacts = ', '.join(result_contacts)
+    all_publishers = ', '.join(result_publishers)
+
+    data['metric_keywords'] = all_keywords
+    data['metric_creators'] = all_creators
+    data['metric_benchmarks'] = all_benchmarks
+    data['metric_contactPoint'] = all_contacts
+    data['metric_publishers'] = all_publishers
+    # Cargar la plantilla mustache
+    with open(path_mustache, 'r', encoding="utf-8") as template_file:
+        template_content = template_file.read()
+
+    # sustituir la plantilla con los datos del diccionario
+    renderer = pystache.Renderer()
+    rendered_output = renderer.render(template_content, data)
+
+    # guardamos el html. El path es el mismo que el ttl pero cambiando la extension
+    path_html = os.path.splitext(path_ttl)[0] + '.html'
+
+    with open(path_html, 'w', encoding="utf-8") as output_file:
+        output_file.write(rendered_output)
+
+    print(f'Archivo creado: {path_html}')
+
+
 def ttl_to_jsonld(path_ttl):
     """Create a jsonld file from a ttl file"""
     g = Graph()
@@ -396,6 +595,8 @@ def iterate_paths(path_source, path_destination, template, pquery, type_doc):
             subfolder = 'test'
         case "B":
             subfolder = 'benchmark'
+        case "M":
+            subfolder = 'metric'
         case _:
             print("Unknown type doc")
 
@@ -433,6 +634,8 @@ def iterate_paths(path_source, path_destination, template, pquery, type_doc):
                 match type_doc:
                     case "T":
                         ttl_to_html(path_ttl, template, pquery)
+                    case "M":
+                        ttl_to_html_metrics(path_ttl, template, pquery)
                     case "B":
                         ttl_to_html_benchmarks(path_ttl, template, pquery)
                     case _:
@@ -558,13 +761,18 @@ def main():
 
     path_mustache_test = os.path.join(
         current_dir, "templates" + os.sep + "template_test.html")
+    path_mustache_metrics = os.path.join(
+        current_dir, "templates" + os.sep + "template_metrics.html")
     path_mustache_benchmarks = os.path.join(
         current_dir, "templates" + os.sep + "template_benchmark.html")
     path_mustache_catalogo = os.path.join(
         current_dir, "templates" + os.sep + "template_catalog.html")
     
+    print('------ iterate metrics')
     iterate_paths(path_source, path_destination,
                   path_mustache_test, QUERY, 'T')
+    iterate_paths(path_source, path_destination,
+                  path_mustache_metrics, QUERY_METRICS, 'M')
     iterate_paths(path_source, path_destination,
                   path_mustache_benchmarks, QUERY_BENCHMARK, 'B')
 

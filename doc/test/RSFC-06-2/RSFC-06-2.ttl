@@ -14,11 +14,11 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "Authors have an ORCID"@en ;
+    dcterms:title "Contributors are declared"@en ;
     rdfs:label "RSFC-06-2"^^xsd:string ;
     vivo:abbreviation "RSFC-06-2"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if authors have an ORCID assigned. This is done by looking for authors in the codemeta.json or AUTHORS files and checking if all of them have an ORCID assigned."""@en ;
+    dcterms:description """This test checks if there are contributors found in the repository. This is done by looking for contributors in files like CONTRIBUTOR, codemeta.json and package files."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
