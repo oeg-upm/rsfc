@@ -1,19 +1,8 @@
 [
     {
-        "@id": "https://github.com/andriumon",
+        "@id": "https://w3id.org/everse/i/indicators/software_has_releases",
         "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -34,22 +23,40 @@
         ]
     },
     {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_releases",
+        "@id": "https://ror.org/03n6nwv02",
         "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
+            }
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/repository",
-        "http://purl.org/dc/terms/description": [
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
             {
-                "@language": "en",
-                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
             }
         ],
-        "http://xmlns.com/foaf/0.1/homePage": [
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "https://github.com/oeg-upm/rsfc"
+                "@id": "mailto:andres.montero.martin@upm.es"
             }
         ]
     },
@@ -66,6 +73,20 @@
         "http://www.w3.org/2006/vcard/ns#url": [
             {
                 "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/repository",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
+            }
+        ],
+        "http://xmlns.com/foaf/0.1/homePage": [
+            {
+                "@id": "https://github.com/oeg-upm/rsfc"
             }
         ]
     },
@@ -168,27 +189,6 @@
         "https://w3id.org/ftr#supportedBy": [
             {
                 "@id": "https://w3id.org/rsfc/"
-            }
-        ]
-    },
-    {
-        "@id": "https://ror.org/03n6nwv02",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://ror.org/02h3v0f81"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Universidad Politécnica de Madrid"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://www.upm.es/"
             }
         ]
     }

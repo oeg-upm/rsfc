@@ -1,0 +1,324 @@
+[
+    {
+        "@id": "https://w3id.org/fair/principles/terms/R1",
+        "@type": [
+            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is described with a plurality of accurate and relevant attributes."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R1"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R1"
+            }
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/fair/principles/terms/F2",
+        "@type": [
+            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is described with rich metadata."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ]
+    },
+    {
+        "@id": "https://ror.org/03n6nwv02",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-1",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-4",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/metric/FRSM-04",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ],
+        "http://purl.org/dc/terms/creator": [
+            {
+                "@id": "https://orcid.org/0000-0003-0454-7145"
+            },
+            {
+                "@id": "https://github.com/andriumon"
+            }
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": " \nSoftware requires descriptive metadata to support indexing, search and discoverability.\n\nSource: This metric is an instance of FSRM-04, developed within the FAIR-IMPACT project. More information about the project is available at https://doi.org/10.5281/zenodo.15535629\n\t"
+            }
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@id": "https://w3id.org/rsfc/metric/FRSM-04"
+            }
+        ],
+        "http://purl.org/dc/terms/license": [
+            {
+                "@id": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ],
+        "http://purl.org/dc/terms/publisher": [
+            {
+                "@id": "https://oeg.fi.upm.es"
+            },
+            {
+                "@id": "https://ror.org/03n6nwv02"
+            }
+        ],
+        "http://purl.org/dc/terms/title": [
+            {
+                "@language": "en",
+                "@value": "Does the software include descriptive metadata which helps define its purpose?"
+            }
+        ],
+        "http://semanticscience.org/resource/SIO_000234": [
+            {
+                "@id": "https://w3id.org/rsfc/test/RSFC-04-1"
+            },
+            {
+                "@id": "https://w3id.org/rsfc/test/RSFC-04-2"
+            },
+            {
+                "@id": "https://w3id.org/rsfc/test/RSFC-04-3"
+            },
+            {
+                "@id": "https://w3id.org/rsfc/test/RSFC-04-4"
+            },
+            {
+                "@id": "https://w3id.org/rsfc/test/RSFC-04-5"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "FRSM-04-M"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "FRSM-04 metric: Does the software include descriptive metadata which helps define its purpose?"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#contactPoint": [
+            {
+                "@id": "https://orcid.org/0000-0003-0454-7145"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#keyword": [
+            {
+                "@language": "en",
+                "@value": "Metric"
+            },
+            {
+                "@language": "en",
+                "@value": "FAIR"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#landingPage": [
+            {
+                "@id": "https://w3id.org/rsfc/metric/FRSM-04"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#version": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "1.1"
+            }
+        ],
+        "http://www.w3.org/ns/dqv#inDimension": [
+            {
+                "@id": "https://w3id.org/fair/principles/terms/F2"
+            },
+            {
+                "@id": "https://w3id.org/fair/principles/terms/R1"
+            },
+            {
+                "@id": "https://w3id.org/fair/principles/terms/R3"
+            }
+        ],
+        "https://w3id.org/dpv#isApplicableFor": [
+            {
+                "@id": "https://schema.org/DefinedTermSet"
+            }
+        ],
+        "https://w3id.org/ftr#hasBenchmark": [
+            {
+                "@id": "https://w3id.org/rsfc/benchmark/FAIR4RS"
+            }
+        ],
+        "https://w3id.org/ftr#status": [
+            {
+                "@language": "en",
+                "@value": "Active"
+            }
+        ],
+        "https://w3id.org/ftr#supportedBy": [
+            {
+                "@id": "https://w3id.org/rsfc/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/fair/principles/terms/R3",
+        "@type": [
+            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software meets domain-relevant community standards."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R3"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R3"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-5",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-3",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-2",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/benchmark/FAIR4RS",
+        "@type": [
+            "https://w3id.org/ftr#Benchmark"
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable."
+            }
+        ],
+        "http://purl.org/dc/terms/title": [
+            {
+                "@language": "en",
+                "@value": "General Benchmark for RSFC"
+            }
+        ]
+    }
+]
