@@ -10,7 +10,7 @@ class Indicator:
                 (rt.test_id_associated_with_software, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
                 (rt.test_id_common_schema, [somef.somef_data]),
                 (rt.test_identifier_in_readme_citation, [somef.somef_data, cf.cff_data]),
-                (rt.test_identifier_resolves_to_software, [somef.somef_data])
+                (rt.test_identifier_resolves_to_software, [somef.somef_data, cd.codemeta_data, cf.cff_data, sw])
             ],
             "requirements_specified": [
                 (rt.test_dependencies_declared, [somef.somef_data]),
