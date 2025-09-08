@@ -21,6 +21,7 @@
     dcterms:description """This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID,, DOI and URL."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+    dqv:inDimension <https://w3id.org/fair/principles/terms/F1>, <https://w3id.org/fair/principles/terms/R3>;	
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-01-3> ;
     dcat:keyword "Schema"@en ,
@@ -35,6 +36,14 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/fair/principles/terms/F1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "F1"^^xsd:string ;
+	vivo:abbreviation "F1"^^xsd:string ;
+	dcterms:description "Software is assigned a globally unique and persistent identifier."@en .
+<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R3"^^xsd:string ;
+	vivo:abbreviation "R3"^^xsd:string ;
+	dcterms:description "Software meets domain-relevant community standards."@en .
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .

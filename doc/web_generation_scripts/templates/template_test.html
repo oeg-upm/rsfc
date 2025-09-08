@@ -37,7 +37,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12"> 
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='https://oeg-upm.github.io/fair_ontologies/doc/catalog.html#test'" style="position: absolute; top: 10px; right: 10px;">Back</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='https://oeg-upm.github.io/rsfc/doc/catalog.html#test'" style="position: absolute; top: 10px; right: 10px;">Back</button>
                     <h1 class="miClase text-center">{{test_name}}</h1>
                 </div>
             </div>
@@ -94,6 +94,18 @@
                 <div class="col-md-3 well tag_div"> <strong>Repository</strong></div>
                 <div class="col-md-9 well"> <a href="{{test_repository}}" target="_blank"> {{test_repository}} </a> </div>
             </div>
+            <div class="row row-equal">
+                <div class="col-md-3 well tag_div"><strong>Dimension</strong></div>
+                    <div class="col-md-9 well">
+                        <ul>
+                            {{#dimensions_test}}
+                            <li>
+                                <a href="{{uri}}" target="_blank">{{name}}</a>: {{description}}
+                            </li>
+                            {{/dimensions_test}}
+                        </ul>
+                    </div>
+                </div>
             <div class="row row-equal">
                 <div class="col-md-3 well tag_div"> <strong>Applicable for</strong></div>
                 <div class="col-md-9 well"> <a href="{{test_applicable_for}}" target="_blank"> {{test_applicable_for}} </a> </div>

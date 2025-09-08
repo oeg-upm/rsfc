@@ -23,6 +23,7 @@
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-17-2> ;
+    dqv:inDimension  <https://w3id.org/fair/principles/terms/R1.2>;
     dcat:keyword "Active"@en , "Repository"@en , 
                  "Test"@en ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
@@ -35,6 +36,10 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/fair/principles/terms/R1.2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R1.2"^^xsd:string ;
+	vivo:abbreviation "R1.2"^^xsd:string ;
+	dcterms:description "Software is associated with detailed provenance."@en .
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .
