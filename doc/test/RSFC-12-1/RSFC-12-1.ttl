@@ -21,7 +21,7 @@
     dcterms:description """This test checks if there is a referencePublication or a citation file to a paper. This is done by looking for an article citation in the README file, for a CITATION.cff file or a referencePublication field in the codemeta.json file."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-    dqv:inDimension  <https://w3id.org/fair/principles/terms/I2>;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.6d7a69>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-12-1> ;
     dcat:keyword "Citation"@en , "Reference Publication"@en , 
@@ -36,7 +36,7 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
-<https://w3id.org/fair/principles/terms/I2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.6d7a69> 
 	rdfs:label "I2"^^xsd:string ;
 	vivo:abbreviation "I2"^^xsd:string ;
 	dcterms:description "Software includes qualified references to other objects"@en .

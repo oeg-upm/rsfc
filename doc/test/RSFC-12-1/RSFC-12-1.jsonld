@@ -1,29 +1,36 @@
 [
     {
-        "@id": "https://ror.org/03n6nwv02",
+        "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
+            "http://www.w3.org/2006/vcard/ns#Individual"
         ],
-        "http://purl.org/dc/terms/identifier": [
+        "http://www.w3.org/2006/vcard/ns#fn": [
             {
-                "@value": "https://ror.org/02h3v0f81"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
             }
         ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@value": "Universidad Politécnica de Madrid"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://www.upm.es/"
+                "@id": "mailto:dgarijo@upm.es"
             }
         ]
     },
     {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
+        "@id": "https://github.com/andriumon",
         "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
         ]
     },
     {
@@ -41,19 +48,44 @@
         ]
     },
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
+        "@id": "https://doi.org/10.25504/FAIRsharing.6d7a69",
+        "http://purl.org/dc/terms/description": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
+                "@language": "en",
+                "@value": "Software includes qualified references to other objects"
             }
         ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+        "http://vivoweb.org/ontology/core#abbreviation": [
             {
-                "@id": "mailto:dgarijo@upm.es"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "I2"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "I2"
+            }
+        ]
+    },
+    {
+        "@id": "https://ror.org/03n6nwv02",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
             }
         ]
     },
@@ -150,7 +182,7 @@
         ],
         "http://www.w3.org/ns/dqv#inDimension": [
             {
-                "@id": "https://w3id.org/fair/principles/terms/I2"
+                "@id": "https://doi.org/10.25504/FAIRsharing.6d7a69"
             }
         ],
         "https://w3id.org/dpv#isApplicableFor": [
@@ -181,44 +213,9 @@
         ]
     },
     {
-        "@id": "https://w3id.org/fair/principles/terms/I2",
+        "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
         "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
-        ],
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software includes qualified references to other objects"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "I2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "I2"
-            }
-        ]
-    },
-    {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     }
 ]

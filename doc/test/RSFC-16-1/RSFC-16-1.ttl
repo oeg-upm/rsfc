@@ -21,7 +21,7 @@
     dcterms:description """This test checks if metadata files like codemeta.json, CITATION.cff or package file contain a link to the repository license. This is done by looking if a license field is within said files."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-	dqv:inDimension  <https://w3id.org/fair/principles/terms/R1.1>;
+	dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.95c69f>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-16-1> ;
     dcat:keyword "Metadata"@en , "Codemeta"@en , "Citation"@en , "Repository"@en , 
@@ -36,7 +36,7 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
-<https://w3id.org/fair/principles/terms/R1.1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.95c69f> 
 	rdfs:label "R1.1"^^xsd:string ;
 	vivo:abbreviation "R1.1"^^xsd:string ;
 	dcterms:description "Software is given a clear and accessible licence."@en .

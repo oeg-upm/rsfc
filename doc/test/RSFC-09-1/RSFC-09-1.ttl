@@ -23,7 +23,7 @@
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-09-1> ;
-    dqv:inDimension  <https://w3id.org/fair/principles/terms/A1>, <https://w3id.org/fair/principles/terms/A1.1>,<https://w3id.org/fair/principles/terms/A1.2>, <https://w3id.org/fair/principles/terms/R3>;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.b93697>, <https://doi.org/10.25504/FAIRsharing.6fff5e>,<https://doi.org/10.25504/FAIRsharing.0c61dd>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:keyword "URL"@en , "Github"@en , 
                  "Test"@en ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
@@ -36,23 +36,23 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
-<https://w3id.org/fair/principles/terms/F4> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.aeef8a> 
 	rdfs:label "F4"^^xsd:string ;
 	vivo:abbreviation "F4"^^xsd:string ;
 	dcterms:description "Metadata are FAIR, searchable and indexable."@en .
-<https://w3id.org/fair/principles/terms/A1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.b93697> 
 	rdfs:label "A1"^^xsd:string ;
 	vivo:abbreviation "A1"^^xsd:string ;
 	dcterms:description "Software is retrievable by its identifier using a standardised communications protocol."@en .
-<https://w3id.org/fair/principles/terms/A1.1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.6fff5e> 
 	rdfs:label "A1.1"^^xsd:string ;
 	vivo:abbreviation "A1.1"^^xsd:string ;
 	dcterms:description "The protocol is open, free, and universally implementable."@en .
-<https://w3id.org/fair/principles/terms/A1.2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.0c61dd> 
 	rdfs:label "A1.2"^^xsd:string ;
 	vivo:abbreviation "A1.2"^^xsd:string ;
 	dcterms:description "The protocol allows for an authentication and authorization procedure, where necessary."@en .
-<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.60a40f> 
 	rdfs:label "R3"^^xsd:string ;
 	vivo:abbreviation "R3"^^xsd:string ;
 	dcterms:description "Software meets domain-relevant community standards."@en .
