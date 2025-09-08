@@ -562,7 +562,7 @@ def test_identifier_in_readme_citation(somef_data, cff_data):
         readme = True
         
     if cff_data != None:
-        if "identifiers" in cff_data:
+        if cff_data["identifiers"] != None:
             citation = True
         
     if readme and not citation:
@@ -584,29 +584,43 @@ def test_identifier_in_readme_citation(somef_data, cff_data):
     return check.convert()
 
 
-
-def test_identifier_resolves_to_software(somef_data): #CAMBIAR. Este debe coger el id que este en el readme, codemeta o cff y mirar que resuelva a la url del software
+def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, sw): #CAMBIAR. Este debe coger el id que este en el readme, codemeta o cff y mirar que resuelva a la url del software
     
     output = "false"
-    
+    evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
+    identifier = None
+    pause = False
+
     if 'identifier' in somef_data:
         for item in somef_data['identifier']:
             if item['source']:
                 if 'README' in item['source']:
-                    id = item['result']['value']
+                    identifier = item['result']['value']
+                    pause = True
+                    break
                     
-                    response = requests.head(id, allow_redirects=True, timeout=5)
-                    if response.status_code == 200:
-                        output = "true"
-                        evidence = constants.EVIDENCE_ID_RESOLVES
-                    else:
-                        evidence = constants.EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER
-                        break
-                else:
-                    evidence = constants.EVIDENCE_NO_DOCUMENTATION_README
-    else:
-        output = "false"
-        evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
+    if not pause and codemeta_data != None and codemeta_data['identifier']:
+        identifier = codemeta_data['identifier']
+        
+    if not pause and cff_data != None and cff_data['identifiers'] != None:
+        identifier = cff_data['identifiers'][0]['value']
+        
+    if identifier:
+        doi_url = rsfc_helpers.normalize_identifier_url(identifier)
+        try:
+            resp = requests.get(doi_url, allow_redirects=True, timeout=10)
+            html = resp.text
+            
+            if rsfc_helpers.landing_page_links_back(html, sw.url):
+                output = "true"
+                evidence = constants.EVIDENCE_DOI_LINKS_BACK_TO_REPO
+            else:
+                output = "false"
+                evidence = constants.EVIDENCE_DOI_NO_LINK_BACK_TO_REPO
+                
+        except requests.RequestException:
+            output = "false"
+            evidence = constants.EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER
 
 
     check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-2', constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence)
@@ -887,6 +901,26 @@ def test_license_spdx_compliant(somef_data):
             evidence = constants.EVIDENCE_LICENSE_NOT_CLEAR
             
     check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-2', constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
+    
+    return check.convert()
+
+
+def test_license_information_provided(somef_data):
+    
+    if 'license' not in somef_data:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_LICENSE
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_LICENSE_INFORMATION_PROVIDED
+        for item in somef_data['license']:
+            if 'source' in item:
+                if 'README' in item['source']:
+                    output = "true"
+                    evidence = constants.EVIDENCE_LICENSE_INFORMATION_PROVIDED
+                    
+                
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-3', constants.PROCESS_LICENSE_INFORMATION_PROVIDED, output, evidence)
     
     return check.convert()
 

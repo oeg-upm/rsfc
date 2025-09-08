@@ -9,17 +9,15 @@ class CFFHarvester:
     
     
     def get_cff_file(self, sw):
-        req_url = sw.base_url + '/contents/CITATION.cff'
         
         try:
             if sw.repo_type == "GITHUB":
-                req_url = sw.base_url + '/contents/codemeta.json'
+                req_url = sw.base_url + '/contents/CITATION.cff'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
                 params = {'ref': sw.repo_branch}
-
                 response = requests.get(req_url, headers=headers, params=params)
                 response.raise_for_status()
-                return response.json()
+                return yaml.safe_load(response.text)
             elif sw.repo_type == "GITLAB":
                 project_path_encoded = sw.base_url.split("/projects/")[-1]
                 branch = sw.repo_branch or "main"
@@ -55,7 +53,7 @@ class CFFHarvester:
             if "version" in cff:
                 cff_info["version"] = cff["version"]
                 
-            if "idenfiers" in cff:
+            if "identifiers" in cff:
                 cff_info["identifiers"] = cff["identifiers"]
                 
             if "preferred-citation" in cff:

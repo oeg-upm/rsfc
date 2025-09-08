@@ -10,7 +10,7 @@ class Indicator:
                 (rt.test_id_associated_with_software, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
                 (rt.test_id_common_schema, [somef.somef_data]),
                 (rt.test_identifier_in_readme_citation, [somef.somef_data, cf.cff_data]),
-                (rt.test_identifier_resolves_to_software, [somef.somef_data])
+                (rt.test_identifier_resolves_to_software, [somef.somef_data, cd.codemeta_data, cf.cff_data, sw])
             ],
             "requirements_specified": [
                 (rt.test_dependencies_declared, [somef.somef_data]),
@@ -43,7 +43,8 @@ class Indicator:
             "software_has_license": [
                 (rt.test_has_license, [somef.somef_data]),
                 (rt.test_license_spdx_compliant, [somef.somef_data]),
-                (rt.test_license_info_in_metadata_files, [somef.somef_data, cd.codemeta_data, cf.cff_data])
+                (rt.test_license_info_in_metadata_files, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
+                (rt.test_license_information_provided, [somef.somef_data])
             ],
             "descriptive_metadata": [
                 (rt.test_authors, [somef.somef_data, cd.codemeta_data, cf.cff_data]),
