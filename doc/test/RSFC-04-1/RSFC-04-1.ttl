@@ -21,7 +21,7 @@
     dcterms:description """This test checks if a codemeta.json, CITATION.cff file or package file that includes metadata about a software component exists. This is done by looking for CITATION.cff, codemeta.json and package files (e.g., setup.py, setup.cfg, pom.xml, etc.) in the root of the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-    dqv:inDimension  <https://w3id.org/fair/principles/terms/F2>, <https://w3id.org/fair/principles/terms/R1>, <https://w3id.org/fair/principles/terms/R3>;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-04-1> ;
     dcat:keyword "Metadata"@en ,
@@ -36,15 +36,15 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
-<https://w3id.org/fair/principles/terms/F2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.a712f1> 
 	rdfs:label "F2"^^xsd:string ;
 	vivo:abbreviation "F2"^^xsd:string ;
 	dcterms:description "Software is described with rich metadata."@en .
-<https://w3id.org/fair/principles/terms/R1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.9bf822>
 	rdfs:label "R1"^^xsd:string ;
 	vivo:abbreviation "R1"^^xsd:string ;
 	dcterms:description "Software is described with a plurality of accurate and relevant attributes."@en .
-<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.60a40f> 
 	rdfs:label "R3"^^xsd:string ;
 	vivo:abbreviation "R3"^^xsd:string ;
 	dcterms:description "Software meets domain-relevant community standards."@en .

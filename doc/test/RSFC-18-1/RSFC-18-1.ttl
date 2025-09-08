@@ -21,6 +21,7 @@
     dcterms:description """This test checks if there is a CITATION.cff file or citations made in the README file. This is done by looking in the root of the repository for a CITATION.cff file and by checking if the README file contains citations."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.6d7a69> ;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-18-1> ;
     dcat:keyword "Citation"@en , "Readme"@en , 
@@ -35,6 +36,10 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://doi.org/10.25504/FAIRsharing.6d7a69> 
+	rdfs:label "I2"^^xsd:string ;
+	vivo:abbreviation "I2"^^xsd:string ;
+	dcterms:description "Software includes qualified references to other objects"@en .
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .

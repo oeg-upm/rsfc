@@ -21,7 +21,7 @@
     dcterms:description """This test checks if authors have an ORCID assigned. This is done by looking for authors in the codemeta.json or AUTHORS files and checking if all of them have an ORCID assigned."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-    dqv:inDimension  <https://w3id.org/fair/principles/terms/F2>, <https://w3id.org/fair/principles/terms/R3>;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-06-3> ;
     dcat:keyword "Author"@en , "Rol"@en , 
@@ -39,11 +39,11 @@
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .
-<https://w3id.org/fair/principles/terms/F2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.a712f1> 
 	rdfs:label "F2"^^xsd:string ;
 	vivo:abbreviation "F2"^^xsd:string ;
 	dcterms:description "Software is described with rich metadata."@en .
-<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.60a40f> 
 	rdfs:label "R3"^^xsd:string ;
 	vivo:abbreviation "R3"^^xsd:string ;
 	dcterms:description "Software meets domain-relevant community standards."@en .

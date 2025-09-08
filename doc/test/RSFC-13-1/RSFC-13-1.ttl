@@ -21,7 +21,7 @@
     dcterms:description """This test checks if dependencies are declared in the repository. This is achieved by checking if there are dependencies listed in the README file or other files like requirements.txt and pom.xml."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-	dqv:inDimension  <https://w3id.org/fair/principles/terms/R1>, <https://w3id.org/fair/principles/terms/R2>;
+	dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.cda381>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-13-1> ;
     dcat:keyword "Dependencies"@en , 
@@ -36,11 +36,11 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
-<https://w3id.org/fair/principles/terms/R1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.9bf822> 
 	rdfs:label "R1"^^xsd:string ;
 	vivo:abbreviation "R1"^^xsd:string ;
 	dcterms:description "Software is described with a plurality of accurate and relevant attributes."@en .
-<https://w3id.org/fair/principles/terms/R2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+<https://doi.org/10.25504/FAIRsharing.cda381> 
 	rdfs:label "R2"^^xsd:string ;
 	vivo:abbreviation "R2"^^xsd:string ;
 	dcterms:description "Software includes qualified references to other software."@en .
