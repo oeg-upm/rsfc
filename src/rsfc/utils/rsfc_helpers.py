@@ -1,16 +1,16 @@
 from datetime import datetime
 import regex as re
 import base64
+from bs4 import BeautifulSoup
 import requests
 from rsfc.utils import constants
 from concurrent.futures import ThreadPoolExecutor, as_completed
   
-def get_gitlab_default_branch(base_url, repo_type):
-    if repo_type == "GITLAB":
-        res = requests.get(base_url)
-        res.raise_for_status()
-        data = res.json()
-        return data.get("default_branch", "main")
+def get_repo_default_branch(base_url):
+    res = requests.get(base_url)
+    res.raise_for_status()
+    data = res.json()
+    return data.get("default_branch", "main")
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')
@@ -93,12 +93,12 @@ def subtest_author_orcids(file_data):
     return True
         
 
-
 def build_url_pattern(url):
     base_url = url.rsplit('/', 1)[0]
     escaped = re.escape(base_url)
     pattern_str = f"^{escaped}/\\d+$"
     return re.compile(pattern_str)
+
 
 def get_latest_release(repo_data):
     if 'releases' in repo_data:
@@ -156,3 +156,55 @@ def cross_check_any_issue(issues, commits, max_workers=8):
                 executor.shutdown(cancel_futures=True)
                 return True
     return False
+
+
+def normalize_identifier_url(identifier):
+
+    identifier = identifier.strip()
+    lower = identifier.lower()
+
+    #Already normalized
+    if lower.startswith("https://doi.org/") or lower.startswith("http://doi.org/"):
+        return identifier
+
+    #Raw DOI
+    if re.match(constants.DOI_SCHEMA_REGEX, identifier, re.IGNORECASE):
+        return f"https://doi.org/{identifier}"
+
+    #DOI prefix
+    if lower.startswith("doi:"):
+        doi = identifier.split(":", 1)[1].strip()
+        return f"https://doi.org/{doi}"
+
+    #Other
+    if lower.startswith(("http://", "https://")):
+        try:
+            resp = requests.head(identifier, allow_redirects=True)
+            return resp.url
+        except requests.RequestException:
+            return identifier
+
+    #Fallback
+    return identifier
+
+
+def landing_page_links_back(lp_html, repo_url):
+    
+    if not lp_html:
+        return False
+    
+    repo_norm = repo_url.rstrip("/").lower()
+    soup = BeautifulSoup(lp_html, "html.parser")
+
+    for a in soup.find_all("a", href=True):
+        if repo_norm in a["href"].rstrip("/").lower():
+            return True
+
+    for m in soup.find_all("meta"):
+        content = (m.get("content") or "").lower()
+        if repo_norm in content:
+            return True
+
+    return False
+
+

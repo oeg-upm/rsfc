@@ -12,7 +12,7 @@ class AssessedSoftware:
         self.name = self.get_soft_name()
         self.version = self.get_soft_version()
         self.id = None
-        self.repo_branch = rsfc_helpers.get_gitlab_default_branch(self.base_url, self.repo_type)
+        self.repo_branch = rsfc_helpers.get_repo_default_branch(self.base_url)
         
         
     def get_repo_base_url(self):

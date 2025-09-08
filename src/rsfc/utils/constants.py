@@ -73,7 +73,7 @@ PROCESS_REFERENCE_PUBLICATION = 'Searches for an article citation or a reference
 PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY = 'Checks if the URL provided is indeed a Github or Gitlab repository'
 PROCESS_ZENODO_SOFTWARE_HERITAGE = 'Searches for Zenodo and Software Heritage badges in the README file of the repository'
 PROCESS_IDENTIFIER_IN_README_CITATION = 'Searches for an identifier in the README or CITATION.cff files of the repository'
-PROCESS_ID_RESOLVES_TO_SOFTWARE = 'Checks if the identifier found in the README file of the repository resolves to the software'
+PROCESS_ID_RESOLVES_TO_SOFTWARE = 'Checks if the identifier found in the README file or metadata files (i.e. codemeta.json, CITATION.cff) resolves to a page that links back to the software repository'
 PROCESS_AUTHORS = 'Searches for authors in various files of the repository (i.e. CITATION.cff, AUTHORS.md, codemeta.json)'
 PROCESS_CONTRIBUTORS = "Searches for contributors in various files of the repository (i.e. codemeta.json, pyproject.toml, pom.xml)'"
 PROCESS_AUTHOR_ORCIDS = 'Checks if all authors stated in the CITATION.cff file have an ORCID assigned'
@@ -81,6 +81,7 @@ PROCESS_AUTHOR_ROLES = 'Checks if all authors stated in a codemeta.json file hav
 PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is indicated in the CITATION.cff, codemeta.json or package files(i.e. pyproject.toml, pom.xml, etc.)'
 PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
 PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
+PROCESS_LICENSE_INFORMATION_PROVIDED = 'Checks if license information is found in the README file of the repository'
 
 
 #Evidences
@@ -108,6 +109,7 @@ EVIDENCE_REPO_STATUS = 'A repo status badge was found in the repository'
 EVIDENCE_CONTACT_INFO = 'Contact and support information was found in the repository'
 EVIDENCE_SPDX_COMPLIANT = 'Licenses are SPDX compliant'
 EVIDENCE_LICENSE_INFO_IN_METADATA = 'License information was found in metadata files'
+EVIDENCE_LICENSE_INFORMATION_PROVIDED = 'License information was found in the README file of the repository'
 EVIDENCE_TICKETS = 'Tickets/Issues were found in the repository'
 EVIDENCE_REPO_ENABLED_AND_HAS_COMMITS = 'Repository is enabled and has commits'
 EVIDENCE_AUTHOR_ORCIDS_CODEMETA = 'All authors in the codemeta.json file have an orcid identifier'
@@ -139,6 +141,7 @@ EVIDENCE_METADATA_EXISTS = 'Found codemeta, citation and package files in the re
 EVIDENCE_VERSION_IN_METADATA = 'Found the software version in one of the specified files'
 EVIDENCE_CONTRIBUTORS = 'Found contributors metadata in the codemeta or package files'
 EVIDENCE_COMMITS_LINKED_TO_ISSUES = 'There is at least one commit linked to an issue'
+EVIDENCE_DOI_LINKS_BACK_TO_REPO = "The landing page of the software's identifier links back to the software repository"
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
@@ -165,6 +168,7 @@ EVIDENCE_NO_REPO_STATUS = 'Could not find a repo status badge in the repository'
 EVIDENCE_NO_CONTACT_INFO = 'Could not find any of the following information: '
 EVIDENCE_NO_SPDX_COMPLIANT = 'There is one or more licenses that are not SPDX compliant'
 EVIDENCE_NO_LICENSE_INFO_IN_METADATA = 'Could not find any licensing information in the following metadata files: '
+EVIDENCE_NO_LICENSE_INFORMATION_PROVIDED = 'Could not find license information in the README file of the repository'
 EVIDENCE_NO_TICKETS = 'Could not find tickets/issues in the repository'
 EVIDENCE_NO_REPO_ENABLED = 'Repository is not enabled'
 EVIDENCE_NO_COMMITS = 'Could not find any commits in the repository'
@@ -196,6 +200,7 @@ EVIDENCE_NO_METADATA_EXISTS = 'Could not find any of the following metadata file
 EVIDENCE_NO_VERSION_IN_METADATA = 'Could not find a version number for the software in any of the specified files'
 EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO = 'Could not get the necessary information to perform the test, it being the commits record or repository issues'
 EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any issues in the repository'
+EVIDENCE_DOI_NO_LINK_BACK_TO_REPO = "The landing page of the software's identifier does not link back to the software repository"
 
 
 #Dictionaries
