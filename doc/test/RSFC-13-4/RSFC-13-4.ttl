@@ -21,6 +21,7 @@
     dcterms:description """This test checks if dependencies are in a machine-readable file (not just in README). This is done by checking if there is a machine-readable file like requirements.txt or pom.xml in the root of the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+	dqv:inDimension  <https://w3id.org/fair/principles/terms/R1>, <https://w3id.org/fair/principles/terms/R2>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-13-4> ;
     dcat:keyword "Machine-readable"@en , 
@@ -35,6 +36,14 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/fair/principles/terms/R1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R1"^^xsd:string ;
+	vivo:abbreviation "R1"^^xsd:string ;
+	dcterms:description "Software is described with a plurality of accurate and relevant attributes."@en .
+<https://w3id.org/fair/principles/terms/R2> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R2"^^xsd:string ;
+	vivo:abbreviation "R2"^^xsd:string ;
+	dcterms:description "Software includes qualified references to other software."@en .
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .

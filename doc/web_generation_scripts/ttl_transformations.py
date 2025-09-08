@@ -18,8 +18,9 @@ PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX doap: <http://usefulinc.com/ns/doap#>
 PREFIX dpv: <https://w3id.org/dpv#> 
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
 
-SELECT DISTINCT ?s ?title ?label ?description ?keywords ?version ?label_dimension ?desc_dimension ?license
+SELECT DISTINCT ?s ?title ?label ?description ?keywords ?version ?dimension ?label_dimension ?desc_dimension ?license
 ?publisher_uri ?publisher_label ?metric ?creator_name ?creator_orcid ?contact_orcid ?contact_name ?contact_mail 
 ?applicable_for ?supported_by ?web_repository
 WHERE {
@@ -29,6 +30,11 @@ WHERE {
     ?s dcterms:description ?description .
     ?s dcterms:license ?license .
     ?s dcterms:publisher ?publisher_uri .
+    OPTIONAL {
+        ?s dqv:inDimension ?dimension .
+        OPTIONAL { ?dimension rdfs:label ?label_dimension . }
+        OPTIONAL { ?dimension dcterms:description ?desc_dimension . }
+    }
     ?publisher_uri rdfs:label ?publisher_label .
     ?s dcat:keyword ?keywords .
     ?s dcat:version ?version .
@@ -42,6 +48,7 @@ WHERE {
     ?s dcat:contactPoint ?contact_orcid .
     ?contact_orcid vcard:fn ?contact_name .
     ?contact_orcid vcard:hasEmail ?contact_mail .
+
 }
 """
 
@@ -181,6 +188,9 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         'test_description': '',
         'test_keywords': '',
         'test_version': '',
+        'test_uri_dimension': '',
+        'test_dimension': '',
+        'test_desc_dimension': '',
         'test_license': '',
         'test_publisher': '',
         'test_metric': '',
@@ -204,6 +214,8 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     contacts = []
     contacts_orcid = []
     contacts_mail = []
+
+    dimension_map = {}
 
     for row in results:
         data['test_identifier'] = row.s
@@ -243,6 +255,17 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         if str(row.publisher_uri) not in publishers_link:
             publishers_link.append(str(row.publisher_uri))
 
+        if row.dimension:
+            uri = str(row.dimension)
+            label = str(row.label_dimension) if row.label_dimension else ""
+            desc = str(row.desc_dimension) if row.desc_dimension else ""
+
+            if uri not in dimension_map:
+                dimension_map[uri] = {
+                    "name": label,
+                    "description": desc
+                }
+
     all_keywords = ", ".join(keywords)
 
     # hay que hacer una transformación porque ahora tenemos dos arrays con los nombres
@@ -262,7 +285,10 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     for name, uri in zip(publishers, publishers_link):
         result_publishers.append(f'<a href="{uri}" target="_blank">{name}</a>')
 
-
+    result_dimensions = [
+        {"uri": uri, "name": data["name"], "description": data["description"]}
+        for uri, data in dimension_map.items()
+    ]
     all_creators = ', '.join(result)
     all_contacts = ', '.join(result_contacts)
     all_publishers = ', '.join(result_publishers)
@@ -271,6 +297,7 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     data['test_creators'] = all_creators
     data['test_contactPoint'] = all_contacts
     data['test_publishers'] = all_publishers
+    data['dimensions_test'] = result_dimensions
 
     # Cargar la plantilla mustache
     with open(path_mustache, 'r', encoding="utf-8") as template_file:

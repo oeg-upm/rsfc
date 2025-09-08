@@ -21,6 +21,7 @@
     dcterms:description """This test checks if there is at least one persistent identifier (i.e., Software Heritage ID, Zenodo DOI) in the README file of the source code repository and if said identifier resolves."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+    dqv:inDimension <https://w3id.org/fair/principles/terms/F1>, <https://w3id.org/fair/principles/terms/R3>;	
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-01-1> ;
     dcat:keyword "Identifier resolve"@en ,
@@ -42,6 +43,14 @@
     dcterms:identifier "https://ror.org/02h3v0f81" ;
     rdfs:label "Universidad Politécnica de Madrid" ;
     vcard:url <https://www.upm.es/> .
+<https://w3id.org/fair/principles/terms/F1> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "F1"^^xsd:string ;
+	vivo:abbreviation "F1"^^xsd:string ;
+	dcterms:description "Software is assigned a globally unique and persistent identifier."@en .
+<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R3"^^xsd:string ;
+	vivo:abbreviation "R3"^^xsd:string ;
+	dcterms:description "Software meets domain-relevant community standards."@en .
 <https://w3id.org/rsfc/repository>
     foaf:homePage <https://github.com/oeg-upm/rsfc> ;
     dcterms:description "Main repository for Research Software Quality Checks (RSFC) code and documentation"@en .

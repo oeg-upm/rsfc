@@ -21,6 +21,7 @@
     dcterms:description """This test checks if an identifier is found in the README or CITATION.cff files. This is done by looking for an identifier in the CITATION.cff and README files in the root of the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+    dqv:inDimension  <https://w3id.org/fair/principles/terms/F3>, <https://w3id.org/fair/principles/terms/R3>;
     dcat:version "0.0.1"^^xsd:string ;
     dcterms:identifier <https://w3id.org/rsfc/test/RSFC-07-1> ;
     dcat:keyword "Identifier"@en , "Readme"@en , "Citation"@en , 
@@ -35,6 +36,14 @@
 <https://github.com/andriumon> a vcard:Individual ;
     vcard:fn "Andres Montero"^^xsd:string ;
     vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
+<https://w3id.org/fair/principles/terms/F3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "F3"^^xsd:string ;
+	vivo:abbreviation "F3"^^xsd:string ;
+	dcterms:description "Metadata clearly and explicitly include the identifier of the software they describe."@en .
+<https://w3id.org/fair/principles/terms/R3> a <https://w3id.org/fair/principles/terms/FAIR-SubPrinciple> ;
+	rdfs:label "R3"^^xsd:string ;
+	vivo:abbreviation "R3"^^xsd:string ;
+	dcterms:description "Software meets domain-relevant community standards."@en .
 <https://oeg.fi.upm.es> a vcard:Organization ;
     rdfs:label "Ontology Engineering Group" ;
     vcard:url <https://oeg.fi.upm.es/> .
