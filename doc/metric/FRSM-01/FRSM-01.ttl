@@ -34,6 +34,7 @@ Source: This metric is an instance of FSRM-01, developed within the FAIR-IMPACT 
                     <https://github.com/andriumon> ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.99299d>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
 	dcat:version "1.1"^^xsd:string ;
 	dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
 	dcat:keyword  "Metric"@en, "FAIR"@en ;
