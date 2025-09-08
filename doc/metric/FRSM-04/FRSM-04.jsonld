@@ -1,103 +1,5 @@
 [
     {
-        "@id": "https://w3id.org/fair/principles/terms/R1",
-        "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
-        ],
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software is described with a plurality of accurate and relevant attributes."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
-            }
-        ]
-    },
-    {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/fair/principles/terms/F2",
-        "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
-        ],
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software is described with rich metadata."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
-            }
-        ]
-    },
-    {
-        "@id": "https://ror.org/03n6nwv02",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://ror.org/02h3v0f81"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Universidad Politécnica de Madrid"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://www.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-04-1",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-04-4",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
         "@id": "https://w3id.org/rsfc/metric/FRSM-04",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
@@ -197,13 +99,13 @@
         ],
         "http://www.w3.org/ns/dqv#inDimension": [
             {
-                "@id": "https://w3id.org/fair/principles/terms/F2"
+                "@id": "https://doi.org/10.25504/FAIRsharing.a712f1"
             },
             {
-                "@id": "https://w3id.org/fair/principles/terms/R1"
+                "@id": "https://doi.org/10.25504/FAIRsharing.9bf822"
             },
             {
-                "@id": "https://w3id.org/fair/principles/terms/R3"
+                "@id": "https://doi.org/10.25504/FAIRsharing.60a40f"
             }
         ],
         "https://w3id.org/dpv#isApplicableFor": [
@@ -229,48 +131,44 @@
         ]
     },
     {
-        "@id": "https://w3id.org/fair/principles/terms/R3",
-        "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
-        ],
+        "@id": "https://doi.org/10.25504/FAIRsharing.9bf822",
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "Software meets domain-relevant community standards."
+                "@value": "Software is described with a plurality of accurate and relevant attributes."
             }
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R3"
+                "@value": "R1"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R3"
+                "@value": "R1"
             }
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-04-5",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
+        "@id": "https://ror.org/03n6nwv02",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Organization"
         ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@value": "Ontology Engineering Group"
+                "@value": "Universidad Politécnica de Madrid"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#url": [
             {
-                "@id": "https://oeg.fi.upm.es/"
+                "@id": "https://www.upm.es/"
             }
         ]
     },
@@ -292,13 +190,73 @@
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-04-3",
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-1",
         "@type": [
             "https://w3id.org/ftr#Test"
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-04-2",
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-5",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://doi.org/10.25504/FAIRsharing.a712f1",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is described with rich metadata."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-4",
         "@type": [
             "https://w3id.org/ftr#Test"
         ]
@@ -318,6 +276,39 @@
             {
                 "@language": "en",
                 "@value": "General Benchmark for RSFC"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-3",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-04-2",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://doi.org/10.25504/FAIRsharing.60a40f",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software meets domain-relevant community standards."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R3"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R3"
             }
         ]
     }

@@ -1,38 +1,6 @@
 [
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-6",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-1",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://w3id.org/fair/principles/terms/F1.2",
-        "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
-        ],
+        "@id": "https://doi.org/10.25504/FAIRsharing.656e6c",
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
@@ -49,27 +17,6 @@
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "F1.2"
-            }
-        ]
-    },
-    {
-        "@id": "https://ror.org/03n6nwv02",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://ror.org/02h3v0f81"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Universidad Politécnica de Madrid"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://www.upm.es/"
             }
         ]
     },
@@ -173,10 +120,10 @@
         ],
         "http://www.w3.org/ns/dqv#inDimension": [
             {
-                "@id": "https://w3id.org/fair/principles/terms/F1"
+                "@id": "https://doi.org/10.25504/FAIRsharing.99299d"
             },
             {
-                "@id": "https://w3id.org/fair/principles/terms/F1.2"
+                "@id": "https://doi.org/10.25504/FAIRsharing.656e6c"
             }
         ],
         "https://w3id.org/dpv#isApplicableFor": [
@@ -202,44 +149,46 @@
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-4",
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-6",
         "@type": [
             "https://w3id.org/ftr#Test"
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-3",
+        "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-2",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://w3id.org/fair/principles/terms/F1",
-        "@type": [
-            "https://w3id.org/fair/principles/terms/FAIR-SubPrinciple"
+            "http://www.w3.org/2006/vcard/ns#Individual"
         ],
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software is assigned a globally unique and persistent identifier."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
+        "http://www.w3.org/2006/vcard/ns#fn": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1"
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://ror.org/03n6nwv02",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1"
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
             }
         ]
     },
@@ -277,9 +226,30 @@
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-03-5",
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-4",
         "@type": [
             "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://doi.org/10.25504/FAIRsharing.99299d",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is assigned a globally unique and persistent identifier."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F1"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F1"
+            }
         ]
     },
     {
@@ -298,6 +268,30 @@
                 "@language": "en",
                 "@value": "General Benchmark for RSFC"
             }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-1",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-5",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-3",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-03-2",
+        "@type": [
+            "https://w3id.org/ftr#Test"
         ]
     }
 ]
