@@ -1051,7 +1051,7 @@ def test_commits_linked_issues(sw):
         commits_headers = {'Accept': 'application/vnd.github.v3.raw'}
         commits_response = requests.get(commits_url, headers=commits_headers)
 
-        issues_url = sw.base_url + "/issues"
+        issues_url = sw.base_url + "/issues?state=all"
         issues_headers = {'Accept': 'application/vnd.github.v3.raw'}
         issues_response = requests.get(issues_url, headers=issues_headers)
 
@@ -1060,7 +1060,7 @@ def test_commits_linked_issues(sw):
         commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
         commits_response = requests.get(commits_url)
 
-        issues_url = f"{sw.base_url}/issues"
+        issues_url = f"{sw.base_url}/issues?state=all"
         issues_response = requests.get(issues_url)
 
     else:
@@ -1074,6 +1074,7 @@ def test_commits_linked_issues(sw):
         
     if issues_response.status_code == 200:
         issues = issues_response.json()
+        
     else:
         issues = []
 

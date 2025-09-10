@@ -9,7 +9,7 @@ REGEX_SOFTWARE_HERITAGE_BADGE = r'https://archive\.softwareheritage\.org/badge/(
 
 #Issue reference Regex
 
-REGEX_ISSUE_REF = r"(?:closes|fixes)\s+#(\d+)"
+REGEX_ISSUE_REF = r"(?:closes|fixes)\s*(?:issue\s*)?\(?#(\d+)\)?"
 
 
 #Versioning Regex
