@@ -22,7 +22,7 @@
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
-    dcterms:identifier <https://w3id.org/rsfc/test/RSFC-05-2> ;
+    dcterms:identifier "https://w3id.org/rsfc/test/RSFC-05-2" ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:keyword "Contact"@en , "Supportr metadata"@en , 
                  "Test"@en ;

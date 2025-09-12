@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-16> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-16> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-16" ;
 	dcterms:title "Does the software metadata record include licensing information?"@en ;
 	dcterms:description """ 
 It is important for licensing information to be on the publicly searchable and accessible metadata record.

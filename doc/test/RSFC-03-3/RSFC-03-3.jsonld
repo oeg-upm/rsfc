@@ -1,40 +1,29 @@
 [
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://doi.org/10.25504/FAIRsharing.99299d",
+        "@id": "https://doi.org/10.25504/FAIRsharing.656e6c",
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "Software is assigned a globally unique and persistent identifier."
+                "@value": "Different versions of the software are assigned distinct identifiers."
             }
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1"
+                "@value": "F1.2"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1"
+                "@value": "F1.2"
             }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -51,20 +40,6 @@
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
                 "@id": "mailto:andres.montero.martin@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/repository",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
-            }
-        ],
-        "http://xmlns.com/foaf/0.1/homePage": [
-            {
-                "@id": "https://github.com/oeg-upm/rsfc"
             }
         ]
     },
@@ -90,6 +65,58 @@
         ]
     },
     {
+        "@id": "https://w3id.org/rsfc/repository",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
+            }
+        ],
+        "http://xmlns.com/foaf/0.1/homePage": [
+            {
+                "@id": "https://github.com/oeg-upm/rsfc"
+            }
+        ]
+    },
+    {
+        "@id": "https://doi.org/10.25504/FAIRsharing.99299d",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is assigned a globally unique and persistent identifier."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F1"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F1"
+            }
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
         "@id": "https://w3id.org/rsfc/test/RSFC-03-3",
         "@type": [
             "https://w3id.org/ftr#Test",
@@ -111,7 +138,7 @@
         ],
         "http://purl.org/dc/terms/identifier": [
             {
-                "@id": "https://w3id.org/rsfc/test/RSFC-03-3"
+                "@value": "https://w3id.org/rsfc/test/RSFC-03-3"
             }
         ],
         "http://purl.org/dc/terms/license": [
@@ -196,27 +223,6 @@
         ]
     },
     {
-        "@id": "https://doi.org/10.25504/FAIRsharing.656e6c",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Different versions of the software are assigned distinct identifiers."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1.2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F1.2"
-            }
-        ]
-    },
-    {
         "@id": "https://oeg.fi.upm.es",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Organization"
@@ -230,12 +236,6 @@
             {
                 "@id": "https://oeg.fi.upm.es/"
             }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/versioning_standards_use",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
         ]
     }
 ]

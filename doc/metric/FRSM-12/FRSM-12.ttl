@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-12> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-12> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-12" ;
 	dcterms:title "Does the software provide references to other objects that support its use?"@en ;
 	dcterms:description """ 
 Determining the usefulness of a piece of software is often aided by understanding what it is used with.

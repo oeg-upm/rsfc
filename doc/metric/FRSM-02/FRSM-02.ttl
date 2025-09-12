@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-02> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-02> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-02" ;
 	dcterms:title "Do the different components of the software have their own identifiers?"@en ;
 	dcterms:description """ 
 Conceptually, it is useful for identifiers to be assigned at a more granular level than just the software project (often synonymous with the “software concept” or “software project”). For instance a software product may consist of different modules, which in turn may be implemented by different files. This metric tests that these different components are not all assigned the same identifier, and that the relationship between components is embodied in the identifier metadata.

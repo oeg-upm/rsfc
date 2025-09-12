@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-01> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-01> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-01" ;
 	dcterms:title "Does the software have a globally unique and persistent identifier?"@en ;
 	dcterms:description """ 
 A software object may be assigned with a globally unique identifier

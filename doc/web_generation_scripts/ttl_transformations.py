@@ -142,8 +142,9 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ftr: <https://w3id.org/ftr#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#> 
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
 
-SELECT DISTINCT ?s ?title ?label ?version ?keywords ?license ?license_label
+SELECT DISTINCT ?s ?title ?label ?version ?keywords ?license ?license_label ?dimension ?label_dimension ?desc_dimension
 WHERE {
     ?s a ftr:Test .
     ?s dcterms:title ?title .
@@ -151,6 +152,9 @@ WHERE {
     ?s dcat:version ?version .
     ?s dcat:keyword ?keywords .
     ?s dcterms:license ?license .
+    ?s dqv:inDimension ?dimension .
+    ?dimension rdfs:label ?label_dimension .
+    ?dimension dcterms:description ?desc_dimension .
 }
 """
 
@@ -161,8 +165,9 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX dcat: <http://www.w3.org/ns/dcat#> 
 PREFIX ftr: <https://w3id.org/ftr#>
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
 
-SELECT DISTINCT ?s ?title ?label ?version ?keywords ?license ?license_label
+SELECT DISTINCT ?s ?title ?label ?version ?keywords ?license ?license_label ?dimension ?label_dimension ?desc_dimension
 WHERE {
     ?s a ftr:Benchmark .
     ?s dcterms:title ?title .
@@ -170,10 +175,12 @@ WHERE {
     ?s dcat:version ?version .
     ?s dcat:keyword ?keywords .
     ?s dcterms:license ?license .
+    OPTIONAL { ?s dqv:inDimension ?dimension .
+    ?dimension rdfs:label ?label_dimension .
+    ?dimension dcterms:description ?desc_dimension .}
 
 }
 """
-
 
 def ttl_to_html(path_ttl, path_mustache, pquery):
     """Create a html file from a ttl file"""
@@ -285,10 +292,12 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     for name, uri in zip(publishers, publishers_link):
         result_publishers.append(f'<a href="{uri}" target="_blank">{name}</a>')
 
+
     result_dimensions = [
         {"uri": uri, "name": data["name"], "description": data["description"]}
         for uri, data in dimension_map.items()
     ]
+    
     all_creators = ', '.join(result)
     all_contacts = ', '.join(result_contacts)
     all_publishers = ', '.join(result_publishers)
@@ -314,6 +323,18 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         output_file.write(rendered_output)
 
     print(f'Archivo creado: {path_html}')
+
+
+def extract_fair_group(name):
+    fair_groups = {
+    "F": "Findable",
+    "A": "Accessible",
+    "I": "Interoperable",
+    "R": "Reusable"
+    }   
+
+    initial = name[0] if name else ""
+    return fair_groups.get(initial, "")
 
 
 def ttl_to_html_metrics(path_ttl, path_mustache, pquery):
@@ -529,7 +550,7 @@ def ttl_to_html_benchmarks(path_ttl, path_mustache, pquery):
         data['benchmark_description'] = markdown.markdown(row.description)
         data['benchmark_version'] = row.version
         data['benchmark_license'] = row.license
-        data['benchmark_landing_page'] = row.landing_page
+        # data['benchmark_landing_page'] = row.landing_page
         data['benchmark_status'] = row.benchmark_status
         data['benchmark_turtle'] = row.label.replace('Benchmark ', '') + '.ttl'
         data['benchmark_same_as'] = row.same_as
@@ -566,9 +587,6 @@ def ttl_to_html_benchmarks(path_ttl, path_mustache, pquery):
             result.append(f'<a href="{orcid}" target="_blank">{nombre}</a>')
 
         result_metrics = []
-        # for name_metric, uri_metric in zip(metrics, metrics_uri):
-        #     result_metrics.append(
-        #         f'<a href="{uri_metric}" target="_blank">{name_metric}</a>')
             
         for name_metric, uri_metric in zip(metrics, metrics_uri):
             result_metrics.append({
@@ -583,12 +601,10 @@ def ttl_to_html_benchmarks(path_ttl, path_mustache, pquery):
                 f'<a href="{orcid}" target="_blank">{nombre}</a> at <a href="https://www.upm.es" target="_blank">upm.es</a>')
 
         all_creators = ', '.join(result)
-        # all_metrics = ', '.join(result_metrics)
         all_contacts = ', '.join(result_contacts)
 
     data['benchmark_keywords'] = all_keywords
     data['benchmark_creators'] = all_creators
-    # data['benchmark_metrics'] = all_metrics
     data['benchmark_metrics'] = result_metrics
     data['benchmark_contactPoint'] = all_contacts
 
@@ -671,7 +687,7 @@ def iterate_paths(path_source, path_destination, template, pquery, type_doc):
                 ttl_to_jsonld(path_ttl)
 
 
-def catalog_process(path_mustache_catalog, path_source):
+def catalog_process(path_mustache_catalog, path_mustache_index, path_source):
     ''' 
         init process to create catalog.html
     '''
@@ -689,10 +705,20 @@ def catalog_process(path_mustache_catalog, path_source):
     with open(path_mustache_catalog, 'r', encoding="utf-8") as template_file:
         template_content = template_file.read()
 
+    with open(path_mustache_index, 'r', encoding="utf-8") as template_file:
+        template_content_index = template_file.read()
+
     # sustituir la plantilla con los datos del diccionario
     renderer = pystache.Renderer()
     rendered_output = renderer.render(
         template_content, {'tests': tests_sorted,'benchmarks': benchmarks_sorted})
+
+    rendered_index = renderer.render(
+        template_content_index, {
+                           'number_test': f"{len(tests_sorted)} Tests",
+                           'number_benchmark': f"{len(benchmarks_sorted)} Benchmark"
+                            }
+                        )
 
     # path_catalog = os.path.join(path_source, 'doc', 'catalog.html')
     path_catalog = os.path.join(path_source, 'catalog.html')
@@ -700,6 +726,10 @@ def catalog_process(path_mustache_catalog, path_source):
     with open(path_catalog, 'w', encoding="utf-8") as output_file:
         output_file.write(rendered_output)
 
+    path_index = os.path.join(path_source, 'index.html')
+    print("Path index " + path_index)
+    with open(path_index, 'w', encoding="utf-8") as output_file:
+        output_file.write(rendered_index)
 
 def item_to_list(path, plist, pquery, type_doc):
 
@@ -729,6 +759,7 @@ def ttl_to_item_catalogue(path_ttl, pquery):
 
     data = {}
     keywords = []
+    dimension_map = {}
 
     for row in results:
 
@@ -754,8 +785,33 @@ def ttl_to_item_catalogue(path_ttl, pquery):
         if str(row.keywords) not in keywords:
             keywords.append(str(row.keywords))
 
+        if row.dimension:
+            uri = str(row.dimension)
+            label = str(row.label_dimension) if row.label_dimension else ""
+            desc = str(row.desc_dimension) if row.desc_dimension else ""
+
+            if uri not in dimension_map:
+                dimension_map[uri] = {
+                    "name": label,
+                    "description": desc
+                }
+
+    result_dimensions = [
+        {"uri": uri, "name": data["name"], "description": data["description"], "category": extract_fair_group(data["name"])}
+        for uri, data in dimension_map.items()
+    ]
+
+    principle_links = [
+        # f'<a href="{p["uri"]}" target="_blank">{p["name"]}</a>'
+        f'<span class="label label-success" onclick="window.open(\'{p["uri"]}\', \'_blank\')" style="cursor:pointer;">{p["name"]}</span>'
+        for p in result_dimensions
+    ]
+    categories = list(set(p["category"] for p in result_dimensions))
+
     all_keywords = ", ".join(keywords)
     data['keywords'] = all_keywords
+    data['principle'] =  " ".join(principle_links)
+    data['category'] = ', '.join(categories)
 
     return data
 
@@ -794,8 +850,9 @@ def main():
         current_dir, "templates" + os.sep + "template_benchmark.html")
     path_mustache_catalogo = os.path.join(
         current_dir, "templates" + os.sep + "template_catalog.html")
-    
-    print('------ iterate metrics')
+    path_mustache_index = os.path.join(
+        current_dir, "templates" + os.sep + "template_index.html")
+ 
     iterate_paths(path_source, path_destination,
                   path_mustache_test, QUERY, 'T')
     iterate_paths(path_source, path_destination,
@@ -807,7 +864,7 @@ def main():
     # lugar de hacerlo en dos scripts diferentes
     # enviamos el path_destino porque ya se deberían haber creado allí todos los documentos.
 
-    catalog_process(path_mustache_catalogo, path_destination)
+    catalog_process(path_mustache_catalogo, path_mustache_index,path_destination)
 
 
 if __name__ == "__main__":

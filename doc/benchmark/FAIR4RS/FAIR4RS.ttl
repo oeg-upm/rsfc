@@ -11,7 +11,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <https://w3id.org/rsfc/benchmark/FAIR4RS> a ftr:Benchmark ;
-	dcterms:identifier <https://w3id.org/rsfc/benchmark/FAIR4RS> ;
+	dcterms:identifier "https://w3id.org/rsfc/benchmark/FAIR4RS" ;
 	dcterms:title "General Benchmark for RSFC"@en ;
     rdfs:label "FAIR4RS Benchmark "^^xsd:string ;
     vivo:abbreviation "FAIR4RS Benchmark "^^xsd:string ;
@@ -47,59 +47,59 @@
 	vcard:fn "Andres Montero"^^xsd:string ;
 	vcard:hasEmail <mailto:andres.montero.martin@upm.es> .
 <https://w3id.org/everse/i/indicators/archived_in_scholarly_repository> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/archived_in_scholarly_repository> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/archived_in_scholarly_repository" ;
 	rdfs:label "Software is archived in a scholarly repository"^^xsd:string ;
     vivo:abbreviation "scholarly repository"^^xsd:string .
 <https://w3id.org/everse/i/indicators/codemeta_completeness> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/codemeta_completeness> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/codemeta_completeness" ;
 	rdfs:label "CodeMeta completeness"^^xsd:string ;
     vivo:abbreviation "completeness"^^xsd:string .
 <https://w3id.org/everse/i/indicators/descriptive_metadata> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/descriptive_metadata> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/descriptive_metadata" ;
 	rdfs:label "Software has descriptive metadata"^^xsd:string ;
     vivo:abbreviation "descriptive metadata"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_has_citation> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_citation> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/software_has_citation" ;
 	rdfs:label "Software uses citation"^^xsd:string ;
     vivo:abbreviation "uses citation"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_has_license> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_license> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/software_has_license" ;
 	rdfs:label "Software has license"^^xsd:string ;
     vivo:abbreviation "has license"^^xsd:string .
 <https://w3id.org/everse/i/indicators/has_no_linting_issues> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/has_no_linting_issues> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/has_no_linting_issues" ;
 	rdfs:label "Software has no linting issues"^^xsd:string ;
     vivo:abbreviation "no linting issues"^^xsd:string .
 <https://w3id.org/everse/i/indicators/listed_in_registry> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/listed_in_registry> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/listed_in_registry" ;
 	rdfs:label "Software is listed in a registry"^^xsd:string ;
     vivo:abbreviation "listed in registry"^^xsd:string .
 <https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier" ;
 	rdfs:label "Software has persistent and unique identifier"^^xsd:string ;
     vivo:abbreviation "unique identifier"^^xsd:string .
 <https://w3id.org/everse/i/indicators/requirements_specified> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/requirements_specified> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/requirements_specified" ;
 	rdfs:label "Software specifies requirements"^^xsd:string ;
     vivo:abbreviation "requirements"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_documentation> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/software_documentation> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/software_documentation" ;
 	rdfs:label "Software has documentation"^^xsd:string ;
     vivo:abbreviation "documentation"^^xsd:string .
 <https://w3id.org/everse/i/indicators/software_has_tests> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/software_has_tests> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/software_has_tests" ;
 	rdfs:label "Software provides tests"^^xsd:string ;
     vivo:abbreviation "has test"^^xsd:string .
 <https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/uses_tool_for_warnings_or_mistakes" ;
 	rdfs:label "Software uses a tool for warnings or mistakes"^^xsd:string ;
     vivo:abbreviation "tool warnings or mistakes"^^xsd:string .
 <https://w3id.org/everse/i/indicators/version_control_use> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/version_control_use> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/version_control_use" ;
 	rdfs:label "Software makes use of version control"^^xsd:string ;
     vivo:abbreviation "version control"^^xsd:string .
 <https://w3id.org/everse/i/indicators/versioning_standards_use> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/everse/i/indicators/versioning_standards_use> ;
+	dcterms:identifier "https://w3id.org/everse/i/indicators/versioning_standards_use" ;
 	rdfs:label "Software follows versioning standards"^^xsd:string ;
     vivo:abbreviation "versioning standard"^^xsd:string .
 

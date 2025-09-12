@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-14> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-14> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-14" ;
 	dcterms:title "Does the software come with test cases to demonstrate it is working?"@en ;
 	dcterms:description """ 
 The provision of test cases improves confidence in the software.

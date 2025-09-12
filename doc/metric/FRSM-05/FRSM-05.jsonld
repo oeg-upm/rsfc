@@ -1,5 +1,49 @@
 [
     {
+        "@id": "https://doi.org/10.25504/FAIRsharing.a712f1",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is described with rich metadata."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "F2"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/rsfc/test/RSFC-05-1",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
+        ]
+    },
+    {
         "@id": "https://w3id.org/rsfc/metric/FRSM-05",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
@@ -20,7 +64,7 @@
         ],
         "http://purl.org/dc/terms/identifier": [
             {
-                "@id": "https://w3id.org/rsfc/metric/FRSM-05"
+                "@value": "https://w3id.org/rsfc/metric/FRSM-05"
             }
         ],
         "http://purl.org/dc/terms/license": [
@@ -125,33 +169,6 @@
         ]
     },
     {
-        "@id": "https://doi.org/10.25504/FAIRsharing.9bf822",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software is described with a plurality of accurate and relevant attributes."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-05-2",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
         "@id": "https://ror.org/03n6nwv02",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Organization"
@@ -173,6 +190,12 @@
         ]
     },
     {
+        "@id": "https://w3id.org/rsfc/test/RSFC-05-3",
+        "@type": [
+            "https://w3id.org/ftr#Test"
+        ]
+    },
+    {
         "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
@@ -190,62 +213,23 @@
         ]
     },
     {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:andres.montero.martin@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-05-1",
-        "@type": [
-            "https://w3id.org/ftr#Test"
-        ]
-    },
-    {
-        "@id": "https://doi.org/10.25504/FAIRsharing.a712f1",
+        "@id": "https://doi.org/10.25504/FAIRsharing.9bf822",
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "Software is described with rich metadata."
+                "@value": "Software is described with a plurality of accurate and relevant attributes."
             }
         ],
         "http://vivoweb.org/ontology/core#abbreviation": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
+                "@value": "R1"
             }
         ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
+                "@value": "R1"
             }
         ]
     },
@@ -268,7 +252,7 @@
         ]
     },
     {
-        "@id": "https://w3id.org/rsfc/test/RSFC-05-3",
+        "@id": "https://w3id.org/rsfc/test/RSFC-05-2",
         "@type": [
             "https://w3id.org/ftr#Test"
         ]
@@ -291,6 +275,22 @@
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "R3"
+            }
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
             }
         ]
     }

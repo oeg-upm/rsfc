@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-15> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-15> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-15" ;
 	dcterms:title "Does the software source code include licensing information for the software and any bundled external software?"@en ;
 	dcterms:description """ 
 Clear software licensing enables reuse.
