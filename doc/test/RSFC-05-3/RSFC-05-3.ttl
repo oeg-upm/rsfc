@@ -23,7 +23,7 @@
                       <https://ror.org/03n6nwv02> ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:version "0.0.1"^^xsd:string ;
-    dcterms:identifier <https://w3id.org/rsfc/test/RSFC-05-3> ;
+    dcterms:identifier "https://w3id.org/rsfc/test/RSFC-05-3" ;
     dcat:keyword "Documentation"@en , 
                  "Test"@en ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;

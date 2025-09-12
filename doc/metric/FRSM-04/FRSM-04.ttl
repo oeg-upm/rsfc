@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-04> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-04> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-04" ;
 	dcterms:title "Does the software include descriptive metadata which helps define its purpose?"@en ;
 	dcterms:description """ 
 Software requires descriptive metadata to support indexing, search and discoverability.

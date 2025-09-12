@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-13> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-13> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-13" ;
 	dcterms:title "Does the software describe what is required to use it?"@en ;
 	dcterms:description """ 
 Software is made more reusable by providing suitable machine-actionable information on dependencies, build and configuration.

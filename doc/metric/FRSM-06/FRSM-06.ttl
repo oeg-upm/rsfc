@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-06> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-06> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-06" ;
 	dcterms:title "Does the software include metadata about the contributors and their roles?"@en ;
 	dcterms:description """ 
 Software should make it easy to recognise and credit all contributors.

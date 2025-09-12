@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-09> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-09> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-09" ;
 	dcterms:title "Is the software developed in a code repository / forge that uses standard communications protocols?"@en ;
 	dcterms:description """ 
 Software source code repositories / forges (a.k.a. version control platforms) should use standard communications protocols (such as https / sftp) to enable the widest possible set of contributors.

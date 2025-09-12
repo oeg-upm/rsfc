@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-08> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-08> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-08" ;
 	dcterms:title "Does the software have a publicly available, openly accessible and persistent metadata record?"@en ;
 	dcterms:description """ 
 Even if the software itself is no longer usable or accessible, its metadata should still be available and accessible.

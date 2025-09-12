@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-07> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-07> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-07" ;
 	dcterms:title "Does the software metadata include the identifier for the software?"@en ;
 	dcterms:description """ 
 Software should include its identifier to make it easier to be cited and indexedSoftware should make it easy to recognise and credit all contributors.

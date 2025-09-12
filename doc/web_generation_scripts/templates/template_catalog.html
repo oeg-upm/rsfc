@@ -26,6 +26,74 @@
             .label.label-success {
                 font-size: 12px;
             }
+            .table td.short-name,
+            .table th.short-name {
+                width: 180px; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .btn-deactivate {
+                background-color: #9c9b9b;    
+                border: 4px solid #7a7979;       
+                color: white !important;         
+                font-weight: bold;
+                padding: 6px 12px;
+                border-radius: 4px;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .btn-deactivate:hover {
+                background-color: #737272;       
+                border-color: #3e3e3e;           
+            }
+
+            .btn-active-t {
+                font-weight: bold;
+                color: white !important;
+                background-color: #5990a9 !important;
+                border: 4px solid #375b6b !important;
+                transition: all 0.2s ease-in-out;
+            }
+            
+            .btn-active-t:hover {
+                background-color: #477488 !important;       
+                border-color: #2f4d5a !important;          
+            }
+
+            .btn-active-b {
+                font-weight: bold;
+                color: white !important;
+                background-color: #83d2f7 !important;
+                border: 4px solid #578da6 !important;
+                transition: all 0.2s ease-in-out;
+            }
+            .btn-active-b:hover {
+                background-color: #71b6d5 !important;    
+                border-color: #52869d !important;         
+            }
+            .btn-active-about {
+                font-weight: bold;
+                color: white !important;
+                background-color: #bb8fc3 !important;
+                border: 4px solid #7e5d83 !important;
+                transition: all 0.2s ease-in-out;
+            }
+            .btn-active-about:hover {
+                background-color: #715576 !important;       
+                border-color: #bb8fc3 !important;          
+            }
+            .btn-active-t:focus {
+                background-color: #5990a9 !important;
+                border-color: #375b6b !important;
+                outline: none !important;
+            }
+            .btn-active-b:focus {
+                background-color: #83d2f7 !important;
+                border-color: #578da6 !important;
+                outline: none !important;
+            }
             h1 {
                 margin-bottom: 25px; 
             }
@@ -59,12 +127,34 @@
                     window.location.hash = sectionId;
                 } 
 
+                function highlightButton(buttonId) {
+        
+                    $("#btn_test").removeClass("btn-active-t");
+                    // $("#btn_metric").removeClass("btn-active-m");
+                    $("#btn_benchmark").removeClass("btn-active-b");
+
+                
+                    if (buttonId === "#btn_test") {
+                        $(buttonId).addClass("btn-active-t");
+                    // } else if (buttonId === "#btn_metric") {
+                    //     $(buttonId).addClass("btn-active-m");
+                    } else if (buttonId === "#btn_benchmark") {
+                        $(buttonId).addClass("btn-active-b");
+                    }
+                }
+
                 const currentHash = window.location.hash; 
-                if (!currentHash) { 
-                    // Si no hay marcador en la URL, actualizar a #test 
-                    updateURL("test"); 
-                } 
+
+                let sectionToShow = "#test"; // Por defecto, mostrar el test
+                let buttonToHighlight = "#btn_test";
+
+                if (currentHash === "#benchmark") {
+                    sectionToShow = currentHash;
+                    buttonToHighlight = "#btn_" + currentHash.substring(1);
+                }
                 showSection(currentHash || "#test");
+                highlightButton(buttonToHighlight);
+
 
                 // $("#btn_metric").click(function(){
                 //     updateURL("metric"); 
@@ -74,11 +164,13 @@
                 $("#btn_test").click(function(){
                     updateURL("test"); 
                     showSection("#test");
+                    highlightButton("#btn_test");
                 });
 
                 $("#btn_benchmark").click(function(){
                     updateURL("benchmark"); 
                     showSection("#benchmark");
+                    highlightButton("#btn_benchmark");
                 });
 
                 $("#btn_about").click(function(){
@@ -92,10 +184,10 @@
         <div style="margin-top: 20px;">
             <div class="row">
                 <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-                    <button id="btn_test" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Test</button>
+                    <button id="btn_test" type="button" class="btn btn-deactivate"  style="margin-right: 10px;"">Test</button>
                     <!-- <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button> -->
-                    <button id="btn_benchmark" type="button" class="btn btn-primary" style="margin-right: 10px;"">Benchmark</button>
-                    <button id="btn_about" type="button" class="btn btn-primary" style="margin-right: 10px;"">About</button>
+                    <button id="btn_benchmark" type="button" class="btn btn-deactivate" style="margin-right: 10px;"">Benchmark</button>
+                    <button id="btn_about" type="button" class="btn btn-active-about" style="margin-right: 10px;"">About</button>
                 </div>
             </div>
             <div id = "test" class="container">
@@ -126,10 +218,12 @@
                 <table class="table" style="margin-top: 30px;">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th class="short-name">Short Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <th>Category</th>
+                            <th>Principle</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
@@ -137,10 +231,12 @@
                         {{#tests}}
                         <tr>
                             <!-- <td><a href="{{identifier}}">{{identifier}}</a></td> -->
-                            <td><a href="{{identifier}}"><strong>{{name}}</strong></a></td>
+                            <td class="short-name"> <a href="{{identifier}}"><strong>{{name}}</strong></a></td>
                             <td class="titles">{{title}}</td>
-                            <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
-                            <td>{{version}}</td>
+                            <td>{{{category}}}</td>
+                            <td>{{{principle}}}</td>
+                            <!-- <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
+                            <td>{{version}}</td> -->
                             <td class="keywords">{{keywords}}</td>
                         </tr>
                         {{/tests}}
@@ -172,10 +268,12 @@
                 <table class="table" style="margin-top: 30px;">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Short Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <th>Category</th>
+                            <th>Principle</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
@@ -185,8 +283,10 @@
                             <!-- <td><a href="{{identifier}}">{{identifier}}</a></td> -->
                             <td><a href="{{identifier}}"><strong>{{name}}</strong></a></td>
                             <td class="titles">{{title}}</td>
-                            <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
-                            <td>{{version}}</td>
+                            <td>{{{category}}}</td>
+                            <td>{{{principle}}}</td>
+                            <!-- <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
+                            <td>{{version}}</td> -->
                             <td class="keywords">{{keywords}}</td>
                         </tr>
                         {{/metrics}}
@@ -220,8 +320,8 @@
                         <tr>
                             <th>Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
@@ -230,8 +330,8 @@
                         <tr>
                             <td><a href="{{identifier}}"><strong>{{name}}</strong></a></td>
                             <td class="titles">{{title}}</td>
-                            <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
-                            <td>{{version}}</td>
+                            <!-- <td><a href="{{license}}" target="_blank"><span class="label label-success">{{license_label}}</span></a></td>
+                            <td>{{version}}</td> -->
                             <td class="keywords">{{keywords}}</td>
                         </tr>
                         {{/benchmarks}}

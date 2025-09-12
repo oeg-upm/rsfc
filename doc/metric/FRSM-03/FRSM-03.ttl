@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-03> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-03> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-03" ;
 	dcterms:title "Does each version of the software have a unique identifier?"@en ;
 	dcterms:description """ 
 To make different versions of the same software (or component) findable, each version needs to be assigned a different identifier. The relationship between versions is embodied in the associated metadata.

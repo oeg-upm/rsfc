@@ -22,7 +22,7 @@
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
-    dcterms:identifier <https://w3id.org/rsfc/test/RSFC-09-1> ;
+    dcterms:identifier "https://w3id.org/rsfc/test/RSFC-09-1" ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.b93697>, <https://doi.org/10.25504/FAIRsharing.6fff5e>,<https://doi.org/10.25504/FAIRsharing.0c61dd>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:keyword "URL"@en , "Github"@en , 
                  "Test"@en ;

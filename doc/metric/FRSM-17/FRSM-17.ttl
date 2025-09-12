@@ -11,7 +11,7 @@
 @prefix dpv: <https://w3id.org/dpv#> .
 
 <https://w3id.org/rsfc/metric/FRSM-17> a dqv:Metric ;
-	dcterms:identifier <https://w3id.org/rsfc/metric/FRSM-17> ;
+	dcterms:identifier "https://w3id.org/rsfc/metric/FRSM-17" ;
 	dcterms:title "Does the software include provenance information that describe the development of the software?"@en ;
 	dcterms:description """ 
 Good provenance metadata clarifies the origins and intent behind the development of the software, and establishes authenticity and trust. As a type of metadata this overlaps with the metadata called for in guiding principles F2 and F4.

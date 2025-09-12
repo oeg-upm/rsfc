@@ -26,6 +26,74 @@
             .label.label-success {
                 font-size: 12px;
             }
+            .table td.short-name,
+            .table th.short-name {
+                width: 180px; 
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .btn-deactivate {
+                background-color: #9c9b9b;    
+                border: 4px solid #7a7979;       
+                color: white !important;         
+                font-weight: bold;
+                padding: 6px 12px;
+                border-radius: 4px;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .btn-deactivate:hover {
+                background-color: #737272;       
+                border-color: #3e3e3e;           
+            }
+
+            .btn-active-t {
+                font-weight: bold;
+                color: white !important;
+                background-color: #5990a9 !important;
+                border: 4px solid #375b6b !important;
+                transition: all 0.2s ease-in-out;
+            }
+            
+            .btn-active-t:hover {
+                background-color: #477488 !important;       
+                border-color: #2f4d5a !important;          
+            }
+
+            .btn-active-b {
+                font-weight: bold;
+                color: white !important;
+                background-color: #83d2f7 !important;
+                border: 4px solid #578da6 !important;
+                transition: all 0.2s ease-in-out;
+            }
+            .btn-active-b:hover {
+                background-color: #71b6d5 !important;    
+                border-color: #52869d !important;         
+            }
+            .btn-active-about {
+                font-weight: bold;
+                color: white !important;
+                background-color: #bb8fc3 !important;
+                border: 4px solid #7e5d83 !important;
+                transition: all 0.2s ease-in-out;
+            }
+            .btn-active-about:hover {
+                background-color: #715576 !important;       
+                border-color: #bb8fc3 !important;          
+            }
+            .btn-active-t:focus {
+                background-color: #5990a9 !important;
+                border-color: #375b6b !important;
+                outline: none !important;
+            }
+            .btn-active-b:focus {
+                background-color: #83d2f7 !important;
+                border-color: #578da6 !important;
+                outline: none !important;
+            }
             h1 {
                 margin-bottom: 25px; 
             }
@@ -59,12 +127,34 @@
                     window.location.hash = sectionId;
                 } 
 
+                function highlightButton(buttonId) {
+        
+                    $("#btn_test").removeClass("btn-active-t");
+                    // $("#btn_metric").removeClass("btn-active-m");
+                    $("#btn_benchmark").removeClass("btn-active-b");
+
+                
+                    if (buttonId === "#btn_test") {
+                        $(buttonId).addClass("btn-active-t");
+                    // } else if (buttonId === "#btn_metric") {
+                    //     $(buttonId).addClass("btn-active-m");
+                    } else if (buttonId === "#btn_benchmark") {
+                        $(buttonId).addClass("btn-active-b");
+                    }
+                }
+
                 const currentHash = window.location.hash; 
-                if (!currentHash) { 
-                    // Si no hay marcador en la URL, actualizar a #test 
-                    updateURL("test"); 
-                } 
+
+                let sectionToShow = "#test"; // Por defecto, mostrar el test
+                let buttonToHighlight = "#btn_test";
+
+                if (currentHash === "#benchmark") {
+                    sectionToShow = currentHash;
+                    buttonToHighlight = "#btn_" + currentHash.substring(1);
+                }
                 showSection(currentHash || "#test");
+                highlightButton(buttonToHighlight);
+
 
                 // $("#btn_metric").click(function(){
                 //     updateURL("metric"); 
@@ -74,11 +164,13 @@
                 $("#btn_test").click(function(){
                     updateURL("test"); 
                     showSection("#test");
+                    highlightButton("#btn_test");
                 });
 
                 $("#btn_benchmark").click(function(){
                     updateURL("benchmark"); 
                     showSection("#benchmark");
+                    highlightButton("#btn_benchmark");
                 });
 
                 $("#btn_about").click(function(){
@@ -92,10 +184,10 @@
         <div style="margin-top: 20px;">
             <div class="row">
                 <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-                    <button id="btn_test" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Test</button>
+                    <button id="btn_test" type="button" class="btn btn-deactivate"  style="margin-right: 10px;"">Test</button>
                     <!-- <button id="btn_metric" type="button" class="btn btn-primary"  style="margin-right: 10px;"">Metric</button> -->
-                    <button id="btn_benchmark" type="button" class="btn btn-primary" style="margin-right: 10px;"">Benchmark</button>
-                    <button id="btn_about" type="button" class="btn btn-primary" style="margin-right: 10px;"">About</button>
+                    <button id="btn_benchmark" type="button" class="btn btn-deactivate" style="margin-right: 10px;"">Benchmark</button>
+                    <button id="btn_about" type="button" class="btn btn-active-about" style="margin-right: 10px;"">About</button>
                 </div>
             </div>
             <div id = "test" class="container">
@@ -126,332 +218,414 @@
                 <table class="table" style="margin-top: 30px;">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th class="short-name">Short Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <th>Category</th>
+                            <th>Principle</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-01-1">https://w3id.org/rsfc/test/RSFC-01-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-01-1"><strong>RSFC-01-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-01-1"><strong>RSFC-01-1</strong></a></td>
                             <td class="titles">There is an identifier and resolves</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Identifier resolve, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-01-2">https://w3id.org/rsfc/test/RSFC-01-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-01-2"><strong>RSFC-01-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-01-2"><strong>RSFC-01-2</strong></a></td>
                             <td class="titles">There is an identifier associated with the software</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Identifier, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-01-3">https://w3id.org/rsfc/test/RSFC-01-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-01-3"><strong>RSFC-01-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-01-3"><strong>RSFC-01-3</strong></a></td>
                             <td class="titles">Software identifier follows a proper schema</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Schema, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-1">https://w3id.org/rsfc/test/RSFC-03-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-1"><strong>RSFC-03-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-1"><strong>RSFC-03-1</strong></a></td>
                             <td class="titles">Software has releases</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Releases, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-2">https://w3id.org/rsfc/test/RSFC-03-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-2"><strong>RSFC-03-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-2"><strong>RSFC-03-2</strong></a></td>
                             <td class="titles">Releases have an id and version number</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Number version, Identifier, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-3">https://w3id.org/rsfc/test/RSFC-03-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-3"><strong>RSFC-03-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-3"><strong>RSFC-03-3</strong></a></td>
                             <td class="titles">Release versions follow a community established convention</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Convention, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-4">https://w3id.org/rsfc/test/RSFC-03-4</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-4"><strong>RSFC-03-4</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-4"><strong>RSFC-03-4</strong></a></td>
                             <td class="titles">Release identifiers follow the same scheme</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Schema, Identifiers, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-5">https://w3id.org/rsfc/test/RSFC-03-5</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-5"><strong>RSFC-03-5</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-5"><strong>RSFC-03-5</strong></a></td>
                             <td class="titles">Last release consistency</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Version number, Release, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-03-6">https://w3id.org/rsfc/test/RSFC-03-6</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-03-6"><strong>RSFC-03-6</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-03-6"><strong>RSFC-03-6</strong></a></td>
                             <td class="titles">Version number in metadata</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.99299d', '_blank')" style="cursor:pointer;">F1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.656e6c', '_blank')" style="cursor:pointer;">F1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Version number, Release, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-1">https://w3id.org/rsfc/test/RSFC-04-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-1"><strong>RSFC-04-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-04-1"><strong>RSFC-04-1</strong></a></td>
                             <td class="titles">Metadata exists</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Metadata, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-2">https://w3id.org/rsfc/test/RSFC-04-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-2"><strong>RSFC-04-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-04-2"><strong>RSFC-04-2</strong></a></td>
                             <td class="titles">There is a README</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Readme, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-3">https://w3id.org/rsfc/test/RSFC-04-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-3"><strong>RSFC-04-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-04-3"><strong>RSFC-04-3</strong></a></td>
                             <td class="titles">There are title and description</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Title, Description, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-4">https://w3id.org/rsfc/test/RSFC-04-4</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-4"><strong>RSFC-04-4</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-04-4"><strong>RSFC-04-4</strong></a></td>
                             <td class="titles">Software has descriptive metadata</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Metadata, Description, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-04-5">https://w3id.org/rsfc/test/RSFC-04-5</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-04-5"><strong>RSFC-04-5</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-04-5"><strong>RSFC-04-5</strong></a></td>
                             <td class="titles">There is a codemeta file</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Codemeta, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-05-1">https://w3id.org/rsfc/test/RSFC-05-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-05-1"><strong>RSFC-05-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-05-1"><strong>RSFC-05-1</strong></a></td>
                             <td class="titles">There is a repostatus badge</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Badsge, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-05-2">https://w3id.org/rsfc/test/RSFC-05-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-05-2"><strong>RSFC-05-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-05-2"><strong>RSFC-05-2</strong></a></td>
                             <td class="titles">There is contact and/or support metadata</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Contact, Supportr metadata, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-05-3">https://w3id.org/rsfc/test/RSFC-05-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-05-3"><strong>RSFC-05-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-05-3"><strong>RSFC-05-3</strong></a></td>
                             <td class="titles">Software documentation</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Documentation, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-06-1">https://w3id.org/rsfc/test/RSFC-06-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-06-1"><strong>RSFC-06-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-06-1"><strong>RSFC-06-1</strong></a></td>
                             <td class="titles">Authors are declared</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Author, Contributor, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-06-2">https://w3id.org/rsfc/test/RSFC-06-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-06-2"><strong>RSFC-06-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-06-2"><strong>RSFC-06-2</strong></a></td>
                             <td class="titles">Contributors are declared</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Author, ORCID, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-06-3">https://w3id.org/rsfc/test/RSFC-06-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-06-3"><strong>RSFC-06-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-06-3"><strong>RSFC-06-3</strong></a></td>
                             <td class="titles">Authors have an ORCID</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Author, Rol, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-06-4">https://w3id.org/rsfc/test/RSFC-06-4</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-06-4"><strong>RSFC-06-4</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-06-4"><strong>RSFC-06-4</strong></a></td>
                             <td class="titles">Authors have roles</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.a712f1', '_blank')" style="cursor:pointer;">F2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Author, Rol, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-07-1">https://w3id.org/rsfc/test/RSFC-07-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-07-1"><strong>RSFC-07-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-07-1"><strong>RSFC-07-1</strong></a></td>
                             <td class="titles">There is an identifier in README or CITATION.cff</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9d893d', '_blank')" style="cursor:pointer;">F3</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Identifier, Readme, Citation, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-07-2">https://w3id.org/rsfc/test/RSFC-07-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-07-2"><strong>RSFC-07-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-07-2"><strong>RSFC-07-2</strong></a></td>
                             <td class="titles">Software identifier resolves to software</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9d893d', '_blank')" style="cursor:pointer;">F3</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Identifier, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-08-1">https://w3id.org/rsfc/test/RSFC-08-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-08-1"><strong>RSFC-08-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-08-1"><strong>RSFC-08-1</strong></a></td>
                             <td class="titles">Metadata record in Software Heritage or Zenodo</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Accessible, Findable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.aeef8a', '_blank')" style="cursor:pointer;">F4</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.8367a5', '_blank')" style="cursor:pointer;">A2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Zenodo, Software Heritage, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-09-1">https://w3id.org/rsfc/test/RSFC-09-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-09-1"><strong>RSFC-09-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-09-1"><strong>RSFC-09-1</strong></a></td>
                             <td class="titles">Repository is from Github/Gitlab</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable, Accessible</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.b93697', '_blank')" style="cursor:pointer;">A1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.6fff5e', '_blank')" style="cursor:pointer;">A1.1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.0c61dd', '_blank')" style="cursor:pointer;">A1.2</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">URL, Github, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-12-1">https://w3id.org/rsfc/test/RSFC-12-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-12-1"><strong>RSFC-12-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-12-1"><strong>RSFC-12-1</strong></a></td>
                             <td class="titles">There is an article citation or reference publication</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Interoperable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.6d7a69', '_blank')" style="cursor:pointer;">I2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Citation, Reference Publication, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-13-1">https://w3id.org/rsfc/test/RSFC-13-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-13-1"><strong>RSFC-13-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-13-1"><strong>RSFC-13-1</strong></a></td>
                             <td class="titles">Dependencies are declared</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.cda381', '_blank')" style="cursor:pointer;">R2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Dependencies, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-13-2">https://w3id.org/rsfc/test/RSFC-13-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-13-2"><strong>RSFC-13-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-13-2"><strong>RSFC-13-2</strong></a></td>
                             <td class="titles">There are installation instructions</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.cda381', '_blank')" style="cursor:pointer;">R2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Installation instructions, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-13-3">https://w3id.org/rsfc/test/RSFC-13-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-13-3"><strong>RSFC-13-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-13-3"><strong>RSFC-13-3</strong></a></td>
                             <td class="titles">Dependencies have version numbers</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.cda381', '_blank')" style="cursor:pointer;">R2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Dependencies, Number version, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-13-4">https://w3id.org/rsfc/test/RSFC-13-4</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-13-4"><strong>RSFC-13-4</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-13-4"><strong>RSFC-13-4</strong></a></td>
                             <td class="titles">There is a dependencies machine-readable file</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span> <span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.cda381', '_blank')" style="cursor:pointer;">R2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Machine-readable, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-14-1">https://w3id.org/rsfc/test/RSFC-14-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-14-1"><strong>RSFC-14-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-14-1"><strong>RSFC-14-1</strong></a></td>
                             <td class="titles">Presence of tests in repository</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Repository, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-14-2">https://w3id.org/rsfc/test/RSFC-14-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-14-2"><strong>RSFC-14-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-14-2"><strong>RSFC-14-2</strong></a></td>
                             <td class="titles">There are actions to automate tests</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9bf822', '_blank')" style="cursor:pointer;">R1</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Github actions, Workflows, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-15-1">https://w3id.org/rsfc/test/RSFC-15-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-15-1"><strong>RSFC-15-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-15-1"><strong>RSFC-15-1</strong></a></td>
                             <td class="titles">Software has license</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.95c69f', '_blank')" style="cursor:pointer;">R1.1</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">License, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-15-2">https://w3id.org/rsfc/test/RSFC-15-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-15-2"><strong>RSFC-15-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-15-2"><strong>RSFC-15-2</strong></a></td>
                             <td class="titles">License is SPDX compliant</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.95c69f', '_blank')" style="cursor:pointer;">R1.1</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">License, SPDX, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-16-1">https://w3id.org/rsfc/test/RSFC-16-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-16-1"><strong>RSFC-16-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-16-1"><strong>RSFC-16-1</strong></a></td>
                             <td class="titles">License referenced in metadata files</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.95c69f', '_blank')" style="cursor:pointer;">R1.1</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Metadata, Codemeta, Citation, Repository, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-17-1">https://w3id.org/rsfc/test/RSFC-17-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-17-1"><strong>RSFC-17-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-17-1"><strong>RSFC-17-1</strong></a></td>
                             <td class="titles">Repository active</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9ca8a1', '_blank')" style="cursor:pointer;">R1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Active, Repository, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-17-2">https://w3id.org/rsfc/test/RSFC-17-2</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-17-2"><strong>RSFC-17-2</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-17-2"><strong>RSFC-17-2</strong></a></td>
                             <td class="titles">Commit history</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9ca8a1', '_blank')" style="cursor:pointer;">R1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Active, Repository, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-17-3">https://w3id.org/rsfc/test/RSFC-17-3</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-17-3"><strong>RSFC-17-3</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-17-3"><strong>RSFC-17-3</strong></a></td>
                             <td class="titles">Commits are linked to issues</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.9ca8a1', '_blank')" style="cursor:pointer;">R1.2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Active, Repository, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-18-1">https://w3id.org/rsfc/test/RSFC-18-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-18-1"><strong>RSFC-18-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-18-1"><strong>RSFC-18-1</strong></a></td>
                             <td class="titles">Repository has citation</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Interoperable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.6d7a69', '_blank')" style="cursor:pointer;">I2</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Citation, Readme, Test</td>
                         </tr>
                         <tr>
                             <!-- <td><a href="https://w3id.org/rsfc/test/RSFC-19-1">https://w3id.org/rsfc/test/RSFC-19-1</a></td> -->
-                            <td><a href="https://w3id.org/rsfc/test/RSFC-19-1"><strong>RSFC-19-1</strong></a></td>
+                            <td class="short-name"> <a href="https://w3id.org/rsfc/test/RSFC-19-1"><strong>RSFC-19-1</strong></a></td>
                             <td class="titles">Repository has workflows</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <td>Reusable</td>
+                            <td><span class="label label-success" onclick="window.open('https://doi.org/10.25504/FAIRsharing.60a40f', '_blank')" style="cursor:pointer;">R3</span></td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">Continuous integracion, Workflow, Test</td>
                         </tr>
                     </tbody>
@@ -482,10 +656,12 @@
                 <table class="table" style="margin-top: 30px;">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Short Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <th>Category</th>
+                            <th>Principle</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
@@ -520,8 +696,8 @@
                         <tr>
                             <th>Name</th>
                             <th>Title</th>
-                            <th>License</th>
-                            <th>Version</th>
+                            <!-- <th>License</th>
+                            <th>Version</th> -->
                             <th>Keywords</th>
                         </tr>
                     </thead>
@@ -529,8 +705,8 @@
                         <tr>
                             <td><a href="https://w3id.org/rsfc/benchmark/FAIR4RS"><strong>FAIR4RS Benchmark </strong></a></td>
                             <td class="titles">General Benchmark for RSFC</td>
-                            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
-                            <td>0.0.1</td>
+                            <!-- <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><span class="label label-success">CC-BY-4.0</span></a></td>
+                            <td>0.0.1</td> -->
                             <td class="keywords">General Benchmark, Benchmark, Default, RSFC, Quality checks</td>
                         </tr>
                     </tbody>
