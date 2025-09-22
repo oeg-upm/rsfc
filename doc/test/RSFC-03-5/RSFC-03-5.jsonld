@@ -1,6 +1,6 @@
 [
     {
-        "@id": "https://w3id.org/everse/i/indicators/software_has_releases",
+        "@id": "https://w3id.org/everse/i/indicators/has_releases",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
         ]
@@ -124,7 +124,7 @@
         ],
         "http://semanticscience.org/resource/SIO_000233": [
             {
-                "@id": "https://w3id.org/everse/i/indicators/software_has_releases"
+                "@id": "https://w3id.org/everse/i/indicators/has_releases"
             }
         ],
         "http://usefulinc.com/ns/doap#repository": [
