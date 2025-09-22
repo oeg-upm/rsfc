@@ -28,7 +28,7 @@
                  "Test"@en ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
-    <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_has_releases> ; 
+    <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/has_releases> ; 
     doap:repository <https://w3id.org/rsfc/repository> .
 <https://orcid.org/0000-0003-0454-7145> a vcard:Individual ;
     vcard:fn "Daniel Garijo"^^xsd:string ;
@@ -54,4 +54,4 @@
 <https://w3id.org/rsfc/repository>
     foaf:homePage <https://github.com/oeg-upm/rsfc> ;
     dcterms:description "Main repository for Research Software Quality Checks (RSFC) code and documentation"@en .
-<https://w3id.org/everse/i/indicators/software_has_releases> a dqv:Metric .
+<https://w3id.org/everse/i/indicators/has_releases> a dqv:Metric .
