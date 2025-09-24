@@ -138,7 +138,7 @@ def extract_issue_refs(commits):
 
 def check_issue(issue, issue_refs):
 
-    issue_id = str(issue.get("number") or issue.get("iid"))  # GitHub -> number, GitLab -> iid
+    issue_id = str(issue.get("number") or issue.get("iid"))
     return issue_id in issue_refs
 
 

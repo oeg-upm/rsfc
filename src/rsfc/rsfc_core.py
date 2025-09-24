@@ -6,7 +6,7 @@ from rsfc.harvesters import codemeta_harvester as cm
 from rsfc.harvesters import cff_harvester as cf
 
 
-def start_assessment(repo_url):
+def start_assessment(repo_url, auth_token):
     
     sw = soft.AssessedSoftware(repo_url)
     somef = som.SomefHarvester(repo_url)

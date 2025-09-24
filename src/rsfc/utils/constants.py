@@ -225,7 +225,7 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://github.com/oeg-upm/rsfc',
-        'version' : '0.0.2'
+        'version' : '0.0.4'
     }
 }
 
