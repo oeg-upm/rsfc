@@ -203,6 +203,95 @@ EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any i
 EVIDENCE_DOI_NO_LINK_BACK_TO_REPO = "The landing page of the software's identifier does not link back to the software repository"
 
 
+#Short descriptions
+
+DESC_RSFC_01_1 = "There is an id and it resolves"
+DESC_RSFC_01_2 = "There is an id in the metadata files"
+DESC_RSFC_01_3 = "There is an id and it follows a common schema"
+DESC_RSFC_03_1 = "The software has releases"
+DESC_RSFC_03_2 = "Releases have version and id"
+DESC_RSFC_03_3 = "Release versions follow SemVer or CalVer"
+DESC_RSFC_03_4 = "Release ids follow the same scheme"
+DESC_RSFC_03_5 = "Last release version corresponds to version in package file"
+DESC_RSFC_03_6 = "There is a version number stated in metadata files"
+DESC_RSFC_04_1 = "Metadata files exist"
+DESC_RSFC_04_2 = "There is a README file"
+DESC_RSFC_04_3 = "Title and description are declared"
+DESC_RSFC_04_4 = "There is descriptive metadata"
+DESC_RSFC_04_5 = "There is a codemeta file"
+DESC_RSFC_05_1 = "There is a repostatus badge in the README file"
+DESC_RSFC_05_2 = "Contact and support metadata exists"
+DESC_RSFC_05_3 = "Software documentation exists"
+DESC_RSFC_06_1 = "Authors are declared"
+DESC_RSFC_06_2 = "Contributors are declared"
+DESC_RSFC_06_3 = "Authors have an ORCID assigned"
+DESC_RSFC_06_4 = "Authors have their roles stated"
+DESC_RSFC_07_1 = "There is an id in README or CITATION"
+DESC_RSFC_07_2 = "Software id resolves and links back to software"
+DESC_RSFC_08_1 = "Metadata record is found in SWHeritage or Zenodo"
+DESC_RSFC_09_1 = "Repository is from Github or Gitlab"
+DESC_RSFC_12_1 = "There is an article citation or reference publication"
+DESC_RSFC_13_1 = "Dependencies are declared"
+DESC_RSFC_13_2 = "There are installation instructions"
+DESC_RSFC_13_3 = "Dependencies have version numbers"
+DESC_RSFC_13_4 = "Dependencies are in a machine-readable format"
+DESC_RSFC_14_1 = "Tests are provided"
+DESC_RSFC_14_2 = "There are actions to automate tests"
+DESC_RSFC_15_1 = "There is a license"
+DESC_RSFC_15_2 = "License is in SPDX format"
+DESC_RSFC_15_3 = "License information is provided"
+DESC_RSFC_16_1 = "License is referenced in metadata files"
+DESC_RSFC_17_1 = "The repository has an 'active' status"
+DESC_RSFC_17_2 = "Repository has a commit history"
+DESC_RSFC_17_3 = "Commits are linked to issues"
+DESC_RSFC_18_1 = "There are citations"
+DESC_RSFC_19_1 = "Repository has continuous integration workflows"
+
+
+TEST_DESC_LIST = [
+    DESC_RSFC_01_1,
+    DESC_RSFC_01_2,
+    DESC_RSFC_01_3,
+    DESC_RSFC_03_1,
+    DESC_RSFC_03_2,
+    DESC_RSFC_03_3,
+    DESC_RSFC_03_4,
+    DESC_RSFC_03_5,
+    DESC_RSFC_03_6,
+    DESC_RSFC_04_1,
+    DESC_RSFC_04_2,
+    DESC_RSFC_04_3,
+    DESC_RSFC_04_4,
+    DESC_RSFC_04_5,
+    DESC_RSFC_05_1,
+    DESC_RSFC_05_2,
+    DESC_RSFC_05_3,
+    DESC_RSFC_06_1,
+    DESC_RSFC_06_2,
+    DESC_RSFC_06_3,
+    DESC_RSFC_06_4,
+    DESC_RSFC_07_1,
+    DESC_RSFC_07_2,
+    DESC_RSFC_08_1,
+    DESC_RSFC_09_1,
+    DESC_RSFC_12_1,
+    DESC_RSFC_13_1,
+    DESC_RSFC_13_2,
+    DESC_RSFC_13_3,
+    DESC_RSFC_13_4,
+    DESC_RSFC_14_1,
+    DESC_RSFC_14_2,
+    DESC_RSFC_15_1,
+    DESC_RSFC_15_2,
+    DESC_RSFC_15_3,
+    DESC_RSFC_16_1,
+    DESC_RSFC_17_1,
+    DESC_RSFC_17_2,
+    DESC_RSFC_17_3,
+    DESC_RSFC_18_1,
+    DESC_RSFC_19_1
+]
+
 #Dictionaries
 
 INDICATORS_DICT = {

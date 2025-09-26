@@ -5,12 +5,6 @@ from bs4 import BeautifulSoup
 import requests
 from rsfc.utils import constants
 from concurrent.futures import ThreadPoolExecutor, as_completed
-  
-def get_repo_default_branch(base_url):
-    res = requests.get(base_url)
-    res.raise_for_status()
-    data = res.json()
-    return data.get("default_branch", "main")
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')

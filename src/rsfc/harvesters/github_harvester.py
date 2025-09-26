@@ -6,14 +6,17 @@ from rsfc.utils import constants
 
 class GithubHarvester:
     
-    def __init__(self, repo_url, auth_token):
+    def __init__(self, repo_url):
         self.repo_url =  repo_url
         self.repo_type = self.get_repo_type()
         self.api_url = self.get_repo_api_url()
-        self.repo_branch = self.get_repo_default_branch(auth_token)
-        self.version = self.get_soft_version(auth_token)
-        self.cff_data = self.get_cff_file(auth_token)
-        self.codemeta_data = self.get_codemeta_file(auth_token)
+        self.repo_branch = self.get_repo_default_branch()
+        self.version = self.get_soft_version()
+        self.cff = self.get_cff_file()
+        self.codemeta = self.get_codemeta_file()
+        self.commits = self.get_commits()
+        self.issues = self.get_issues()
+        self.tests = self.get_tests()
     
     
     def get_repo_api_url(self):
@@ -44,14 +47,14 @@ class GithubHarvester:
         return repo_type
     
     
-    def get_repo_default_branch(self, auth_token):
+    def get_repo_default_branch(self):
         res = requests.get(self.api_url)
         res.raise_for_status()
         data = res.json()
         return data.get("default_branch", "main")
     
     
-    def get_codemeta_file(self, auth_token):
+    def get_codemeta_file(self):
         req_url = self.api_url + '/contents/codemeta.json'
         
         try:
@@ -77,7 +80,7 @@ class GithubHarvester:
         except requests.RequestException:
             return None
             
-    def get_cff_file(self, auth_token):
+    def get_cff_file(self):
         
         try:
             if self.repo_type == "GITHUB":
@@ -102,7 +105,7 @@ class GithubHarvester:
             return None
         
         
-    def get_soft_version(self, auth_token):
+    def get_soft_version(self):
         try:
             releases_url = f"{self.api_url}/releases"
 
@@ -138,3 +141,66 @@ class GithubHarvester:
         except Exception as e:
             print(f"Error fetching releases from {self.repo_type} at {releases_url}: {e}")
             return None
+        
+        
+    def get_commits(self):
+        if self.repo_type == "GITHUB":
+            commits_url = self.api_url + "/commits"
+            headers = {'Accept': 'application/vnd.github.v3.raw'}
+            response = requests.get(commits_url, headers=headers)
+
+        elif self.repo_type == "GITLAB":
+            commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}"
+            response = requests.get(commits_url)
+
+        else:
+            raise ValueError(f"Repositorio no soportado: {self.repo_type}")
+
+        if response.status_code == 200:
+            commits = response.json()
+        else:
+            commits = []
+
+        return commits
+    
+    
+    def get_issues(self):
+        if self.repo_type == "GITHUB":
+            issues_url = self.api_url + "/issues?state=all"
+            headers = {'Accept': 'application/vnd.github.v3.raw'}
+            response = requests.get(issues_url, headers=headers)
+
+        elif self.repo_type == "GITLAB":
+            issues_url = f"{self.api_url}/issues?state=all"
+            response = requests.get(issues_url)
+
+        else:
+            raise ValueError(f"Repositorio no soportado: {self.repo_type}")
+
+        if response.status_code == 200:
+            issues = response.json()
+        else:
+            issues = []
+
+        return issues
+    
+    
+    def get_tests(self):
+        test_evidences = []
+
+        if self.repo_type == "GITHUB":
+            tree_url = f"{self.api_url}/git/trees/HEAD?recursive=1"
+            resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
+            if resp.status_code == 200:
+                test_evidences = resp.json().get("tree", [])
+
+        elif self.repo_type == "GITLAB":
+            tree_url = f"{self.api_url}/repository/tree?recursive=true&ref={self.repo_branch}&per_page=100"
+            resp = requests.get(tree_url)
+            if resp.status_code == 200:
+                test_evidences = [{"path": item["path"]} for item in resp.json()]
+
+        else:
+            raise ValueError("Unsupported repository type")
+        
+        return test_evidences
