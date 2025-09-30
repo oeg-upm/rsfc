@@ -7,7 +7,7 @@ on:
         required: true
         type: string
     secrets:
-      GITHUB_TOKEN:
+      RSFC_TOKEN:
         required: false
 
 jobs:
@@ -22,13 +22,13 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install RSFC
-        run: pip install -e .
+        run: pip install rsfc
       - name: Run RSFC
         run: |
-          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+          if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
             echo "Running RSFC on public repo"
             rsfc ${{ inputs.repo_url }}
           else
             echo "Running RSFC on private repo with token"
-            rsfc ${{ inputs.repo_url }} --token ${{ secrets.GITHUB_TOKEN }}
+            rsfc ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }}
           fi
