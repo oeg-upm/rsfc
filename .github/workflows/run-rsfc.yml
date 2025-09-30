@@ -1,0 +1,34 @@
+name: "Run RSFC"
+on:
+  workflow_call:
+    inputs:
+      repo_url:
+        description: 'Repository URL to analyze'
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: false
+
+jobs:
+  run-rsfc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install RSFC
+        run: pip install -e .
+      - name: Run RSFC
+        run: |
+          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "Running RSFC on public repo"
+            rsfc ${{ inputs.repo_url }}
+          else
+            echo "Running RSFC on private repo with token"
+            rsfc ${{ inputs.repo_url }} --token ${{ secrets.GITHUB_TOKEN }}
+          fi
