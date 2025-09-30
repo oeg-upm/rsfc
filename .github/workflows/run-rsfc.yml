@@ -23,6 +23,10 @@ jobs:
           python-version: '3.10'
       - name: Install RSFC
         run: pip install rsfc
+      - name: Download NLTK data (wordnet)
+        run: |
+          python -m nltk.downloader wordnet
+          python -m nltk.downloader omw-1.4
       - name: Run RSFC
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
