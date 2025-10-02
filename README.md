@@ -136,3 +136,47 @@ or like this without the poetry env
 ```
 poetry run rsfc <repo_url>
 ```
+
+# RSFC GitHub Action
+
+This repository provides a **reusable GitHub Action** to run RSFC on a given repository.
+
+## Workflows
+
+There are two key workflows:
+
+- **`run-rsfc.yml`**:  
+  Defines the main RSFC execution logic.  
+  Note: This workflow cannot be triggered directly because it uses `on: workflow_call`.  
+  It is designed to be reusable and must be invoked from another workflow.
+
+- **`call-rsfc.yml`**:  
+  A workflow file that triggers `run-rsfc.yml`. 
+  It must be placed in each repository that you want to analyze, since the repository where `call-rsfc.yml` is hosted is the one that will be processed.  
+  No additional inputs are required because the repository context is automatically passed by the `call`.  
+  This workflow can be triggered manually (`workflow_dispatch`) or automatically (e.g., on `push` events).
+
+## Usage
+
+To use RSFC in a repository:
+
+1. Copy `call-rsfc.yml` into `.github/workflows/` of the repository you want to analyze.
+2. Ensure that the required secrets are defined (see below).
+3. No inputs are needed — the workflow automatically uses the repository it resides in.
+
+Example:
+
+```yaml
+name: Call RSFC reusable workflow
+
+on:
+  workflow_dispatch:   
+  push:                
+
+jobs:
+  call-rsfc:
+    uses: oeg-upm/rsfc/.github/workflows/run-rsfc.yml@main
+    with:
+      repo_url: https://github.com/${{ github.repository }}
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.RSFC_TOKEN }}
