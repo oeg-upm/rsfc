@@ -87,17 +87,14 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
                     id_locations['readme'] = True
         
         
-    if all(id_locations.values()):
+    if any(id_locations.values()):
         output = "true"
-        evidence = constants.EVIDENCE_ID_ASSOCIATED_WITH_SOFTWARE
-    elif any(id_locations.values()):
-        output = "improvable"
         evidence = constants.EVIDENCE_SOME_ID_ASSOCIATED_WITH_SOFTWARE
         
-        missing_id_locations = [key for key, value in id_locations.items() if not value]
-        missing_id_locations_txt = ', '.join(missing_id_locations)
+        existing_id_locations = [key for key, value in id_locations.items() if value]
+        existing_id_locations_txt = ', '.join(existing_id_locations)
         
-        evidence += missing_id_locations_txt
+        evidence += existing_id_locations_txt
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE
@@ -515,10 +512,10 @@ def test_authors_orcids(codemeta_data, cff_data):
         output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_BOTH
     elif author_orcids_codemeta:
-        output = "improvable"
+        output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CODEMETA
     elif author_orcids_cff:
-        output = "improvable"
+        output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CFF
     else:
         output = "false"

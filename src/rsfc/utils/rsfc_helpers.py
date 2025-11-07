@@ -136,19 +136,14 @@ def check_issue(issue, issue_refs):
     return issue_id in issue_refs
 
 
-def cross_check_any_issue(issues, commits, max_workers=8):
-
+def cross_check_any_issue(issues, commits):
     issue_refs = extract_issue_refs(commits)
 
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {}
-        for issue in issues:
-            future = executor.submit(check_issue, issue, issue_refs)
-            futures[future] = issue
-        for future in as_completed(futures):
-            if future.result():
-                executor.shutdown(cancel_futures=True)
-                return True
+    for issue in issues:
+        issue_id = str(issue.get("number") or issue.get("iid"))
+        if issue_id in issue_refs:
+            return True
+
     return False
 
 

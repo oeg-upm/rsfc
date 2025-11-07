@@ -1,5 +1,5 @@
 import requests
-import datetime
+from datetime import datetime
 import urllib
 import yaml
 from rsfc.utils import constants
@@ -145,44 +145,49 @@ class GithubHarvester:
         
     def get_commits(self):
         if self.repo_type == "GITHUB":
-            commits_url = self.api_url + "/commits"
+            commits_url = f"{self.api_url}/commits?per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
             response = requests.get(commits_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
-            commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}"
+            commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}&per_page=100"
             response = requests.get(commits_url)
 
         else:
-            raise ValueError(f"Repositorio no soportado: {self.repo_type}")
+            raise ValueError(f"Not supported repository: {self.repo_type}")
 
         if response.status_code == 200:
             commits = response.json()
         else:
+            print(f"Error getting commits: {response.status_code}")
             commits = []
 
         return commits
+
     
     
     def get_issues(self):
         if self.repo_type == "GITHUB":
-            issues_url = self.api_url + "/issues?state=all"
+            issues_url = f"{self.api_url}/issues?state=all&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
             response = requests.get(issues_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
-            issues_url = f"{self.api_url}/issues?state=all"
+            issues_url = f"{self.api_url}/issues?state=all&per_page=100"
             response = requests.get(issues_url)
 
         else:
-            raise ValueError(f"Repositorio no soportado: {self.repo_type}")
+            raise ValueError(f"Not supported repository: {self.repo_type}")
 
+        issues = []
         if response.status_code == 200:
-            issues = response.json()
+            data = response.json()
+            issues = [issue for issue in data if "pull_request" not in issue] #Filter pull requests
         else:
-            issues = []
+            print(f"Error getting issues: {response.status_code}")
 
         return issues
+
     
     
     def get_tests(self):
