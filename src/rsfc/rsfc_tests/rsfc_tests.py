@@ -87,17 +87,14 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
                     id_locations['readme'] = True
         
         
-    if all(id_locations.values()):
+    if any(id_locations.values()):
         output = "true"
-        evidence = constants.EVIDENCE_ID_ASSOCIATED_WITH_SOFTWARE
-    elif any(id_locations.values()):
-        output = "improvable"
         evidence = constants.EVIDENCE_SOME_ID_ASSOCIATED_WITH_SOFTWARE
         
-        missing_id_locations = [key for key, value in id_locations.items() if not value]
-        missing_id_locations_txt = ', '.join(missing_id_locations)
+        existing_id_locations = [key for key, value in id_locations.items() if value]
+        existing_id_locations_txt = ', '.join(existing_id_locations)
         
-        evidence += missing_id_locations_txt
+        evidence += existing_id_locations_txt
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE
@@ -515,10 +512,10 @@ def test_authors_orcids(codemeta_data, cff_data):
         output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_BOTH
     elif author_orcids_codemeta:
-        output = "improvable"
+        output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CODEMETA
     elif author_orcids_cff:
-        output = "improvable"
+        output = "true"
         evidence = constants.EVIDENCE_AUTHOR_ORCIDS_CFF
     else:
         output = "false"
@@ -584,7 +581,7 @@ def test_identifier_in_readme_citation(somef_data, cff_data):
     return check.convert()
 
 
-def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, sw): #CAMBIAR. Este debe coger el id que este en el readme, codemeta o cff y mirar que resuelva a la url del software
+def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, repo_url):
     
     output = "false"
     evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
@@ -611,7 +608,7 @@ def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, sw
             resp = requests.get(doi_url, allow_redirects=True, timeout=10)
             html = resp.text
             
-            if rsfc_helpers.landing_page_links_back(html, sw.url):
+            if rsfc_helpers.landing_page_links_back(html, repo_url):
                 output = "true"
                 evidence = constants.EVIDENCE_DOI_LINKS_BACK_TO_REPO
             else:
@@ -665,7 +662,7 @@ def test_metadata_record_in_zenodo_or_software_heritage(somef_data): #CAMBIAR
 
 def test_is_github_repository(repo_url):
 
-    if 'github.com' in repo_url or 'gitlab.com':
+    if 'github.com' in repo_url or 'gitlab.com' in repo_url:
         response = requests.head(repo_url, allow_redirects=True, timeout=5)
         if response.status_code == 200:
             output = "true"
@@ -795,29 +792,15 @@ def test_dependencies_in_machine_readable_file(somef_data):
 
 ################################################### FRSM_14 ###################################################
 
-def test_presence_of_tests(sw):
-    entries = []
+def test_presence_of_tests(gh):
+    
+    test_evidences = gh.tests
 
-    if sw.repo_type == "GITHUB":
-        tree_url = f"{sw.base_url}/git/trees/HEAD?recursive=1"
-        resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
-        if resp.status_code == 200:
-            entries = resp.json().get("tree", [])
-
-    elif sw.repo_type == "GITLAB":
-        tree_url = f"{sw.base_url}/repository/tree?recursive=true&ref={sw.repo_branch}&per_page=100"
-        resp = requests.get(tree_url)
-        if resp.status_code == 200:
-            entries = [{"path": item["path"]} for item in resp.json()]
-
-    else:
-        raise ValueError("Unsupported repository type")
-
-    if entries:
+    if test_evidences:
         rx = re.compile(r'tests?', re.IGNORECASE)
         sources = ""
 
-        for e in entries:
+        for e in test_evidences:
             path = e["path"]
             if rx.search(path):
                 sources += f"\t\n- {path}"
@@ -967,7 +950,7 @@ def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):
 
 ################################################### FRSM_17 ###################################################
 
-def test_repo_enabled_and_commits(somef_data, sw):
+def test_repo_enabled_and_commits(somef_data, gh):
     
     if 'repository_status' in somef_data and somef_data['repository_status'][0]['result']['value']:
         if '#active' in somef_data['repository_status'][0]['result']['value']:
@@ -977,28 +960,8 @@ def test_repo_enabled_and_commits(somef_data, sw):
     else:
         repo = False
         
-    if sw.repo_type == "GITHUB":
-        commit_url = sw.base_url + "/commits"
-        headers = {'Accept': 'application/vnd.github.v3.raw'}
-        response = requests.get(commit_url, headers=headers)
+    commits = gh.commits
 
-    elif sw.repo_type == "GITLAB":
-        commit_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
-        response = requests.get(commit_url)
-
-    else:
-        raise ValueError("Unsupported repository type")
-    
-    
-    if response.status_code == 200:
-        json_data = response.json()
-        if isinstance(json_data, list) and len(json_data) > 0:
-            commits = True
-        else:
-            commits = False
-    else:
-        raise ConnectionError(f"Error accessing the repository: {response.status_code}")
-    
     if repo:
         if commits:
             output = "true"
@@ -1016,23 +979,11 @@ def test_repo_enabled_and_commits(somef_data, sw):
     return check.convert()
 
 
-def test_commit_history(sw):
+def test_commit_history(gh):
 
-    if sw.repo_type == "GITHUB":
-        
-        commits_url = sw.base_url + "/commits"
-        headers = {'Accept': 'application/vnd.github.v3.raw'}
-        response = requests.get(commits_url, headers=headers)
-        
-    elif sw.repo_type == "GITLAB":
-        
-        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
-        response = requests.get(commits_url)
-        
-    else:
-        raise ValueError("Unsupported repository type")
+    commits = gh.commits
     
-    if response.status_code == 200:
+    if commits != []:
         output = "true"
         evidence = constants.EVIDENCE_COMMITS
     else:
@@ -1043,43 +994,12 @@ def test_commit_history(sw):
     
     return check.convert()
 
-def test_commits_linked_issues(sw):
+def test_commits_linked_issues(gh):
     
-    if sw.repo_type == "GITHUB":
+    commits = gh.commits
+    issues = gh.issues
 
-        commits_url = sw.base_url + "/commits"
-        commits_headers = {'Accept': 'application/vnd.github.v3.raw'}
-        commits_response = requests.get(commits_url, headers=commits_headers)
-
-        issues_url = sw.base_url + "/issues?state=all"
-        issues_headers = {'Accept': 'application/vnd.github.v3.raw'}
-        issues_response = requests.get(issues_url, headers=issues_headers)
-
-    elif sw.repo_type == "GITLAB":
-
-        commits_url = f"{sw.base_url}/repository/commits?ref_name={sw.repo_branch}"
-        commits_response = requests.get(commits_url)
-
-        issues_url = f"{sw.base_url}/issues?state=all"
-        issues_response = requests.get(issues_url)
-
-    else:
-        raise ValueError("Unsupported repository type")
-
-
-    if commits_response.status_code == 200:
-        commits = commits_response.json()
-    else:
-        commits = []
-        
-    if issues_response.status_code == 200:
-        issues = issues_response.json()
-        
-    else:
-        issues = []
-
-
-    if not commits or not issues:
+    if commits == [] or issues == []:
         output = "false"
         evidence = constants.EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO
     else:

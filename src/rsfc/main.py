@@ -2,7 +2,7 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="RSFC - EVERSE Research Software Fairness Checks")
-    parser.add_argument("repo_url", help="URL of the Github repository to be analyzed")
+    parser.add_argument("--repo", required=True, help="URL of the Github repository to be analyzed")
 
     args = parser.parse_args()
     
@@ -12,7 +12,7 @@ def main():
     import os
     import json
     
-    rsfc_asmt, table = start_assessment(args.repo_url)
+    rsfc_asmt, table = start_assessment(args.repo)
     
     output_path = './outputs/rsfc_assessment.json'
     print("Saving assessment locally...")

@@ -3,6 +3,7 @@ from jinja2 import Environment, BaseLoader
 from datetime import datetime, timezone
 import json
 from importlib.resources import files
+from rsfc.utils import constants
 
 class Assessment:
     def __init__(self, checks):
@@ -39,14 +40,16 @@ class Assessment:
     def to_terminal_table(self):
         rows = []
         
-        for check in self.checks:
+        for i, check in enumerate(self.checks):
+            desc = constants.TEST_DESC_LIST[i] if i < len(constants.TEST_DESC_LIST) else "None"
+            
             rows.append([
                 check["test_id"],
-                check["assessesIndicator"]["@id"],
+                desc,
                 str(check["output"])
             ])
 
-        headers = ["TEST ID", "Assessed Indicator ID", "Output"]
+        headers = ["TEST ID", "Short Description", "Output"]
         table = tabulate(rows, headers, tablefmt="grid")
         info = "\n\nFor rationale on the tests performed, please check the assessment file created in the outputs folder.\n"
         table = table +info
