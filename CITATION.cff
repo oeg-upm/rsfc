@@ -7,6 +7,9 @@ message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.16531481
 authors:
   - given-names: Daniel
     family-names: Garijo
