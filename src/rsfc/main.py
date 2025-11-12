@@ -3,6 +3,7 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="RSFC - EVERSE Research Software Fairness Checks")
     parser.add_argument("--repo", required=True, help="URL of the Github repository to be analyzed")
+    parser.add_argument("--ftr", required=False, help="Flag to indicate if JSON-LD in FTR format is desired")
 
     args = parser.parse_args()
     
