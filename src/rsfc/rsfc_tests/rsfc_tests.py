@@ -34,7 +34,7 @@ def test_id_presence_and_resolves(somef_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
                         
     
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-1', constants.PROCESS_IDENTIFIER, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-1', "There is an identifier and resolves", constants.PROCESS_IDENTIFIER, output, evidence)
     
     return check.convert()
 
@@ -61,7 +61,7 @@ def test_id_common_schema(somef_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND_README
         
     
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-3', constants.PROCESS_ID_PROPER_SCHEMA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-3', "Software identifier follows a proper schema", constants.PROCESS_ID_PROPER_SCHEMA, output, evidence)
     
     return check.convert()
 
@@ -100,7 +100,7 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
         evidence = constants.EVIDENCE_NO_ID_ASSOCIATED_WITH_SOFTWARE
     
 
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-2', constants.PROCESS_ID_ASSOCIATED_WITH_SOFTWARE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-01-2', "There is an identifier associated with the software", constants.PROCESS_ID_ASSOCIATED_WITH_SOFTWARE, output, evidence)
     
     return check.convert()
 
@@ -131,7 +131,7 @@ def test_version_number_in_metadata(somef_data, codemeta_data, cff_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_VERSION_IN_METADATA
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-03-6', constants.PROCESS_VERSION_IN_METADATA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-03-6', "Version number in metadata", constants.PROCESS_VERSION_IN_METADATA, output, evidence)
 
     return check.convert()
 
@@ -153,7 +153,7 @@ def test_has_releases(somef_data):
                     else:
                         evidence += f'\n\t- {item["result"]["url"]}'
                         
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-1', constants.PROCESS_RELEASES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-1', "Software has releases", constants.PROCESS_RELEASES, output, evidence)
 
     return check.convert()
     
@@ -173,7 +173,7 @@ def test_release_id_and_version(somef_data):
                 evidence = constants.EVIDENCE_NO_RELEASE_ID_AND_VERSION
                 break
                 
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-2', constants.PROCESS_RELEASE_ID_VERSION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-2', "Releases have an id and version number", constants.PROCESS_RELEASE_ID_VERSION, output, evidence)
     
     return check.convert()
 
@@ -202,7 +202,7 @@ def test_semantic_versioning_standard(somef_data):
         if output == "true":
             evidence = constants.EVIDENCE_VERSIONING_STANDARD
                 
-    check = ch.Check(constants.INDICATORS_DICT['versioning_standards_use'], 'RSFC-03-3', constants.PROCESS_SEMANTIC_VERSIONING, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['versioning_standards_use'], 'RSFC-03-3', "Release versions follow a community established convention", constants.PROCESS_SEMANTIC_VERSIONING, output, evidence)
     
     return check.convert()
         
@@ -228,7 +228,7 @@ def test_version_scheme(somef_data):
         if output == "true":
             evidence = constants.EVIDENCE_VERSION_SCHEME_COMPLIANT
         
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-4', constants.PROCESS_VERSION_SCHEME, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-4', "Release identifiers follow the same scheme", constants.PROCESS_VERSION_SCHEME, output, evidence)
     
     return check.convert()
 
@@ -256,7 +256,7 @@ def test_latest_release_consistency(somef_data):
         evidence = constants.EVIDENCE_NO_RELEASE_CONSISTENCY
         
         
-    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-5', constants.PROCESS_RELEASE_CONSISTENCY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['has_releases'], 'RSFC-03-5', "Last release consistency", constants.PROCESS_RELEASE_CONSISTENCY, output, evidence)
     
     return check.convert()
 
@@ -292,7 +292,7 @@ def test_metadata_exists(somef_data, codemeta_data, cff_data):
         evidence += missing_metadata_txt
     
     
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-1', constants.PROCESS_METADATA_EXISTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-1', "Metadata exists", constants.PROCESS_METADATA_EXISTS, output, evidence)
     
     return check.convert()
 
@@ -305,7 +305,7 @@ def test_readme_exists(somef_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_DOCUMENTATION_README
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-04-2', constants.PROCESS_README, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-04-2', "There is a README", constants.PROCESS_README, output, evidence)
     
     return check.convert()
 
@@ -335,7 +335,7 @@ def test_title_description(somef_data):
         evidence = constants.EVIDENCE_NO_TITLE_AND_DESCRIPTION
         
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-3', constants.PROCESS_TITLE_DESCRIPTION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-3', "There are title and description", constants.PROCESS_TITLE_DESCRIPTION, output, evidence)
     
     return check.convert()
 
@@ -364,7 +364,7 @@ def test_descriptive_metadata(somef_data):
         
         evidence += missing_metadata_txt
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-4', constants.PROCESS_DESCRIPTIVE_METADATA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-4', "Software has descriptive metadata", constants.PROCESS_DESCRIPTIVE_METADATA, output, evidence)
     
     return check.convert()
         
@@ -378,7 +378,7 @@ def test_codemeta_exists(codemeta_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_METADATA_CODEMETA
     
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-5', constants.PROCESS_CODEMETA, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-04-5', "There is a codemeta file", constants.PROCESS_CODEMETA, output, evidence)
     
     return check.convert()
 
@@ -393,7 +393,7 @@ def test_repo_status(somef_data):
         evidence = constants.EVIDENCE_NO_REPO_STATUS
         
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-05-1', constants.PROCESS_REPO_STATUS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-05-1', "There is a repostatus badge", constants.PROCESS_REPO_STATUS, output, evidence)
     
     return check.convert()
 
@@ -420,7 +420,7 @@ def test_contact_support_documentation(somef_data):
         
         evidence += missing_sources_txt
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-2', constants.PROCESS_CONTACT_SUPPORT_DOCUMENTATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-2', "There is contact and/or support metadata", constants.PROCESS_CONTACT_SUPPORT_DOCUMENTATION, output, evidence)
     
     return check.convert()
 
@@ -452,7 +452,7 @@ def test_software_documentation(somef_data):
         output = "true"
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-3', constants.PROCESS_DOCUMENTATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-05-3', "Software documentation", constants.PROCESS_DOCUMENTATION, output, evidence)
     
     return check.convert()
 
@@ -474,7 +474,7 @@ def test_authors(somef_data, codemeta_data, cff_data):
         output = "false"
 
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', constants.PROCESS_AUTHORS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', "Authors are declared", constants.PROCESS_AUTHORS, output, evidence)
     
     return check.convert()
 
@@ -491,7 +491,7 @@ def test_contributors(somef_data, codemeta_data):
         evidence = constants.EVIDENCE_NO_CONTRIBUTORS
         output = "false"
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', constants.PROCESS_CONTRIBUTORS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', "Contributors are declared", constants.PROCESS_CONTRIBUTORS, output, evidence)
     
     return check.convert()
 
@@ -521,7 +521,7 @@ def test_authors_orcids(codemeta_data, cff_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', "Authors have an ORCID", constants.PROCESS_AUTHOR_ORCIDS, output, evidence)
     
     return check.convert()
 
@@ -545,7 +545,7 @@ def test_author_roles(codemeta_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_CODEMETA_FOUND
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-4', constants.PROCESS_AUTHOR_ROLES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-4', "Authors have roles", constants.PROCESS_AUTHOR_ROLES, output, evidence)
     
     return check.convert()
 
@@ -576,7 +576,7 @@ def test_identifier_in_readme_citation(somef_data, cff_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_IN_README_OR_CITATION
         
         
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-1', constants.PROCESS_IDENTIFIER_IN_README_CITATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-1', "There is an identifier in README or CITATION.cff", constants.PROCESS_IDENTIFIER_IN_README_CITATION, output, evidence)
     
     return check.convert()
 
@@ -620,7 +620,7 @@ def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, re
             evidence = constants.EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER
 
 
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-2', constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-2', "Software identifier resolves to software", constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence)
     
     return check.convert()
 
@@ -654,7 +654,7 @@ def test_metadata_record_in_zenodo_or_software_heritage(somef_data): #CAMBIAR
         evidence = constants.EVIDENCE_NO_ZENODO_DOI_OR_SOFTWARE_HERITAGE
         
         
-    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], 'RSFC-08-1', constants.PROCESS_ZENODO_SOFTWARE_HERITAGE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], 'RSFC-08-1', "Metadata record in Software Heritage or Zenodo", constants.PROCESS_ZENODO_SOFTWARE_HERITAGE, output, evidence)
     
     return check.convert()
 
@@ -678,7 +678,7 @@ def test_is_github_repository(repo_url):
         evidence = constants.EVIDENCE_NO_GITHUB_OR_GITLAB_URL
         
     
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-09-1', constants.PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-09-1', "Repository is from Github/Gitlab", constants.PROCESS_IS_GITHUB_OR_GITLAB_REPOSITORY, output, evidence)
     
     return check.convert()
 
@@ -714,7 +714,7 @@ def test_reference_publication(somef_data, codemeta_data):
         evidence = constants.EVIDENCE_NO_REFERENCE_PUBLICATION_OR_CITATION_TO_ARTICLE
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-12-1', constants.PROCESS_REFERENCE_PUBLICATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-12-1', "There is an article citation or reference publication", constants.PROCESS_REFERENCE_PUBLICATION, output, evidence)
     
     return check.convert()
 
@@ -733,7 +733,7 @@ def test_dependencies_declared(somef_data):
                 if item['source'] not in evidence:
                     evidence += f'\n\t- {item["source"]}'
 
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-1', constants.PROCESS_REQUIREMENTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-1', "Dependencies are declared", constants.PROCESS_REQUIREMENTS, output, evidence)
     
     return check.convert()
 
@@ -746,7 +746,7 @@ def test_installation_instructions(somef_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_INSTALLATION
         
-    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-13-2', constants.PROCESS_INSTALLATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_documentation'], 'RSFC-13-2', "There are installation instructions", constants.PROCESS_INSTALLATION, output, evidence)
     
     return check.convert()
 
@@ -766,7 +766,7 @@ def test_dependencies_have_version(somef_data):
                 evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
                 break
     
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-3', constants.PROCESS_DEPENDENCIES_VERSION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-3', "Dependencies have version numbers", constants.PROCESS_DEPENDENCIES_VERSION, output, evidence)
     
     return check.convert()
 
@@ -785,7 +785,7 @@ def test_dependencies_in_machine_readable_file(somef_data):
                 evidence = constants.EVIDENCE_DEPENDENCIES_MACHINE_READABLE_FILE
                 break
             
-    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-4', constants.PROCESS_DEPENDENCIES_MACHINE_READABLE_FILE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-4', "There is a dependencies machine-readable file", constants.PROCESS_DEPENDENCIES_MACHINE_READABLE_FILE, output, evidence)
     
     return check.convert()
 
@@ -816,7 +816,7 @@ def test_presence_of_tests(gh):
         evidence = None
             
             
-    check = ch.Check(constants.INDICATORS_DICT['software_tests'], 'RSFC-14-1', constants.PROCESS_TESTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_tests'], 'RSFC-14-1', "Presence of tests in repository", constants.PROCESS_TESTS, output, evidence)
     
     return check.convert()
 
@@ -840,7 +840,7 @@ def test_github_action_tests(somef_data):
         output = "false"
         evidence = constants.EVIDENCE_NO_AUTOMATED_TESTS
 
-    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-14-2', constants.PROCESS_AUTOMATED_TESTS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-14-2', "There are actions to automate tests", constants.PROCESS_AUTOMATED_TESTS, output, evidence)
     
     return check.convert()
 
@@ -857,7 +857,7 @@ def test_has_license(somef_data):
             if 'source' in item:
                 evidence += f'\n\t- {item["source"]}'
                 
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-1', constants.PROCESS_LICENSE, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-1', "Software has license", constants.PROCESS_LICENSE, output, evidence)
     
     return check.convert()
 
@@ -883,7 +883,7 @@ def test_license_spdx_compliant(somef_data):
         elif output == "false" and evidence == None:
             evidence = constants.EVIDENCE_LICENSE_NOT_CLEAR
             
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-2', constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-2', "License is SPDX compliant", constants.PROCESS_LICENSE_SPDX_COMPLIANT, output, evidence)
     
     return check.convert()
 
@@ -903,7 +903,7 @@ def test_license_information_provided(somef_data):
                     evidence = constants.EVIDENCE_LICENSE_INFORMATION_PROVIDED
                     
                 
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-3', constants.PROCESS_LICENSE_INFORMATION_PROVIDED, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-3', "License information is provided", constants.PROCESS_LICENSE_INFORMATION_PROVIDED, output, evidence)
     
     return check.convert()
 
@@ -944,7 +944,7 @@ def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):
         evidence += missing_license_info_txt
         
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-16-1', constants.PROCESS_LICENSE_INFO_IN_METADATA_FILES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-16-1', "License referenced in metadata files", constants.PROCESS_LICENSE_INFO_IN_METADATA_FILES, output, evidence)
     
     return check.convert()
 
@@ -974,7 +974,7 @@ def test_repo_enabled_and_commits(somef_data, gh):
         evidence = constants.EVIDENCE_NO_REPO_STATUS
         
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-1', constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-1', "Repository active", constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence)
     
     return check.convert()
 
@@ -990,7 +990,7 @@ def test_commit_history(gh):
         output = "false"
         evidence = constants.EVIDENCE_NO_COMMITS
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', constants.PROCESS_COMMITS_HISTORY, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', "Commit history", constants.PROCESS_COMMITS_HISTORY, output, evidence)
     
     return check.convert()
 
@@ -1013,7 +1013,7 @@ def test_commits_linked_issues(gh):
             evidence = constants.EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES
             
 
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-3', constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-3', "Commits are linked to issues", constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence)
     
     return check.convert()
 
@@ -1033,7 +1033,7 @@ def test_has_citation(somef_data):
                 if item['source'] not in evidence:
                     evidence += f'\n\t- {item["source"]}'
         
-    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-18-1', constants.PROCESS_CITATION, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['software_has_citation'], 'RSFC-18-1', "Repository has citation", constants.PROCESS_CITATION, output, evidence)
     
     return check.convert()
 
@@ -1050,6 +1050,6 @@ def test_repository_workflows(somef_data):
         for item in somef_data['continuous_integration']:
             evidence += f'\n\t- {item["result"]["value"]}'
 
-    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-19-1', constants.PROCESS_WORKFLOWS, output, evidence)
+    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-19-1', "Repository has workflows", constants.PROCESS_WORKFLOWS, output, evidence)
     
     return check.convert()

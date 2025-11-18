@@ -10,27 +10,30 @@ class Assessment:
         self.checks = checks
         
 
-    def render_template(self, sw):
+    def render_template(self, sw, ftr):
         
         print("Rendering assessment...")
         
         data = dict()
-        
         data['name'] = sw.name
         data['url'] = sw.url
         data['version'] = sw.version
         data['doi'] = sw.id
         data['checks'] = self.checks
-        
-        with files("rsfc").joinpath("templates/assessment_schema.json.j2").open("r", encoding="utf-8") as f:
-            template_source = f.read()
-
-        env = Environment(loader=BaseLoader(), trim_blocks=True, lstrip_blocks=True)
-        template = env.from_string(template_source)
-
+            
         now = datetime.now(timezone.utc)
         data.setdefault("date", str(now.date()))
         data.setdefault("date_iso", now.replace(microsecond=0).isoformat().replace('+00:00', 'Z'))
+            
+        if ftr:
+            with files("rsfc").joinpath("templates/assessment_schema_ftr.json.j2").open("r", encoding="utf-8") as f:
+                template_source = f.read()
+        else:
+            with files("rsfc").joinpath("templates/assessment_schema.json.j2").open("r", encoding="utf-8") as f:
+                template_source = f.read()
+
+        env = Environment(loader=BaseLoader(), trim_blocks=True, lstrip_blocks=True)
+        template = env.from_string(template_source)
 
         rendered = template.render(**data)
         
@@ -57,3 +60,5 @@ class Assessment:
         return table
         
         
+    def ftr_export():
+        pass

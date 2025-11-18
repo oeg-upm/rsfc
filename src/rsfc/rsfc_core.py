@@ -7,7 +7,7 @@ from rsfc.harvesters import cff_harvester as cf
 from rsfc.harvesters import github_harvester as gt
 
 
-def start_assessment(repo_url):
+def start_assessment(repo_url, ftr):
     
     gh = gt.GithubHarvester(repo_url)
     sw = soft.AssessedSoftware(repo_url, gh)
@@ -22,7 +22,7 @@ def start_assessment(repo_url):
     
     assess = asmt.Assessment(checks)
     
-    rsfc_asmt = assess.render_template(sw)
+    rsfc_asmt = assess.render_template(sw, ftr)
     table = assess.to_terminal_table()
     
     return rsfc_asmt, table

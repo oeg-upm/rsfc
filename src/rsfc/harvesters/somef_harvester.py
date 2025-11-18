@@ -9,9 +9,7 @@ class SomefHarvester:
     def __init__(self, repo_url):
         self.somef_data = self.somef_assessment(repo_url, 0.8)
         
-        
-        
-        
+
     def somef_assessment(self, repo_url, threshold):
     
         print("Extracting repository metadata with SOMEF...")

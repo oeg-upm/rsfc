@@ -2,8 +2,8 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="RSFC - EVERSE Research Software Fairness Checks")
-    parser.add_argument("--repo", required=True, help="URL of the Github repository to be analyzed")
-    parser.add_argument("--ftr", required=False, help="Flag to indicate if JSON-LD in FTR format is desired")
+    parser.add_argument("--repo", required=True, help="URL of the Github/Gitlab repository to be analyzed")
+    parser.add_argument("--ftr", action="store_true", help="Flag to indicate if JSON-LD in FTR format is desired")
 
     args = parser.parse_args()
     
@@ -13,7 +13,7 @@ def main():
     import os
     import json
     
-    rsfc_asmt, table = start_assessment(args.repo)
+    rsfc_asmt, table = start_assessment(args.repo, args.ftr)
     
     output_path = './outputs/rsfc_assessment.json'
     print("Saving assessment locally...")
