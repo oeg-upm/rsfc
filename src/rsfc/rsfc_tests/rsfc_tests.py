@@ -19,11 +19,11 @@ def test_id_presence_and_resolves(somef_data):
                             response = requests.head(id, allow_redirects=True, timeout=10)
                             if response.status_code == 200:
                                 output = "true"
-                                evidence = constants.EVIDENCE_ID_RESOLVES
+                                evidence = constants.EVIDENCE_ID_RESOLVES.format(id=id)
                                 suggest = "No suggestions"
                             else:
                                 output = "false"
-                                evidence = constants.EVIDENCE_NO_ID_RESOLVE
+                                evidence = constants.EVIDENCE_NO_ID_RESOLVE.format(id=id)
                                 suggest = constants.SUGGEST_IDENTIFIER_NO_RESOLVE
                         except requests.RequestException:
                             output = "error"
@@ -31,7 +31,7 @@ def test_id_presence_and_resolves(somef_data):
                             suggest = None
                     else:
                         output = "false"
-                        evidence = constants.EVIDENCE_ID_NOT_URL
+                        evidence = constants.EVIDENCE_ID_NOT_URL.format(id=id)
                         suggest = constants.SUGGEST_IDENTIFIER_NOT_HTTP
     else:
         output = "false"
@@ -90,8 +90,8 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
 
     if 'identifier' in somef_data:
         for item in somef_data['identifier']:
-            if item['source']:
-                if 'README' in item['source']:
+            if 'source' in item:
+                if 'README.md' in item['source']:
                     id_locations['readme'] = True
         
         
@@ -100,7 +100,7 @@ def test_id_associated_with_software(somef_data, codemeta_data, cff_data):
         evidence = constants.EVIDENCE_SOME_ID_ASSOCIATED_WITH_SOFTWARE
         suggest = "No suggestions"
         
-        existing_id_locations = [key for key, value in id_locations.items() if value]
+        existing_id_locations = [key for key, value in id_locations.items() if not value]
         existing_id_locations_txt = ', '.join(existing_id_locations)
         
         evidence += existing_id_locations_txt
