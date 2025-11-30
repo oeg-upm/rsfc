@@ -30,8 +30,8 @@
       "process": "{{ check['process'] }}",
       "status": { "@id": "{{ check['status']['@id'] }}" },
       "output": "{{ check['output'] }}",
-      "evidence": {{ check[evidence] | tojson }},
-      "suggestions": "{{ check[suggestions] }}"
+      "evidence": {{ check['evidence'] | tojson }},
+      "suggestions": "{{ check['suggestions'] }}"
     }{{ "," if not loop.last else "" }}
     {% endfor %}
   ]
