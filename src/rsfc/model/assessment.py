@@ -58,7 +58,3 @@ class Assessment:
         table = table +info
         
         return table
-        
-        
-    def ftr_export():
-        pass

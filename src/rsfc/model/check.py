@@ -1,7 +1,7 @@
 from rsfc.utils import constants
 
 class Check:
-    def __init__(self, indicator_id, test_id, test_name, process, output, evidence):
+    def __init__(self, indicator_id, test_id, test_name, process, output, evidence, suggestions):
         self.checkers_info = constants.CHECKERS_DICT
         
         self.indicator_id = indicator_id
@@ -10,6 +10,7 @@ class Check:
         self.process = process
         self.output = output
         self.evidence = evidence
+        self.suggestions = suggestions
 
     def convert(self):
         return {
@@ -28,5 +29,6 @@ class Check:
             "process": self.process,
             "status": { "@id": "schema:CompletedActionStatus" },
             "output": self.output,
-            "evidence": self.evidence
+            "evidence": self.evidence,
+            "suggestions": self.suggestions
         }

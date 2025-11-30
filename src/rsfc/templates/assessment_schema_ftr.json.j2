@@ -11,41 +11,40 @@
     "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
   "assessmentTarget": {
-    "title": "{{name}}"
+    "title": "{{name}}",
+    "url": "{{url}}"
     {% if version %},
     "version": "{{ version }}"
     {% endif %}
     {% if doi %},
-    "identifier": {
-        "@id": "{{doi}}"
-    }
+    "@id": "{{doi}}"
     {% endif %}
   },
   "hadMember": [
     {% for check in checks -%}
     {
-      "@id": "{{ check['test_id'] }}",
       "@type": "https://w3id.org/ftr#TestResult",
-      "outputFromTest": {
-        "@id": "{{ check['test_id'] }}",
-        "@type": "https://w3id.org/ftr#Test",
-        "title": "{{ check['test_name'] }}",
-        "description": "{{ check['process'] }}"
-      },
-      "hasAssociatedMetric": { "@id": "{{ check['assessesIndicator']['@id'] }}" },
-      "wasGeneratedBy": {
-        "title": "{{ check['checkingSoftware']['name'] }}",
-        "identifier": {
-            "@id": "{{ check['checkingSoftware']['@id'] }}"
-        },
-        "version": "{{ check['checkingSoftware']['softwareVersion'] }}"
-      },
       "description": {{ check.evidence | tojson }},
+      "hasAssociatedMetric": { 
+        "@id": "{{ check['assessesIndicator']['@id'] }}"
+      },
       "completion": {
         "@value": 100
       },
       "value": "{{ check['output'] }}",
-      "log": {{ check.evidence | tojson }}
+      "log": {{ check.evidence | tojson }},
+      "outputFromTest": {
+        "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+        "@type": "Test",
+        "title": "{{ check['test_name'] }}",
+        "description": "{{ check['process'] }}"
+      },
+      "wasGeneratedBy": {
+        "@type": "TestExecutionActivity",
+        "used": {
+          "@id": "{{ check['checkingSoftware']['@id'] }}"
+        }
+      }
     }{{ "," if not loop.last else "" }}
     {% endfor %}
   ]
