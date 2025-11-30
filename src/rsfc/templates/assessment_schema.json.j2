@@ -18,7 +18,8 @@
     {% for check in checks -%}
     {
       "@type": "CheckResult",
-      "test_id": "{{ check['test_id'] }}",
+      "test_id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+      "test_name": "{{ check['test_name'] }}",
       "assessesIndicator": { "@id": "{{ check['assessesIndicator']['@id'] }}" },
       "checkingSoftware": {
         "@type": "schema:SoftwareApplication",
@@ -29,7 +30,8 @@
       "process": "{{ check['process'] }}",
       "status": { "@id": "{{ check['status']['@id'] }}" },
       "output": "{{ check['output'] }}",
-      "evidence": {{ check.evidence | tojson }}
+      "evidence": {{ check['evidence'] | tojson }},
+      "suggestions": "{{ check['suggestions'] }}"
     }{{ "," if not loop.last else "" }}
     {% endfor %}
   ]

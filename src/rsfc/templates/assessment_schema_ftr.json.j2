@@ -1,0 +1,51 @@
+{
+  "@context": "https://w3id.org/ftr/context",
+  "@type": "https://w3id.org/ftr#TestResultSet",
+  "title": "Quality Assessment for {{name}}{% if version %} {{version}}{% endif %}",
+  "description": "An automated assessment of the {{name}} tool based on the EVERSE software quality indicators, run on {{date}}.",
+  "generatedAtTime": {
+    "@type": "http://www.w3.org/2001/XMLSchema#date",
+    "@value": "{{date}}"
+  },
+  "license": { 
+    "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "assessmentTarget": {
+    "title": "{{name}}",
+    "url": "{{url}}"
+    {% if version %},
+    "version": "{{ version }}"
+    {% endif %}
+    {% if doi %},
+    "@id": "{{doi}}"
+    {% endif %}
+  },
+  "hadMember": [
+    {% for check in checks -%}
+    {
+      "@type": "https://w3id.org/ftr#TestResult",
+      "description": {{ check.evidence | tojson }},
+      "hasAssociatedMetric": { 
+        "@id": "{{ check['assessesIndicator']['@id'] }}"
+      },
+      "completion": {
+        "@value": 100
+      },
+      "value": "{{ check['output'] }}",
+      "log": {{ check['evidence'] | tojson }},
+      "outputFromTest": {
+        "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+        "@type": "Test",
+        "title": "{{ check['test_name'] }}",
+        "description": "{{ check['process'] }}"
+      },
+      "wasGeneratedBy": {
+        "@type": "TestExecutionActivity",
+        "used": {
+          "@id": "{{ check['checkingSoftware']['@id'] }}"
+        }
+      }
+    }{{ "," if not loop.last else "" }}
+    {% endfor %}
+  ]
+}
