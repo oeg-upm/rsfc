@@ -118,7 +118,7 @@ mkdir ./outputs
 Finally, run the following command to run the container:
 
 ```
-docker run --rm -v $(pwd)/outputs:/rsfc/outputs rsfc-docker <repo_url>
+docker run --rm -v $(pwd)/outputs:/rsfc/outputs rsfc-docker --repo <repo_url>
 ```
 
 where repo_url is the url of the repository to be analyzed, which is strictly needed.
@@ -128,13 +128,19 @@ where repo_url is the url of the repository to be analyzed, which is strictly ne
 After installation, you can use the package by running if you activated the poetry env
 
 ```
-rsfc <repo_url>
+rsfc --repo <repo_url>
 ```
 
 or like this without the poetry env
 
 ```
-poetry run rsfc <repo_url>
+poetry run rsfc --repo <repo_url>
+```
+
+Also, if you want the output in OSTrails format, you can use the following flag
+
+```
+rsfc --repo <repo_url> --ftr
 ```
 
 # RSFC GitHub Action
