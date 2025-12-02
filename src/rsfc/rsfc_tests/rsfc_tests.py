@@ -842,8 +842,9 @@ def test_dependencies_have_version(somef_data):
         evidence = constants.EVIDENCE_DEPENDENCIES_VERSION
         suggest = "No suggestions"
         for item in somef_data['requirements']:
-            if 'README' not in item['source'] and item['result']['version']:
-                continue
+            if 'README' not in item['source'] and "version" in item["result"]:
+                if item["result"]["version"]:
+                    continue
             else:
                 output = "false"
                 evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
