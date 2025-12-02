@@ -40,21 +40,31 @@ class Assessment:
         return json.loads(rendered)
     
     
-    def to_terminal_table(self):
+    def to_terminal_table(self, test_id):
         rows = []
         
-        for i, check in enumerate(self.checks):
-            desc = constants.TEST_DESC_LIST[i] if i < len(constants.TEST_DESC_LIST) else "None"
-            
-            rows.append([
-                check["test_id"],
-                desc,
-                str(check["output"])
-            ])
+        for check in self.checks:
+            if test_id != None:
+                if test_id in check["test_id"]:
+                    desc = constants.TEST_DESC_DICT.get(check["test_id"], "None")
+                    
+                    rows.append([
+                        check["test_id"],
+                        desc,
+                        str(check["output"])
+                    ])
+            else:
+                desc = constants.TEST_DESC_DICT.get(check["test_id"], "None")
+                
+                rows.append([
+                    check["test_id"],
+                    desc,
+                    str(check["output"])
+                ])
 
         headers = ["TEST ID", "Short Description", "Output"]
         table = tabulate(rows, headers, tablefmt="grid")
         info = "\n\nFor rationale on the tests performed, please check the assessment file created in the outputs folder.\n"
-        table = table +info
+        table = table + info
         
         return table

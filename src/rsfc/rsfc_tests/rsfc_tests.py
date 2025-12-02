@@ -27,7 +27,7 @@ def test_id_presence_and_resolves(somef_data):
                                 suggest = constants.SUGGEST_IDENTIFIER_NO_RESOLVE
                         except requests.RequestException:
                             output = "error"
-                            evidence = None
+                            evidence = "Something went wrong when trying to resolve the identifier"
                             suggest = None
                     else:
                         output = "false"
