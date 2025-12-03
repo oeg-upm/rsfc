@@ -552,7 +552,7 @@ def ttl_to_html_benchmarks(path_ttl, path_mustache, pquery):
         data['benchmark_license'] = row.license
         # data['benchmark_landing_page'] = row.landing_page
         data['benchmark_status'] = row.benchmark_status
-        data['benchmark_turtle'] = row.label.replace('Benchmark ', '') + '.ttl'
+        data['benchmark_turtle'] = row.label.replace('Benchmark ', '').strip() + '.ttl'
         data['benchmark_same_as'] = row.same_as
 
         if str(row.keywords) not in keywords: 
