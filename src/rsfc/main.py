@@ -16,8 +16,13 @@ def main():
     
     rsfc_asmt, table = start_assessment(args.repo, args.ftr, args.id)
     
-    output_path = './outputs/rsfc_assessment.json'
+    output_dir = './rsfc_output/'
+    output_file = "rsfc_assessment.json"
+    output_path = os.path.join(output_dir, output_file)
+    
     print("Saving assessment locally...")
+    
+    os.makedirs(output_dir, exist_ok=True)
 
     if os.path.exists(output_path):
         os.remove(output_path)

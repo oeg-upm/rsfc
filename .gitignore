@@ -1,4 +1,5 @@
 rsfc_env/
+rsfc_output/
 build/
 dist/
 outputs/
