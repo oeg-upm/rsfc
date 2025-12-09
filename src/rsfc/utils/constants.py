@@ -82,6 +82,7 @@ PROCESS_VERSION_IN_METADATA = 'Checks if a version number for the software is in
 PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the existing issues (opened or closed) referenced in any of the commits made in the default branch of the repository'
 PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
 PROCESS_LICENSE_INFORMATION_PROVIDED = 'Checks if license information is found in the README file of the repository'
+PROCESS_ISSUE_TRACKER = "Checks if there is an issue tracker in the repository."
 
 
 #Evidences
@@ -142,6 +143,7 @@ EVIDENCE_VERSION_IN_METADATA = 'Found the software version in one of the specifi
 EVIDENCE_CONTRIBUTORS = 'Found contributors metadata in the codemeta or package files'
 EVIDENCE_COMMITS_LINKED_TO_ISSUES = 'There is at least one commit linked to an issue'
 EVIDENCE_DOI_LINKS_BACK_TO_REPO = "The landing page of the software's identifier links back to the software repository"
+EVIDENCE_ISSUE_TRACKER = "Found an issue tracker in the repository"
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
@@ -201,6 +203,7 @@ EVIDENCE_NO_VERSION_IN_METADATA = 'Could not find a version number for the softw
 EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO = 'Could not get the necessary information to perform the test, it being the commits record or repository issues'
 EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any issues in the repository'
 EVIDENCE_DOI_NO_LINK_BACK_TO_REPO = "The landing page of the software's identifier does not link back to the software repository"
+EVIDENCE_NO_ISSUE_TRACKER = "Could not find an issue tracker in the repository"
 
 
 #Suggestions
@@ -250,6 +253,7 @@ SUGGEST_NO_DEPENDENCIES_VERSION = "All of your dependencies should have their ve
 SUGGEST_NO_COMMITS = "Remember to keep track of your changes making commits to your repository. More information at https://everse.software/RSQKit/using_version_control"
 SUGGEST_NO_ISSUES_LINK_COMMITS = "It is good practice to indicate in your commits which issues you are targeting or solving"
 SUGGEST_NO_ACTIVE_REPO = "You should keep your repository active and indicate it with a repostatus badge"
+SUGGEST_NO_ISSUE_TRACKER = "You should have an issue tracker in your repository to help you manage your ideas, next steps and bugs to fix."
 
 
 
@@ -297,6 +301,7 @@ RSFC_17_2_ID = "https://w3id.org/rsfc/test/RSFC-17-2"
 RSFC_17_3_ID = "https://w3id.org/rsfc/test/RSFC-17-3"
 RSFC_18_1_ID = "https://w3id.org/rsfc/test/RSFC-18-1"
 RSFC_19_1_ID = "https://w3id.org/rsfc/test/RSFC-19-1"
+RSFC_20_1_ID = "https://w3id.org/rsfc/test/RSFC-20-1"
 
 
 #Short descriptions
@@ -342,6 +347,7 @@ DESC_RSFC_17_2 = "Repository has a commit history"
 DESC_RSFC_17_3 = "Commits are linked to issues"
 DESC_RSFC_18_1 = "There are citations"
 DESC_RSFC_19_1 = "Repository has continuous integration workflows"
+DESC_RSFC_20_1 = "Repository has an issue tracker"
 
 
 TEST_DESC_DICT = {
@@ -386,6 +392,7 @@ TEST_DESC_DICT = {
     "RSFC-17-3": DESC_RSFC_17_3,
     "RSFC-18-1": DESC_RSFC_18_1,
     "RSFC-19-1": DESC_RSFC_19_1,
+    "RSFC-20-1": DESC_RSFC_20_1
 }
 
 
@@ -411,7 +418,7 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://w3id.org/rsfc/',
-        'version' : '0.0.5'
+        'version' : '0.0.7'
     }
 }
 

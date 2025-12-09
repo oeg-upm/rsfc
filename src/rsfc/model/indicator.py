@@ -127,6 +127,9 @@ class Indicator:
             ],
             "RSFC-19-1": [
                 (rt.test_repository_workflows, [somef.somef_data])
+            ],
+            "RSFC-20-1": [
+                (rt.test_has_issue_tracker, [somef.somef_data])
             ]
         }
         
