@@ -1043,7 +1043,7 @@ def test_license_info_in_metadata_files(somef_data, codemeta_data, cff_data):
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_LICENSE_INFO_IN_METADATA
-        constants.SUGGEST_NO_LICENSE_INFO_METADATA
+        suggest = constants.SUGGEST_NO_LICENSE_INFO_METADATA
         
         missing_license_info= [key for key, value in license_info.items() if not value]
         missing_license_info_txt = ', '.join(missing_license_info)

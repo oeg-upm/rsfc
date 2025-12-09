@@ -38,14 +38,14 @@ if [ -n "$TEST_ID" ]; then
     DOCKER_ARGS="$DOCKER_ARGS --id \"$TEST_ID\""
 fi
 
-echo "Building rsfc-docker Docker image..."
-docker build -t rsfc-docker .
+echo "Building rsfc:0.0.7 Docker image..."
+docker build -t rsfc:0.0.7 .
 
 OUTPUT_DIR="rsfc_output"
 mkdir -p "$OUTPUT_DIR"
 echo "Output directory: $OUTPUT_DIR"
 
-CONTAINER_ID=$(eval docker run -d rsfc-docker $DOCKER_ARGS)
+CONTAINER_ID=$(eval docker run -d rsfc:0.0.7 $DOCKER_ARGS)
 
 echo "Container launched: $CONTAINER_ID"
 
