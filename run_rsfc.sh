@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Uso: $0 <repo_url> [--ftr] [--id TESTID]"
+    echo "Usage: $0 <repo_url> [--ftr] [--id TESTID]"
     exit 1
 fi
 
@@ -22,7 +22,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            echo "Argumento desconocido: $1"
+            echo "Unknown argument: $1"
             exit 1
             ;;
     esac
@@ -38,25 +38,25 @@ if [ -n "$TEST_ID" ]; then
     DOCKER_ARGS="$DOCKER_ARGS --id \"$TEST_ID\""
 fi
 
-echo "Construyendo imagen Docker rsfc-docker..."
+echo "Building rsfc-docker Docker image..."
 docker build -t rsfc-docker .
 
 OUTPUT_DIR="rsfc_output"
 mkdir -p "$OUTPUT_DIR"
-echo "Carpeta de salida: $OUTPUT_DIR"
+echo "Output directory: $OUTPUT_DIR"
 
 CONTAINER_ID=$(eval docker run -d rsfc-docker $DOCKER_ARGS)
 
-echo "Contenedor lanzado: $CONTAINER_ID"
+echo "Container launched: $CONTAINER_ID"
 
 docker wait "$CONTAINER_ID" > /dev/null
-echo "Contenedor terminado."
+echo "Container finished."
 
 if docker cp "$CONTAINER_ID:/rsfc/outputs/rsfc_assessment.json" "$OUTPUT_DIR/rsfc_assessment.json" 2>/dev/null; then
-    echo "Archivo copiado a: $OUTPUT_DIR/rsfc_assessment.json"
+    echo "File copied to: $OUTPUT_DIR/rsfc_assessment.json"
 else
-    echo "❌ El contenedor no generó rsfc_assessment.json"
+    echo "the container did not generate rsfc_assessment.json"
 fi
 
 docker rm "$CONTAINER_ID" > /dev/null
-echo "Contenedor eliminado."
+echo "Container deleted."
