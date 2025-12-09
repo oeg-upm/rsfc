@@ -52,10 +52,10 @@ echo "Container launched: $CONTAINER_ID"
 docker wait "$CONTAINER_ID" > /dev/null
 echo "Container finished."
 
-if docker cp "$CONTAINER_ID:/rsfc/outputs/rsfc_assessment.json" "$OUTPUT_DIR/rsfc_assessment.json" 2>/dev/null; then
+if docker cp "$CONTAINER_ID:/rsfc/rsfc_output/rsfc_assessment.json" "$OUTPUT_DIR/rsfc_assessment.json" 2>/dev/null; then
     echo "File copied to: $OUTPUT_DIR/rsfc_assessment.json"
 else
-    echo "the container did not generate rsfc_assessment.json"
+    echo "The container did not generate rsfc_assessment.json"
 fi
 
 docker rm "$CONTAINER_ID" > /dev/null

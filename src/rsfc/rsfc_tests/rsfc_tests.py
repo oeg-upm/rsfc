@@ -1172,3 +1172,19 @@ def test_repository_workflows(somef_data):
     check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-19-1', "Repository has workflows", constants.PROCESS_WORKFLOWS, output, evidence, suggest)
     
     return check.convert()
+
+
+def test_has_issue_tracker(somef_data):
+    
+    if "issue_tracker" not in somef_data:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_ISSUE_TRACKER
+        suggest = constants.SUGGEST_NO_ISSUE_TRACKER
+    else:
+        output = "true"
+        evidence = constants.EVIDENCE_ISSUE_TRACKER
+        suggest = "No suggestions"
+        
+    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-20-1', "Repository has an issue tracker", constants.PROCESS_ISSUE_TRACKER, output, evidence, suggest)
+    
+    return check.convert()
