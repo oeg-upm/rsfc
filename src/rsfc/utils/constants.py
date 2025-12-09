@@ -246,7 +246,7 @@ SUGGEST_ARCHIVE_SOFTWARE = "You should archive your software not only in Github/
 SUGGEST_NO_DEPENDENCIES = "You should have your dependencies stated somewhere to enable reproducibility. More information at https://everse.software/RSQKit/reproducible_software_environments"
 SUGGEST_NO_MACHINE_READABLE_DEPENDENCIES = "You should have your dependencies stated in a machine-readable file. More information at https://everse.software/RSQKit/reproducible_software_environments"
 SUGGEST_NO_INSTALL_INSTRUCTIONS = "You should include instructions to facilitate the use of your software. More information at https://everse.software/RSQKit/creating_good_readme"
-SUGGEST_NO_DEPENDENCIES_VER = "All of your dependencies should have their versions stated to ensure its reproducibility. More information at https://everse.software/RSQKit/reproducible_software_environments"
+SUGGEST_NO_DEPENDENCIES_VERSION = "All of your dependencies should have their versions stated to ensure its reproducibility. More information at https://everse.software/RSQKit/reproducible_software_environments"
 SUGGEST_NO_COMMITS = "Remember to keep track of your changes making commits to your repository. More information at https://everse.software/RSQKit/using_version_control"
 SUGGEST_NO_ISSUES_LINK_COMMITS = "It is good practice to indicate in your commits which issues you are targeting or solving"
 SUGGEST_NO_ACTIVE_REPO = "You should keep your repository active and indicate it with a repostatus badge"
@@ -301,13 +301,13 @@ RSFC_19_1_ID = "https://w3id.org/rsfc/test/RSFC-19-1"
 
 #Short descriptions
 
-DESC_RSFC_01_1 = "There is an id and it resolves"
-DESC_RSFC_01_2 = "There is an id in the metadata files"
-DESC_RSFC_01_3 = "There is an id and it follows a common schema"
+DESC_RSFC_01_1 = "There is an identifier and it resolves"
+DESC_RSFC_01_2 = "There is an identifier in the metadata files"
+DESC_RSFC_01_3 = "There is an identifier and it follows a common schema"
 DESC_RSFC_03_1 = "The software has releases"
-DESC_RSFC_03_2 = "Releases have version and id"
+DESC_RSFC_03_2 = "Releases have version and identifier"
 DESC_RSFC_03_3 = "Release versions follow SemVer or CalVer"
-DESC_RSFC_03_4 = "Release ids follow the same scheme"
+DESC_RSFC_03_4 = "Release identifiers follow the same scheme"
 DESC_RSFC_03_5 = "Last release version corresponds to version in package file"
 DESC_RSFC_03_6 = "There is a version number stated in metadata files"
 DESC_RSFC_04_1 = "Metadata files exist"
@@ -322,8 +322,8 @@ DESC_RSFC_06_1 = "Authors are declared"
 DESC_RSFC_06_2 = "Contributors are declared"
 DESC_RSFC_06_3 = "Authors have an ORCID assigned"
 DESC_RSFC_06_4 = "Authors have their roles stated"
-DESC_RSFC_07_1 = "There is an id in README or CITATION"
-DESC_RSFC_07_2 = "Software id resolves and links back to software"
+DESC_RSFC_07_1 = "There is an identifier in README or CITATION"
+DESC_RSFC_07_2 = "Software identifier resolves and links back to software"
 DESC_RSFC_08_1 = "Metadata record is found in SWHeritage or Zenodo"
 DESC_RSFC_09_1 = "Repository is from Github or Gitlab"
 DESC_RSFC_12_1 = "There is an article citation or reference publication"
@@ -344,49 +344,50 @@ DESC_RSFC_18_1 = "There are citations"
 DESC_RSFC_19_1 = "Repository has continuous integration workflows"
 
 
-TEST_DESC_LIST = [
-    DESC_RSFC_01_1,
-    DESC_RSFC_01_2,
-    DESC_RSFC_01_3,
-    DESC_RSFC_03_1,
-    DESC_RSFC_03_2,
-    DESC_RSFC_03_3,
-    DESC_RSFC_03_4,
-    DESC_RSFC_03_5,
-    DESC_RSFC_03_6,
-    DESC_RSFC_04_1,
-    DESC_RSFC_04_2,
-    DESC_RSFC_04_3,
-    DESC_RSFC_04_4,
-    DESC_RSFC_04_5,
-    DESC_RSFC_05_1,
-    DESC_RSFC_05_2,
-    DESC_RSFC_05_3,
-    DESC_RSFC_06_1,
-    DESC_RSFC_06_2,
-    DESC_RSFC_06_3,
-    DESC_RSFC_06_4,
-    DESC_RSFC_07_1,
-    DESC_RSFC_07_2,
-    DESC_RSFC_08_1,
-    DESC_RSFC_09_1,
-    DESC_RSFC_12_1,
-    DESC_RSFC_13_1,
-    DESC_RSFC_13_2,
-    DESC_RSFC_13_3,
-    DESC_RSFC_13_4,
-    DESC_RSFC_14_1,
-    DESC_RSFC_14_2,
-    DESC_RSFC_15_1,
-    DESC_RSFC_15_2,
-    DESC_RSFC_15_3,
-    DESC_RSFC_16_1,
-    DESC_RSFC_17_1,
-    DESC_RSFC_17_2,
-    DESC_RSFC_17_3,
-    DESC_RSFC_18_1,
-    DESC_RSFC_19_1
-]
+TEST_DESC_DICT = {
+    "RSFC-01-1": DESC_RSFC_01_1,
+    "RSFC-01-2": DESC_RSFC_01_2,
+    "RSFC-01-3": DESC_RSFC_01_3,
+    "RSFC-03-1": DESC_RSFC_03_1,
+    "RSFC-03-2": DESC_RSFC_03_2,
+    "RSFC-03-3": DESC_RSFC_03_3,
+    "RSFC-03-4": DESC_RSFC_03_4,
+    "RSFC-03-5": DESC_RSFC_03_5,
+    "RSFC-03-6": DESC_RSFC_03_6,
+    "RSFC-04-1": DESC_RSFC_04_1,
+    "RSFC-04-2": DESC_RSFC_04_2,
+    "RSFC-04-3": DESC_RSFC_04_3,
+    "RSFC-04-4": DESC_RSFC_04_4,
+    "RSFC-04-5": DESC_RSFC_04_5,
+    "RSFC-05-1": DESC_RSFC_05_1,
+    "RSFC-05-2": DESC_RSFC_05_2,
+    "RSFC-05-3": DESC_RSFC_05_3,
+    "RSFC-06-1": DESC_RSFC_06_1,
+    "RSFC-06-2": DESC_RSFC_06_2,
+    "RSFC-06-3": DESC_RSFC_06_3,
+    "RSFC-06-4": DESC_RSFC_06_4,
+    "RSFC-07-1": DESC_RSFC_07_1,
+    "RSFC-07-2": DESC_RSFC_07_2,
+    "RSFC-08-1": DESC_RSFC_08_1,
+    "RSFC-09-1": DESC_RSFC_09_1,
+    "RSFC-12-1": DESC_RSFC_12_1,
+    "RSFC-13-1": DESC_RSFC_13_1,
+    "RSFC-13-2": DESC_RSFC_13_2,
+    "RSFC-13-3": DESC_RSFC_13_3,
+    "RSFC-13-4": DESC_RSFC_13_4,
+    "RSFC-14-1": DESC_RSFC_14_1,
+    "RSFC-14-2": DESC_RSFC_14_2,
+    "RSFC-15-1": DESC_RSFC_15_1,
+    "RSFC-15-2": DESC_RSFC_15_2,
+    "RSFC-15-3": DESC_RSFC_15_3,
+    "RSFC-16-1": DESC_RSFC_16_1,
+    "RSFC-17-1": DESC_RSFC_17_1,
+    "RSFC-17-2": DESC_RSFC_17_2,
+    "RSFC-17-3": DESC_RSFC_17_3,
+    "RSFC-18-1": DESC_RSFC_18_1,
+    "RSFC-19-1": DESC_RSFC_19_1,
+}
+
 
 #Dictionaries
 

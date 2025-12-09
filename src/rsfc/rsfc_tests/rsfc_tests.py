@@ -27,7 +27,7 @@ def test_id_presence_and_resolves(somef_data):
                                 suggest = constants.SUGGEST_IDENTIFIER_NO_RESOLVE
                         except requests.RequestException:
                             output = "error"
-                            evidence = None
+                            evidence = "Something went wrong when trying to resolve the identifier"
                             suggest = None
                     else:
                         output = "false"
@@ -842,12 +842,13 @@ def test_dependencies_have_version(somef_data):
         evidence = constants.EVIDENCE_DEPENDENCIES_VERSION
         suggest = "No suggestions"
         for item in somef_data['requirements']:
-            if 'README' not in item['source'] and item['result']['version']:
-                continue
+            if 'README' not in item['source'] and "version" in item["result"]:
+                if item["result"]["version"]:
+                    continue
             else:
                 output = "false"
                 evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
-                suggest = constants.SUGGEST_NO_DEPENDENCIES_VER
+                suggest = constants.SUGGEST_NO_DEPENDENCIES_VERSION
                 break
     
     check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-3', "Dependencies have version numbers", constants.PROCESS_DEPENDENCIES_VERSION, output, evidence, suggest)
