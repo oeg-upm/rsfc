@@ -127,15 +127,19 @@ rsfc --repo <repo_url> --id <test_id>
 
 ## Docker installation
 
-If preferred, RSFC can be executed using Docker.
-
-For comodity, we provide a bash script that builds the docker image and runs the container. To use it just go to the root of the repository and run the following command:
+RSFC also offers a Dockerfile which you can build using the following commmand:
 
 ```
-./run_rsfc.sh <repo_url> 
+docker build -t --no-cache -t rsfc-docker .
 ```
 
-This script uses the same parameters as the normal package command
+For comodity, we provide a bash script that runs the container along with the necessary configurations. To execute it just run
+
+```
+./run_rsfc.sh --repo <repo_url> [--ftr] [--id <test_id>]
+```
+
+The parameters used for the script are the same as if you executed RSFC normally
 
 # RSFC GitHub Action
 

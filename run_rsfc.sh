@@ -1,62 +1,49 @@
 #!/bin/bash
+set -e
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 <repo_url> [--ftr] [--id TESTID]"
-    exit 1
-fi
-
-REPO_URL="$1"
-shift
-
-FTR_FLAG=false
+REPO_URL=""
 TEST_ID=""
+FTR_FLAG=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --ftr)
-            FTR_FLAG=true
-            shift
+        --repo)
+            REPO_URL="$2"
+            shift 2
             ;;
         --id)
             TEST_ID="$2"
             shift 2
             ;;
+        --ftr)
+            FTR_FLAG=true
+            shift
+            ;;
         *)
             echo "Unknown argument: $1"
+            echo "Usage: $0 --repo <repo_url> [--ftr] [--id <test_id>]"
             exit 1
             ;;
     esac
 done
 
-DOCKER_ARGS="--repo \"$REPO_URL\""
 
-if [ "$FTR_FLAG" = true ]; then
-    DOCKER_ARGS="$DOCKER_ARGS --ftr"
+if [ -z "$REPO_URL" ]; then
+    echo "Error: --repo is required"
+    exit 1
 fi
-
-if [ -n "$TEST_ID" ]; then
-    DOCKER_ARGS="$DOCKER_ARGS --id \"$TEST_ID\""
-fi
-
-echo "Building rsfc:0.0.7 Docker image..."
-docker build -t rsfc:0.0.7 .
 
 OUTPUT_DIR="rsfc_output"
 mkdir -p "$OUTPUT_DIR"
-echo "Output directory: $OUTPUT_DIR"
 
-CONTAINER_ID=$(eval docker run -d rsfc:0.0.7 $DOCKER_ARGS)
 
-echo "Container launched: $CONTAINER_ID"
-
-docker wait "$CONTAINER_ID" > /dev/null
-echo "Container finished."
-
-if docker cp "$CONTAINER_ID:/rsfc/rsfc_output/rsfc_assessment.json" "$OUTPUT_DIR/rsfc_assessment.json" 2>/dev/null; then
-    echo "File copied to: $OUTPUT_DIR/rsfc_assessment.json"
-else
-    echo "The container did not generate rsfc_assessment.json"
+DOCKER_ARGS="--repo $REPO_URL"
+if [ "$FTR_FLAG" = true ]; then
+    DOCKER_ARGS="$DOCKER_ARGS --ftr"
+fi
+if [ -n "$TEST_ID" ]; then
+    DOCKER_ARGS="$DOCKER_ARGS --id $TEST_ID"
 fi
 
-docker rm "$CONTAINER_ID" > /dev/null
-echo "Container deleted."
+
+docker run --rm -v "$(pwd)/$OUTPUT_DIR:/rsfc/rsfc_output" -e PYTHONWARNINGS="ignore" rsfc-docker $DOCKER_ARGS
