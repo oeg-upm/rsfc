@@ -99,30 +99,6 @@ Without poetry virtual environment activated you need to use the poetry run:
 poetry run rsfc --help
 ```
 
-## Docker installation
-
-If preferred, RSFC can be executed using docker.
-
-Once you have cloned the repository, go to the project's root directory and run the following command to build the image:
-
-```
-docker build -t rsfc-docker .
-```
-
-After that, it is necessary to create the directory in which the output assessment will be saved. You can do it by running the following command:
-
-```
-mkdir ./outputs
-```
-
-Finally, run the following command to run the container:
-
-```
-docker run --rm -v $(pwd)/outputs:/rsfc/outputs rsfc-docker --repo <repo_url>
-```
-
-where repo_url is the url of the repository to be analyzed, which is strictly needed.
-
 ## Usage
 
 After installation, you can use the package by running if you activated the poetry env
@@ -137,11 +113,33 @@ or like this without the poetry env
 poetry run rsfc --repo <repo_url>
 ```
 
-Also, if you want the output in OSTrails format, you can use the following flag
+If you want the output in OSTrails format, you can use the following flag
 
 ```
 rsfc --repo <repo_url> --ftr
 ```
+
+And additionally, if you want to run only one test, you can indicate the test identifier when running RSFC like this
+
+```
+rsfc --repo <repo_url> --id <test_id>
+```
+
+## Docker installation
+
+RSFC also offers a Dockerfile which you can build using the following commmand:
+
+```
+docker build -t --no-cache -t rsfc-docker .
+```
+
+For comodity, we provide a bash script that runs the container along with the necessary configurations. To execute it just run
+
+```
+./run_rsfc.sh --repo <repo_url> [--ftr] [--id <test_id>]
+```
+
+The parameters used for the script are the same as if you executed RSFC normally
 
 # RSFC GitHub Action
 
