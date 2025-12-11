@@ -5,12 +5,6 @@ from bs4 import BeautifulSoup
 import requests
 from rsfc.utils import constants
 from concurrent.futures import ThreadPoolExecutor, as_completed
-  
-def get_repo_default_branch(base_url):
-    res = requests.get(base_url)
-    res.raise_for_status()
-    data = res.json()
-    return data.get("default_branch", "main")
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')
@@ -138,23 +132,18 @@ def extract_issue_refs(commits):
 
 def check_issue(issue, issue_refs):
 
-    issue_id = str(issue.get("number") or issue.get("iid"))  # GitHub -> number, GitLab -> iid
+    issue_id = str(issue.get("number") or issue.get("iid"))
     return issue_id in issue_refs
 
 
-def cross_check_any_issue(issues, commits, max_workers=8):
-
+def cross_check_any_issue(issues, commits):
     issue_refs = extract_issue_refs(commits)
 
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = {}
-        for issue in issues:
-            future = executor.submit(check_issue, issue, issue_refs)
-            futures[future] = issue
-        for future in as_completed(futures):
-            if future.result():
-                executor.shutdown(cancel_futures=True)
-                return True
+    for issue in issues:
+        issue_id = str(issue.get("number") or issue.get("iid"))
+        if issue_id in issue_refs:
+            return True
+
     return False
 
 

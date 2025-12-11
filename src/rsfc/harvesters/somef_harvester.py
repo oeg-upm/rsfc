@@ -2,16 +2,14 @@ import io
 import contextlib
 import json
 from somef import somef_cli
-#import os
+import os
 
 class SomefHarvester:
     
     def __init__(self, repo_url):
         self.somef_data = self.somef_assessment(repo_url, 0.8)
         
-        
-        
-        
+
     def somef_assessment(self, repo_url, threshold):
     
         print("Extracting repository metadata with SOMEF...")
@@ -21,8 +19,8 @@ class SomefHarvester:
             
         repo_data = json.loads(json.dumps(repo_data.results))
         
-        '''os.makedirs('./outputs', exist_ok=True)
-        with open('./outputs/somef_assessment.json', 'w', encoding='utf-8') as f:
+        '''os.makedirs('./rsfc_output/', exist_ok=True)
+        with open('./rsfc_output/somef_assessment.json', 'w', encoding='utf-8') as f:
             json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
         
         return repo_data

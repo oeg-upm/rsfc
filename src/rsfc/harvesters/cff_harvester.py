@@ -1,36 +1,7 @@
-import requests
-import yaml
-
 class CFFHarvester:
     
-    def __init__(self, sw):
-        cff = self.get_cff_file(sw)
-        self.cff_data = self.harvest_cff(cff)
-    
-    
-    def get_cff_file(self, sw):
-        
-        try:
-            if sw.repo_type == "GITHUB":
-                req_url = sw.base_url + '/contents/CITATION.cff'
-                headers = {'Accept': 'application/vnd.github.v3.raw'}
-                params = {'ref': sw.repo_branch}
-                response = requests.get(req_url, headers=headers, params=params)
-                response.raise_for_status()
-                return yaml.safe_load(response.text)
-            elif sw.repo_type == "GITLAB":
-                project_path_encoded = sw.base_url.split("/projects/")[-1]
-                branch = sw.repo_branch or "main"
-                req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/CITATION.cff/raw"
-                params = {'ref': branch}
-                response = requests.get(req_url, params=params)
-                response.raise_for_status()
-                return yaml.safe_load(response.text)
-            else:
-                return None
-
-        except requests.RequestException:
-            return None
+    def __init__(self, gh):
+        self.cff_data = self.harvest_cff(gh.cff)
         
     
     def harvest_cff(self, cff):

@@ -22,6 +22,7 @@
     "dateCreated": "2025-07-01",
     "description": "Package that performs a series of checks based on a list of research software fairness indicators",
     "isPartOf": "https://everse.software/",
+    "identifier": "https://doi.org/10.5281/zenodo.1653148",
     "keywords": [
         "quality",
         "indicators",
@@ -33,6 +34,6 @@
     "operatingSystem": "Linux",
     "programmingLanguage": "Python",
     "relatedLink": "https://github.com/EVERSE-ResearchSoftware/indicators",
-    "version": "0.0.1",
+    "version": "0.0.7",
     "developmentStatus": "wip"
 }

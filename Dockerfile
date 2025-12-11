@@ -20,6 +20,7 @@ RUN poetry run python -m nltk.downloader wordnet
 
 RUN poetry run somef configure -a
 
-RUN mkdir -p /rsfc/outputs
+RUN mkdir -p /rsfc/rsfc_output
+VOLUME /rsfc/rsfc_output
 
 ENTRYPOINT ["poetry", "run", "rsfc"]
