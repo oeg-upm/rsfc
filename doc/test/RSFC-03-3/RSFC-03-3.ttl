@@ -14,7 +14,7 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "Release versions follow a community established convention"@en ;
+    dcterms:title "Release versions follow a community established naming convention"@en ;
     rdfs:label "RSFC-03-3"^^xsd:string ;
     vivo:abbreviation "RSFC-03-3"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;

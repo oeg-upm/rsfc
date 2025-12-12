@@ -14,11 +14,11 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "There is a repostatus badge"@en ;
+    dcterms:title "A repostatus badge exists"@en ;
     rdfs:label "RSFC-05-1"^^xsd:string ;
     vivo:abbreviation "RSFC-05-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the repository has a repo status badge in the README file. This is done by checking if the repository has a repostatus badge in the README file."""@en ;
+    dcterms:description """This test checks if the repository has a repo status badge in the README file."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.60a40f>;

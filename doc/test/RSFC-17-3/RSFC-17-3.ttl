@@ -19,7 +19,7 @@
     rdfs:label "RSFC-17-3"^^xsd:string ;
     vivo:abbreviation "RSFC-17-3"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the repository has commits that are linked to open and closed issues. This is done by cross-checking if issue identifiers within the issue list are present in the commit history’s messages (i.e. “closes #123)."""@en ;
+    dcterms:description """This test checks if the repository has commits that are linked to open and closed issues. This is done by cross-checking if issue identifiers within the issue list are present in the commit history’s messages (i.e. “closes #123”)."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dcat:version "0.0.1"^^xsd:string ;
