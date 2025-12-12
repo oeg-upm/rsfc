@@ -18,7 +18,7 @@
     rdfs:label "RSFC-07-2"^^xsd:string ;
     vivo:abbreviation "RSFC-07-2"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if the identifier resolves to the software. This is done by looking for an identifier in the README file and trying to resolve it via a request."""@en ;
+    dcterms:description """This test checks if the identifier found in the repository resolves back to the source code repository. This is done by checking if the landing page where the identifier resolves to links back to the source code repository using requests."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.9d893d>, <https://doi.org/10.25504/FAIRsharing.60a40f>;

@@ -18,7 +18,7 @@
     rdfs:label "RSFC-18-1"^^xsd:string ;
     vivo:abbreviation "RSFC-18-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if there is a CITATION.cff file or citations made in the README file. This is done by looking in the root of the repository for a CITATION.cff file and by checking if the README file contains citations."""@en ;
+    dcterms:description """This test checks if there is a CITATION.cff file or citations made in the README file. This is done by looking in the root of the repository for a CITATION.cff file and by checking if the README file contains citations in a bibtex format."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.6d7a69> ;

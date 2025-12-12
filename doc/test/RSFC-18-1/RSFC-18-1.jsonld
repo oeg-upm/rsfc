@@ -1,8 +1,46 @@
 [
     {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
+            }
+        ]
+    },
+    {
         "@id": "https://w3id.org/everse/i/indicators/software_has_citation",
         "@type": [
             "http://www.w3.org/ns/dqv#Metric"
+        ]
+    },
+    {
+        "@id": "https://ror.org/03n6nwv02",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://ror.org/02h3v0f81"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Universidad Politécnica de Madrid"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://www.upm.es/"
+            }
         ]
     },
     {
@@ -39,7 +77,7 @@
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "This test checks if there is a CITATION.cff file or citations made in the README file. This is done by looking in the root of the repository for a CITATION.cff file and by checking if the README file contains citations."
+                "@value": "This test checks if there is a CITATION.cff file or citations made in the README file. This is done by looking in the root of the repository for a CITATION.cff file and by checking if the README file contains citations in a bibtex format."
             }
         ],
         "http://purl.org/dc/terms/identifier": [
@@ -130,23 +168,32 @@
         ]
     },
     {
-        "@id": "https://ror.org/03n6nwv02",
+        "@id": "https://w3id.org/rsfc/repository",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
+            }
+        ],
+        "http://xmlns.com/foaf/0.1/homePage": [
+            {
+                "@id": "https://github.com/oeg-upm/rsfc"
+            }
+        ]
+    },
+    {
+        "@id": "https://oeg.fi.upm.es",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Organization"
         ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://ror.org/02h3v0f81"
-            }
-        ],
         "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@value": "Universidad Politécnica de Madrid"
+                "@value": "Ontology Engineering Group"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#url": [
             {
-                "@id": "https://www.upm.es/"
+                "@id": "https://oeg.fi.upm.es/"
             }
         ]
     },
@@ -168,53 +215,6 @@
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "I2"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/repository",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
-            }
-        ],
-        "http://xmlns.com/foaf/0.1/homePage": [
-            {
-                "@id": "https://github.com/oeg-upm/rsfc"
-            }
-        ]
-    },
-    {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
             }
         ]
     }

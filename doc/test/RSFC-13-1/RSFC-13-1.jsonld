@@ -1,18 +1,39 @@
 [
     {
-        "@id": "https://github.com/andriumon",
+        "@id": "https://doi.org/10.25504/FAIRsharing.9bf822",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software is described with a plurality of accurate and relevant attributes."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R1"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R1"
+            }
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
         ],
         "http://www.w3.org/2006/vcard/ns#fn": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
+                "@value": "Daniel Garijo"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "mailto:andres.montero.martin@upm.es"
+                "@id": "mailto:dgarijo@upm.es"
             }
         ]
     },
@@ -34,47 +55,6 @@
         "http://www.w3.org/2006/vcard/ns#url": [
             {
                 "@id": "https://www.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://doi.org/10.25504/FAIRsharing.cda381",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software includes qualified references to other software."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R2"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/requirements_specified",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/repository",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
-            }
-        ],
-        "http://xmlns.com/foaf/0.1/homePage": [
-            {
-                "@id": "https://github.com/oeg-upm/rsfc"
             }
         ]
     },
@@ -185,40 +165,54 @@
         ]
     },
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@id": "https://doi.org/10.25504/FAIRsharing.cda381",
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "Software includes qualified references to other software."
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R2"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "R2"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
         ],
         "http://www.w3.org/2006/vcard/ns#fn": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
+                "@value": "Andres Montero"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "mailto:dgarijo@upm.es"
+                "@id": "mailto:andres.montero.martin@upm.es"
             }
         ]
     },
     {
-        "@id": "https://doi.org/10.25504/FAIRsharing.9bf822",
+        "@id": "https://w3id.org/rsfc/repository",
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "Software is described with a plurality of accurate and relevant attributes."
+                "@value": "Main repository for Research Software Quality Checks (RSFC) code and documentation"
             }
         ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
+        "http://xmlns.com/foaf/0.1/homePage": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R1"
+                "@id": "https://github.com/oeg-upm/rsfc"
             }
         ]
     },
@@ -236,6 +230,12 @@
             {
                 "@id": "https://oeg.fi.upm.es/"
             }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/requirements_specified",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     }
 ]

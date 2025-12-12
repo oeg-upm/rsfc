@@ -14,11 +14,11 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "There is a dependencies machine-readable file"@en ;
+    dcterms:title "Dependencies are machine-readable"@en ;
     rdfs:label "RSFC-13-4"^^xsd:string ;
     vivo:abbreviation "RSFC-13-4"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if dependencies are in a machine-readable file (not just in README). This is done by checking if there is a machine-readable file like requirements.txt or pom.xml in the root of the repository."""@en ;
+    dcterms:description """This test checks if dependencies are in a machine-readable file (not just in README). This is done by checking if dependencies are available in a machine-readable format like requirements.txt or pom.xml in the root of the repository."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
 	dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.cda381>;

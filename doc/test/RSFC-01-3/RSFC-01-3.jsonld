@@ -1,25 +1,25 @@
 [
     {
-        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ]
-    },
-    {
-        "@id": "https://github.com/andriumon",
+        "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
         ],
         "http://www.w3.org/2006/vcard/ns#fn": [
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
+                "@value": "Daniel Garijo"
             }
         ],
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "mailto:andres.montero.martin@upm.es"
+                "@id": "mailto:dgarijo@upm.es"
             }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/persistent_and_unique_identifier",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -44,6 +44,39 @@
         ]
     },
     {
+        "@id": "https://oeg.fi.upm.es",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Organization"
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@value": "Ontology Engineering Group"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#url": [
+            {
+                "@id": "https://oeg.fi.upm.es/"
+            }
+        ]
+    },
+    {
+        "@id": "https://github.com/andriumon",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
+        ]
+    },
+    {
         "@id": "https://w3id.org/rsfc/test/RSFC-01-3",
         "@type": [
             "https://w3id.org/ftr#Test",
@@ -60,7 +93,7 @@
         "http://purl.org/dc/terms/description": [
             {
                 "@language": "en",
-                "@value": "This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID,, DOI and URL."
+                "@value": "This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID, DOI and URL."
             }
         ],
         "http://purl.org/dc/terms/identifier": [
@@ -84,7 +117,7 @@
         "http://purl.org/dc/terms/title": [
             {
                 "@language": "en",
-                "@value": "Software identifier follows a proper schema"
+                "@value": "Software identifier follows a common schema"
             }
         ],
         "http://semanticscience.org/resource/SIO_000233": [
@@ -185,23 +218,6 @@
         ]
     },
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
         "@id": "https://doi.org/10.25504/FAIRsharing.60a40f",
         "http://purl.org/dc/terms/description": [
             {
@@ -219,22 +235,6 @@
             {
                 "@type": "http://www.w3.org/2001/XMLSchema#string",
                 "@value": "R3"
-            }
-        ]
-    },
-    {
-        "@id": "https://oeg.fi.upm.es",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@value": "Ontology Engineering Group"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#url": [
-            {
-                "@id": "https://oeg.fi.upm.es/"
             }
         ]
     }

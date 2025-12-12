@@ -14,7 +14,7 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "There is an identifier and resolves"@en ;
+    dcterms:title "Software has a persistent identifier which resolves"@en ;
     rdfs:label "RSFC-01-1"^^xsd:string ;
     vivo:abbreviation "RSFC-01-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
