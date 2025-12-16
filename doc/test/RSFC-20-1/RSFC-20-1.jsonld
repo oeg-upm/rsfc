@@ -1,5 +1,107 @@
 [
     {
+        "@id": "https://w3id.org/rsfc/test/RSFC-20-1",
+        "@type": [
+            "https://w3id.org/ftr#Test",
+            "http://www.w3.org/ns/dcat#DataService"
+        ],
+        "http://purl.org/dc/terms/creator": [
+            {
+                "@id": "https://orcid.org/0000-0003-0454-7145"
+            },
+            {
+                "@id": "https://github.com/andriumon"
+            }
+        ],
+        "http://purl.org/dc/terms/description": [
+            {
+                "@language": "en",
+                "@value": "This test checks if the repository has an issue tracker. This is done by checking if the URL for the issues resolves."
+            }
+        ],
+        "http://purl.org/dc/terms/identifier": [
+            {
+                "@value": "https://w3id.org/rsfc/test/RSFC-20-1"
+            }
+        ],
+        "http://purl.org/dc/terms/license": [
+            {
+                "@id": "http://creativecommons.org/licenses/by/4.0/"
+            }
+        ],
+        "http://purl.org/dc/terms/publisher": [
+            {
+                "@id": "https://oeg.fi.upm.es"
+            },
+            {
+                "@id": "https://ror.org/03n6nwv02"
+            }
+        ],
+        "http://purl.org/dc/terms/title": [
+            {
+                "@language": "en",
+                "@value": "Repository has an issue tracker"
+            }
+        ],
+        "http://usefulinc.com/ns/doap#repository": [
+            {
+                "@id": "https://w3id.org/rsfc/repository"
+            }
+        ],
+        "http://vivoweb.org/ontology/core#abbreviation": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "RSFC-20-1"
+            }
+        ],
+        "http://www.w3.org/2000/01/rdf-schema#label": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "RSFC-20-1"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#contactPoint": [
+            {
+                "@id": "https://orcid.org/0000-0003-0454-7145"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#keyword": [
+            {
+                "@language": "en",
+                "@value": "Issue tracker"
+            },
+            {
+                "@language": "en",
+                "@value": "Repository"
+            },
+            {
+                "@language": "en",
+                "@value": "Test"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#version": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "0.0.1"
+            }
+        ],
+        "http://www.w3.org/ns/dqv#inDimension": [
+            {
+                "@id": "https://doi.org/10.25504/FAIRsharing.60a40f"
+            }
+        ],
+        "https://w3id.org/dpv#isApplicableFor": [
+            {
+                "@id": "https://schema.org/SoftwareSourceCode"
+            }
+        ],
+        "https://w3id.org/ftr#supportedBy": [
+            {
+                "@id": "https://w3id.org/rsfc/"
+            }
+        ]
+    },
+    {
         "@id": "https://orcid.org/0000-0003-0454-7145",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Individual"
@@ -13,27 +115,6 @@
         "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
                 "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
-        "@id": "https://doi.org/10.25504/FAIRsharing.a712f1",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software is described with rich metadata."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "F2"
             }
         ]
     },
@@ -56,122 +137,6 @@
             {
                 "@id": "https://www.upm.es/"
             }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/rsfc/test/RSFC-06-2",
-        "@type": [
-            "https://w3id.org/ftr#Test",
-            "http://www.w3.org/ns/dcat#DataService"
-        ],
-        "http://purl.org/dc/terms/creator": [
-            {
-                "@id": "https://orcid.org/0000-0003-0454-7145"
-            },
-            {
-                "@id": "https://github.com/andriumon"
-            }
-        ],
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "This test checks if there are contributors found in the repository. This is done by looking for contributors in files like CONTRIBUTOR, codemeta.json and package files."
-            }
-        ],
-        "http://purl.org/dc/terms/identifier": [
-            {
-                "@value": "https://w3id.org/rsfc/test/RSFC-06-2"
-            }
-        ],
-        "http://purl.org/dc/terms/license": [
-            {
-                "@id": "http://creativecommons.org/licenses/by/4.0/"
-            }
-        ],
-        "http://purl.org/dc/terms/publisher": [
-            {
-                "@id": "https://oeg.fi.upm.es"
-            },
-            {
-                "@id": "https://ror.org/03n6nwv02"
-            }
-        ],
-        "http://purl.org/dc/terms/title": [
-            {
-                "@language": "en",
-                "@value": "Contributors are declared"
-            }
-        ],
-        "http://semanticscience.org/resource/SIO_000233": [
-            {
-                "@id": "https://w3id.org/everse/i/indicators/software_documentation"
-            }
-        ],
-        "http://usefulinc.com/ns/doap#repository": [
-            {
-                "@id": "https://w3id.org/rsfc/repository"
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "RSFC-06-2"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "RSFC-06-2"
-            }
-        ],
-        "http://www.w3.org/ns/dcat#contactPoint": [
-            {
-                "@id": "https://orcid.org/0000-0003-0454-7145"
-            }
-        ],
-        "http://www.w3.org/ns/dcat#keyword": [
-            {
-                "@language": "en",
-                "@value": "Author"
-            },
-            {
-                "@language": "en",
-                "@value": "ORCID"
-            },
-            {
-                "@language": "en",
-                "@value": "Test"
-            }
-        ],
-        "http://www.w3.org/ns/dcat#version": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "0.0.1"
-            }
-        ],
-        "http://www.w3.org/ns/dqv#inDimension": [
-            {
-                "@id": "https://doi.org/10.25504/FAIRsharing.a712f1"
-            },
-            {
-                "@id": "https://doi.org/10.25504/FAIRsharing.60a40f"
-            }
-        ],
-        "https://w3id.org/dpv#isApplicableFor": [
-            {
-                "@id": "https://schema.org/SoftwareSourceCode"
-            }
-        ],
-        "https://w3id.org/ftr#supportedBy": [
-            {
-                "@id": "https://w3id.org/rsfc/"
-            }
-        ]
-    },
-    {
-        "@id": "https://w3id.org/everse/i/indicators/software_documentation",
-        "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
         ]
     },
     {
@@ -218,27 +183,6 @@
         "http://www.w3.org/2006/vcard/ns#url": [
             {
                 "@id": "https://oeg.fi.upm.es/"
-            }
-        ]
-    },
-    {
-        "@id": "https://doi.org/10.25504/FAIRsharing.60a40f",
-        "http://purl.org/dc/terms/description": [
-            {
-                "@language": "en",
-                "@value": "Software meets domain-relevant community standards."
-            }
-        ],
-        "http://vivoweb.org/ontology/core#abbreviation": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R3"
-            }
-        ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "R3"
             }
         ]
     }

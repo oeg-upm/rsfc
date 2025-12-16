@@ -14,7 +14,7 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "Presence of tests in repository"@en ;
+    dcterms:title "Presence of tests in source code repository"@en ;
     rdfs:label "RSFC-14-1"^^xsd:string ;
     vivo:abbreviation "RSFC-14-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;

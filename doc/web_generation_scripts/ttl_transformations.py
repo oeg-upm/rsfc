@@ -40,7 +40,9 @@ WHERE {
     ?s dcat:version ?version .
     ?s dpv:isApplicableFor ?applicable_for .
     ?s ftr:supportedBy ?supported_by .
-    ?metric a dqv:Metric .
+    OPTIONAL {
+        ?metric a dqv:Metric .
+    }
     ?repository doap:repository ?repo .
     ?repo foaf:homePage ?web_repository .
     ?s dcterms:creator ?creator_orcid .
@@ -152,9 +154,11 @@ WHERE {
     ?s dcat:version ?version .
     ?s dcat:keyword ?keywords .
     ?s dcterms:license ?license .
-    ?s dqv:inDimension ?dimension .
-    ?dimension rdfs:label ?label_dimension .
-    ?dimension dcterms:description ?desc_dimension .
+    OPTIONAL {
+        ?s dqv:inDimension ?dimension .
+        OPTIONAL { ?dimension rdfs:label ?label_dimension . }
+        OPTIONAL { ?dimension dcterms:description ?desc_dimension . }
+    }
 }
 """
 
@@ -232,7 +236,7 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         data['test_version'] = row.version
         data['test_license'] = row.license
         # data['test_publisher'] = row.publisher
-        data['test_metric'] = row.metric
+        data['test_metric'] = row.metric or ""
         data['test_repository'] = row.web_repository
         data['test_turtle'] = row.label + '.ttl'
         data['test_applicable_for'] = row.applicable_for
@@ -296,6 +300,7 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
     result_dimensions = [
         {"uri": uri, "name": data["name"], "description": data["description"]}
         for uri, data in dimension_map.items()
+        if data.get("name") and data.get("description")
     ]
     
     all_creators = ', '.join(result)
@@ -552,7 +557,7 @@ def ttl_to_html_benchmarks(path_ttl, path_mustache, pquery):
         data['benchmark_license'] = row.license
         # data['benchmark_landing_page'] = row.landing_page
         data['benchmark_status'] = row.benchmark_status
-        data['benchmark_turtle'] = row.label.replace('Benchmark ', '') + '.ttl'
+        data['benchmark_turtle'] = row.label.replace('Benchmark ', '').strip() + '.ttl'
         data['benchmark_same_as'] = row.same_as
 
         if str(row.keywords) not in keywords: 
@@ -760,9 +765,8 @@ def ttl_to_item_catalogue(path_ttl, pquery):
     data = {}
     keywords = []
     dimension_map = {}
-
+     
     for row in results:
-
         data = {
             'identifier': row.s,
             'title': row.title,

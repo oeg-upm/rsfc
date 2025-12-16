@@ -14,11 +14,11 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "Software identifier follows a proper schema"@en ;
+    dcterms:title "Software identifier follows a common schema"@en ;
     rdfs:label "RSFC-01-3"^^xsd:string ;
     vivo:abbreviation "RSFC-01-3"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID,, DOI and URL."""@en ;
+    dcterms:description """This test checks that the identifier associated with a software (if there’s one) follows a common schema such as URN, URL, DOI, etc. This is achieved by looking for identifiers in the README file and checking if they follow one of these schemas: URN, SWHID, DOI and URL."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
     dqv:inDimension <https://doi.org/10.25504/FAIRsharing.99299d>, <https://doi.org/10.25504/FAIRsharing.60a40f>;	

@@ -14,7 +14,7 @@
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "There are title and description"@en ;
+    dcterms:title "Title and description are declared"@en ;
     rdfs:label "RSFC-04-3"^^xsd:string ;
     vivo:abbreviation "RSFC-04-3"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;

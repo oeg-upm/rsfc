@@ -158,8 +158,11 @@ There are two key workflows:
 - **`call-rsfc.yml`**:  
   A workflow file that triggers `run-rsfc.yml`. 
   It must be placed in each repository that you want to analyze, since the repository where `call-rsfc.yml` is hosted is the one that will be processed.  
-  No additional inputs are required because the repository context is automatically passed by the `call`.  
+  No additional inputs are required because the repository context is automatically passed by the `call`. 
   This workflow can be triggered manually (`workflow_dispatch`) or automatically (e.g., on `push` events).
+  - **Secrets**:  
+  - `RSFC_TOKEN` is optional but recommended if you plan to run multiple analyses or expect heavy usage. It allows RSFC to access private repositories and avoid rate limits. 
+
 
 ## Usage
 
@@ -184,4 +187,4 @@ jobs:
     with:
       repo_url: https://github.com/${{ github.repository }}
     secrets:
-      GITHUB_TOKEN: ${{ secrets.RSFC_TOKEN }}
+      RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}
