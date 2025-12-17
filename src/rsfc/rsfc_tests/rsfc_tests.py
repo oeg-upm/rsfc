@@ -1185,6 +1185,6 @@ def test_has_issue_tracker(somef_data):
         evidence = constants.EVIDENCE_ISSUE_TRACKER
         suggest = "No suggestions"
         
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-20-1', "Repository has an issue tracker", constants.PROCESS_ISSUE_TRACKER, output, evidence, suggest)
+    check = ch.Check(constants.INDICATORS_DICT['support_issue_tracking'], 'RSFC-20-1', "Repository has an issue tracker", constants.PROCESS_ISSUE_TRACKER, output, evidence, suggest)
     
     return check.convert()
