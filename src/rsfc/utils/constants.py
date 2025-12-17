@@ -411,7 +411,8 @@ INDICATORS_DICT = {
     'persistent_and_unique_identifier': 'https://w3id.org/everse/i/indicators/persistent_and_unique_identifier',
     'descriptive_metadata': 'https://w3id.org/everse/i/indicators/descriptive_metadata',
     'versioning_standards_use': 'https://w3id.org/everse/i/indicators/versioning_standards_use',
-    'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage'
+    'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage',
+    'support_issue_tracking': 'https://w3id.org/everse/i/indicators/support_issue_tracking'
 }
 
 CHECKERS_DICT = {
