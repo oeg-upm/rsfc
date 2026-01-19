@@ -11,10 +11,15 @@ def main():
     print("Making preparations...")
     
     from rsfc.rsfc_core import start_assessment
+    from rsfc.utils.rsfc_helpers import resolve_w3id
     import os
     import json
     
-    rsfc_asmt, table = start_assessment(args.repo, args.ftr, args.id)
+    print("Checking if url is w3id")
+    
+    repo_url = resolve_w3id(args.repo)
+    
+    rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id)
     
     output_dir = './rsfc_output/'
     output_file = "rsfc_assessment.json"

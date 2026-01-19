@@ -4,7 +4,8 @@ import base64
 from bs4 import BeautifulSoup
 import requests
 from rsfc.utils import constants
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+from requests.exceptions import RequestException
 
 def decode_github_content(content_json):
     encoded_content = content_json.get('content', '')
@@ -197,3 +198,22 @@ def landing_page_links_back(lp_html, repo_url):
     return False
 
 
+def resolve_w3id(url):
+    
+    if "w3id.org" not in url:
+        if "github" in url or "gitlab" in url:
+            return url
+        else:
+            return None
+    
+    try:
+        response = requests.get(
+            url,
+            allow_redirects=True,
+            timeout=10
+        )
+        return response.url
+
+    except RequestException:
+        print("Error resolving the w3id")
+        return None

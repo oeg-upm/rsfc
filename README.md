@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 
-# Research Software Fairness Checks (RSFC)
+# Research Software FAIRness Checks (RSFC)
 
 A command line interface to automatically evaluate the quality of a Github or Gitlab repository.
 
@@ -24,6 +24,7 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 - software_tests
 - archived_in_software_heritage
 - versioning_standards_use
+- support_issue_tracking
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
 
