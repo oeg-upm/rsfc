@@ -35,8 +35,8 @@ jobs:
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
             echo "Running RSFC on public repo"
-            rsfc ${{ inputs.repo_url }}
+            rsfc --repo ${{ inputs.repo_url }}
           else
             echo "Running RSFC on private repo with token"
-            rsfc ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }}
+            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }}
           fi
