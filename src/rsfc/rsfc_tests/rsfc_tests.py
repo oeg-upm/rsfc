@@ -1115,6 +1115,7 @@ def test_commits_linked_issues(gh):
     if commits == [] or issues == []:
         output = "false"
         evidence = constants.EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO
+        suggest = constants.SUGGEST_NO_COMMITS_OR_ISSUES
     else:
         linked = rsfc_helpers.cross_check_any_issue(issues, commits)
         
