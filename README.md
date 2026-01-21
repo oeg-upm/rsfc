@@ -29,6 +29,56 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
 
 
+## Available tests
+
+RSFC can perform the following tests:
+
+- RSFC-01-1: There is an identifier and it resolves
+- RSFC-01-2: There is an identifier in the metadata files
+- RSFC-01-3: There is an identifier and it follows a common schema
+- RSFC-03-1: The software has releases
+- RSFC-03-2: Releases have version and identifier
+- RSFC-03-3: Release versions follow SemVer or CalVer
+- RSFC-03-4: Release identifiers follow the same scheme
+- RSFC-03-5: Last release version corresponds to version in package file
+- RSFC-03-6: There is a version number stated in metadata files
+- RSFC-04-1: Metadata files exist
+- RSFC-04-2: There is a README file
+- RSFC-04-3: Title and description are declared
+- RSFC-04-4: There is descriptive metadata
+- RSFC-04-5: There is a codemeta file
+- RSFC-05-1: There is a repostatus badge in the README file
+- RSFC-05-2: Contact and support metadata exists
+- RSFC-05-3: Software documentation exists
+- RSFC-06-1: Authors are declared
+- RSFC-06-2: Contributors are declared
+- RSFC-06-3: Authors have an ORCID assigned
+- RSFC-06-4: Authors have their role stated
+- RSFC-07-1: There is an identifier in README or CITATION
+- RSFC-07-2: Software identifier resolves and links back to software
+- RSFC-08-1: Metadata record is found in SWHeritage or Zenodo
+- RSFC-09-1: Repository is from Github or Gitlab
+- RSFC-12-1: There is an article citation or reference publication
+- RSFC-13-1: Dependencies are declared
+- RSFC-13-2: There are installation instructions
+- RSFC-13-3: Dependencies have version numbers
+- RSFC-13-4: Dependencies are in a machine-readable format
+- RSFC-14-1: Tests are provided
+- RSFC-14-2: There are actions to automate tests
+- RSFC-15-1: There is a license
+- RSFC-15-2: License is in SPDX format
+- RSFC-15-3: License information is provided
+- RSFC-16-1: License is referenced in metadata files
+- RSFC-17-1: The repository has an 'active' status
+- RSFC-17-2: Repository has a commit history
+- RSFC-17-3: Commits are linked to issues
+- RSFC-18-1: There are citations
+- RSFC-19-1: Repository has continuous integration workflows
+- RSFC-20-1: Repository has an issue tracker
+
+**Note**: These will be the identifiers needed to run single-test assessments. More information later in the README
+
+
 ## Requirements
 
 Python 3.10.8 or higher

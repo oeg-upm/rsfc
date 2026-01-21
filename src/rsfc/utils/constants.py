@@ -254,7 +254,7 @@ SUGGEST_NO_COMMITS = "Remember to keep track of your changes making commits to y
 SUGGEST_NO_ISSUES_LINK_COMMITS = "It is good practice to indicate in your commits which issues you are targeting or solving"
 SUGGEST_NO_ACTIVE_REPO = "You should keep your repository active and indicate it with a repostatus badge"
 SUGGEST_NO_ISSUE_TRACKER = "You should have an issue tracker in your repository to help you manage your ideas, next steps and bugs to fix."
-
+SUGGEST_NO_COMMITS_OR_ISSUES = "Don't forget to make commits of your source code to your git repository and issues to improve version control. More information at https://everse.software/RSQKit/using_version_control"
 
 
 
