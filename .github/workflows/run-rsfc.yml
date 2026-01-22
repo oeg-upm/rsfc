@@ -54,8 +54,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rsfc-report
-          path: outputs/
-
+          # path: outputs/
+          path: rsfc_output
 
       - name: Show RSFC report location
         run: |
