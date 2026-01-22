@@ -41,20 +41,10 @@ jobs:
             echo "Running RSFC on private repo with token"
             rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} 
           fi
-      - name: Search for RSFC output
-        run: |
-          echo "Searching for JSON files..."
-          find . -maxdepth 4 -type f -name "*.json"
-      - name: Debug outputs folder
-        run: |
-          echo "Listing outputs directory:"
-          ls -la outputs || echo "outputs directory not found"
-
       - name: Upload RSFC report
         uses: actions/upload-artifact@v4
         with:
           name: rsfc-report
-          # path: outputs/
           path: rsfc_output
 
       - name: Show RSFC report location
@@ -63,21 +53,38 @@ jobs:
           echo "Report available here:"
           echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-      # - name: Comment RSFC report on PR
-      #   if: github.event_name == 'pull_request'
-      #   uses: actions/github-script@v7
-      #   with:
-      #     script: |
-      #       const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+      - name: Get job ID
+        id: get_job
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId
+            })
 
-      #       github.rest.issues.createComment({
-      #         issue_number: context.payload.pull_request.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: `**RSFC assessment completed**  
+            const job = jobs.data.jobs.find(j => j.name === process.env.GITHUB_JOB)
+            core.setOutput("job_id", job.id)
+            
+      - name: Create neutral check
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request
+            const jobId = "${{ steps.get_job.outputs.job_id }}"
+            const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/job/${jobId}`
 
-      # View the full report here:
-      # ${runUrl}
-
-      # The RSFC JSON report can be downloaded from the Artifacts section of this workflow run.`
-      #       });
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "RSFC assessment",
+              head_sha: pr.head.sha,
+              status: "completed",
+              conclusion: "neutral",
+              output: {
+                title: "RSFC report",
+                summary: `:\n${url}`
+              }
+            })
