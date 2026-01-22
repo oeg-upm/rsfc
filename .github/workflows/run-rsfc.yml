@@ -35,10 +35,10 @@ jobs:
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
             echo "Running RSFC on public repo"
-            rsfc --repo ${{ inputs.repo_url }} --output outputs
+            rsfc --repo ${{ inputs.repo_url }}
           else
             echo "Running RSFC on private repo with token"
-            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} --output outputs
+            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} 
           fi
       - name: Upload RSFC report
         uses: actions/upload-artifact@v4
