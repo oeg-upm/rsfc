@@ -30,7 +30,8 @@ jobs:
           python -m nltk.downloader wordnet
           python -m nltk.downloader omw-1.4
       - name: Create outputs directory
-        run: mkdir -p outputs
+        # run: mkdir -p outputs
+        run: mkdir -p rsfc_output
       - name: Run RSFC
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
