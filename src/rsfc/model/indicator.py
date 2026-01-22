@@ -107,9 +107,6 @@ class Indicator:
             "RSFC-15-2": [
                 (rt.test_license_spdx_compliant, [somef.somef_data])
             ],
-            "RSFC-15-3": [
-                (rt.test_license_information_provided, [somef.somef_data])
-            ],
             "RSFC-16-1": [
                 (rt.test_license_info_in_metadata_files, [somef.somef_data, cd.codemeta_data, cf.cff_data])
             ],

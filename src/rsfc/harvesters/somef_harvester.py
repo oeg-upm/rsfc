@@ -2,13 +2,29 @@ import io
 import contextlib
 import json
 from somef import somef_cli
+import subprocess
 import os
 
 class SomefHarvester:
     
     def __init__(self, repo_url):
+        self.somef_configure()
         self.somef_data = self.somef_assessment(repo_url, 0.8)
         
+        
+    def somef_configure(self):
+        
+        print("Configuring SOMEF...")
+
+        try:
+            subprocess.run(
+                ["somef", "configure", "-a"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        except subprocess.CalledProcessError as e:
+            raise RuntimeError("SOMEF configuration failed") from e
 
     def somef_assessment(self, repo_url, threshold):
     
