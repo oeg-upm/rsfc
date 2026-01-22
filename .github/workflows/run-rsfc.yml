@@ -63,8 +63,6 @@ jobs:
               repo: context.repo.repo,
               run_id: context.runId
             })
-
-            # const job = jobs.data.jobs.find(j => j.name === process.env.GITHUB_JOB)
             const job = jobs.data.jobs[jobs.data.jobs.length - 1]
             core.setOutput("job_id", job.id)
             
