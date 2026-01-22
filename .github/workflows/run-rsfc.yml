@@ -66,6 +66,7 @@ jobs:
             const job = jobs.data.jobs[jobs.data.jobs.length - 1]
             core.setOutput("job_id", job.id)
             
+
       - name: Create neutral check
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
@@ -73,11 +74,11 @@ jobs:
           script: |
             const pr = context.payload.pull_request
             const jobId = "${{ steps.get_job.outputs.job_id }}"
-            const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/job/${jobId}`
+            const url = `https://github.com/${context.payload.repository.owner.login}/${context.payload.repository.name}/actions/runs/${context.runId}/job/${jobId}`
 
             await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
               name: "RSFC assessment",
               head_sha: pr.head.sha,
               status: "completed",
