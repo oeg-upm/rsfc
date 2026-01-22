@@ -40,11 +40,22 @@ jobs:
             echo "Running RSFC on private repo with token"
             rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} 
           fi
+      - name: Search for RSFC output
+        run: |
+          echo "Searching for JSON files..."
+          find . -maxdepth 4 -type f -name "*.json"
+      - name: Debug outputs folder
+        run: |
+          echo "Listing outputs directory:"
+          ls -la outputs || echo "outputs directory not found"
+
       - name: Upload RSFC report
         uses: actions/upload-artifact@v4
         with:
           name: rsfc-report
           path: outputs/
+
+
       - name: Show RSFC report location
         run: |
           echo "RSFC assessment completed."
