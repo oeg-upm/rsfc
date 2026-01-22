@@ -84,6 +84,6 @@ jobs:
               conclusion: "neutral",
               output: {
                 title: "RSFC report",
-                summary: `:\n${url}`
+                summary: `You can view the RSFC results in the "Run RSFC" step of this job:\n${url}\n\nYou can also download the full rsfc_assessment.json report from the workflow artifacts.`
               }
             })
