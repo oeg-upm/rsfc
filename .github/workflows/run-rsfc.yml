@@ -30,13 +30,67 @@ jobs:
           python -m nltk.downloader wordnet
           python -m nltk.downloader omw-1.4
       - name: Create outputs directory
-        run: mkdir -p outputs
+        # run: mkdir -p outputs
+        run: mkdir -p rsfc_output
       - name: Run RSFC
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
             echo "Running RSFC on public repo"
-            rsfc --repo ${{ inputs.repo_url }}
+            rsfc --repo ${{ inputs.repo_url }} | tee rsfc_output.txt
           else
             echo "Running RSFC on private repo with token"
-            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }}
+            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} | tee rsfc_output.txt
           fi
+      - name: Upload RSFC report
+        uses: actions/upload-artifact@v4
+        with:
+          name: rsfc-report
+          path: rsfc_output
+
+      - name: Show RSFC report location
+        run: |
+          echo "RSFC assessment completed."
+          echo "Report available here:"
+          echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Read RSFC console output
+        id: read_output
+        run: |
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          cat rsfc_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get job ID
+        id: get_job
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId
+            })
+            const job = jobs.data.jobs[jobs.data.jobs.length - 1]
+            core.setOutput("job_id", job.id)
+      - name: Create neutral check
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request
+            const jobId = "${{ steps.get_job.outputs.job_id }}"
+            const url = `https://github.com/${context.payload.repository.owner.login}/${context.payload.repository.name}/actions/runs/${context.runId}/job/${jobId}`
+
+            await github.rest.checks.create({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              name: "View report RSFC",
+              head_sha: pr.head.sha,
+              status: "completed",
+              conclusion: "neutral",
+              output: {
+                title: "RSFC report",
+                summary: `RSFC results:\n\n\`\`\`\n${{ steps.read_output.outputs.content }}\n\`\`\`\nYou can view the full RSFC assessment report (rsfc_assessment.json) by opening the job “Run RSFC Analysis” in the menu.\nInside that job, the artifact containing the JSON report is available for download.
+                `
+              }
+            })
