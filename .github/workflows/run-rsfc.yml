@@ -72,8 +72,6 @@ jobs:
             })
             const job = jobs.data.jobs[jobs.data.jobs.length - 1]
             core.setOutput("job_id", job.id)
-            
-         # summary: `You can view the RSFC results in the "Run RSFC" step of this job:\n${url}\n\nYou can also download the full rsfc_assessment.json report from the workflow artifacts.`
       - name: Create neutral check
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
