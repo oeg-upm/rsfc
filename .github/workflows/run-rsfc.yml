@@ -92,10 +92,7 @@ jobs:
               conclusion: "neutral",
               output: {
                 title: "RSFC report",
-
-                summary: `RSFC results:\n\n${{ steps.read_output.outputs.content }}\n\nYou can view the full RSFC assessment report (rsfc_assessment.json) by opening the job “Run RSFC Analysis” in the menu.\nYou can view the full RSFC assessment report (rsfc_assessment.json) by opening the job “Run RSFC Analysis” in the workflow run.\n
-                Inside that job, the artifact containing the JSON report is available for download.
+                summary: `RSFC results:\n\n${{ steps.read_output.outputs.content }}\n\nYou can view the full RSFC assessment report (rsfc_assessment.json) by opening the job “Run RSFC Analysis” in the menu.\nInside that job, the artifact containing the JSON report is available for download.
                 `
-
               }
             })
