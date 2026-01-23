@@ -205,9 +205,9 @@ There are two key workflows:
   Note: This workflow cannot be triggered directly because it uses `on: workflow_call`.  
   It is designed to be reusable and must be invoked from another workflow.
 
-- **`call-rsfc.yml`**:  
+- **`use-rsfc.yml`**:  
   A workflow file that triggers `run-rsfc.yml`. 
-  It must be placed in each repository that you want to analyze, since the repository where `call-rsfc.yml` is hosted is the one that will be processed.  
+  It must be placed in each repository that you want to analyze, since the repository where `use-rsfc.yml` is hosted is the one that will be processed.  
   No additional inputs are required because the repository context is automatically passed by the `call`. 
   This workflow can be triggered manually (`workflow_dispatch`) or automatically (e.g., on `push` events).
   - **Secrets**:  
@@ -218,21 +218,41 @@ There are two key workflows:
 
 To use RSFC in a repository:
 
-1. Copy `call-rsfc.yml` into `.github/workflows/` of the repository you want to analyze.
+1. Copy `use-rsfc.yml` into `.github/workflows/` of the repository you want to analyze.
 2. Ensure that the required secrets are defined (see below).
 3. No inputs are needed — the workflow automatically uses the repository it resides in.
+
+
+## Viewing RSFC Results in a Pull Request
+
+When a Pull Request is opened or updated, the RSFC workflow runs automatically and adds a neutral check named **RSFC Results Summary**.
+
+This check displays:
+- the formatted RSFC console output, including the full assessment table  
+- a link to the workflow job that executed the analysis  
+
+### Accessing the JSON report
+
+The workflow also generates an artifact named **`rsfc_assessment.json`**.
+
+To download it:
+1. Open the **Checks** tab of the Pull Request  
+2. Select the job **Run RSFC Analysis**  
+3. Download the artifact from the **Artifacts** section  
+
 
 Example:
 
 ```yaml
-name: Call RSFC reusable workflow
+name: Run RSFC analysis
 
 on:
-  workflow_dispatch:   
-  push:                
+  workflow_dispatch: 
+  pull_request: 
+    types: [opened, synchronize, reopened]         
 
 jobs:
-  call-rsfc:
+  run-rsfc-checks:
     uses: oeg-upm/rsfc/.github/workflows/run-rsfc.yml@main
     with:
       repo_url: https://github.com/${{ github.repository }}
