@@ -36,10 +36,10 @@ jobs:
         run: |
           if [ -z "${{ secrets.RSFC_TOKEN }}" ]; then
             echo "Running RSFC on public repo"
-            rsfc --repo ${{ inputs.repo_url }}
+            rsfc --repo ${{ inputs.repo_url }} | tee rsfc_output.txt
           else
             echo "Running RSFC on private repo with token"
-            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} 
+            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} | tee rsfc_output.txt
           fi
       - name: Upload RSFC report
         uses: actions/upload-artifact@v4
@@ -52,6 +52,13 @@ jobs:
           echo "RSFC assessment completed."
           echo "Report available here:"
           echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+      - name: Read RSFC console output
+        id: read_output
+        run: |
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          cat rsfc_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Get job ID
         id: get_job
@@ -66,7 +73,7 @@ jobs:
             const job = jobs.data.jobs[jobs.data.jobs.length - 1]
             core.setOutput("job_id", job.id)
             
-
+         # summary: `You can view the RSFC results in the "Run RSFC" step of this job:\n${url}\n\nYou can also download the full rsfc_assessment.json report from the workflow artifacts.`
       - name: Create neutral check
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
@@ -79,12 +86,14 @@ jobs:
             await github.rest.checks.create({
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
-              name: "RSFC Results Summary",
+              name: "View report RSFC",
               head_sha: pr.head.sha,
               status: "completed",
               conclusion: "neutral",
               output: {
                 title: "RSFC report",
-                summary: `You can view the RSFC results in the "Run RSFC" step of this job:\n${url}\n\nYou can also download the full rsfc_assessment.json report from the workflow artifacts.`
+
+                summary: `RSFC results:\n\n${{ steps.read_output.outputs.content }}\n\nYou can also download the full rsfc_assessment.json artifact.`
+
               }
             })
