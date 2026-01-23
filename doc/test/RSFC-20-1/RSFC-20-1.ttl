@@ -26,6 +26,8 @@
 	dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:keyword "Issue tracker"@en , "Repository"@en , 
                  "Test"@en ;
+    dcat:endpointDescription <https://rsfc.linkeddata.es/docs> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-20-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     doap:repository <https://w3id.org/rsfc/repository> .

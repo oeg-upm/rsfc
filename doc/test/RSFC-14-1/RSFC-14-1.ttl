@@ -26,6 +26,8 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-14-1" ;
     dcat:keyword "Repository"@en , 
                  "Test"@en ;
+    dcat:endpointDescription <https://rsfc.linkeddata.es/docs> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-14-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_has_tests> ; 

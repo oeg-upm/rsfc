@@ -1,22 +1,5 @@
 [
     {
-        "@id": "https://orcid.org/0000-0003-0454-7145",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
-        ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
-            {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Daniel Garijo"
-            }
-        ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
-            {
-                "@id": "mailto:dgarijo@upm.es"
-            }
-        ]
-    },
-    {
         "@id": "https://ror.org/03n6nwv02",
         "@type": [
             "http://www.w3.org/2006/vcard/ns#Organization"
@@ -38,25 +21,18 @@
         ]
     },
     {
-        "@id": "https://w3id.org/everse/i/indicators/version_control_use",
+        "@id": "https://oeg.fi.upm.es",
         "@type": [
-            "http://www.w3.org/ns/dqv#Metric"
-        ]
-    },
-    {
-        "@id": "https://github.com/andriumon",
-        "@type": [
-            "http://www.w3.org/2006/vcard/ns#Individual"
+            "http://www.w3.org/2006/vcard/ns#Organization"
         ],
-        "http://www.w3.org/2006/vcard/ns#fn": [
+        "http://www.w3.org/2000/01/rdf-schema#label": [
             {
-                "@type": "http://www.w3.org/2001/XMLSchema#string",
-                "@value": "Andres Montero"
+                "@value": "Ontology Engineering Group"
             }
         ],
-        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+        "http://www.w3.org/2006/vcard/ns#url": [
             {
-                "@id": "mailto:andres.montero.martin@upm.es"
+                "@id": "https://oeg.fi.upm.es/"
             }
         ]
     },
@@ -131,6 +107,16 @@
                 "@id": "https://orcid.org/0000-0003-0454-7145"
             }
         ],
+        "http://www.w3.org/ns/dcat#endpointDescription": [
+            {
+                "@id": "https://rsfc.linkeddata.es/docs"
+            }
+        ],
+        "http://www.w3.org/ns/dcat#endpointURL": [
+            {
+                "@id": "https://rsfc.linkeddata.es/assess/test/RSFC-17-2"
+            }
+        ],
         "http://www.w3.org/ns/dcat#keyword": [
             {
                 "@language": "en",
@@ -203,18 +189,42 @@
         ]
     },
     {
-        "@id": "https://oeg.fi.upm.es",
+        "@id": "https://github.com/andriumon",
         "@type": [
-            "http://www.w3.org/2006/vcard/ns#Organization"
+            "http://www.w3.org/2006/vcard/ns#Individual"
         ],
-        "http://www.w3.org/2000/01/rdf-schema#label": [
+        "http://www.w3.org/2006/vcard/ns#fn": [
             {
-                "@value": "Ontology Engineering Group"
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Andres Montero"
             }
         ],
-        "http://www.w3.org/2006/vcard/ns#url": [
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
             {
-                "@id": "https://oeg.fi.upm.es/"
+                "@id": "mailto:andres.montero.martin@upm.es"
+            }
+        ]
+    },
+    {
+        "@id": "https://w3id.org/everse/i/indicators/version_control_use",
+        "@type": [
+            "http://www.w3.org/ns/dqv#Metric"
+        ]
+    },
+    {
+        "@id": "https://orcid.org/0000-0003-0454-7145",
+        "@type": [
+            "http://www.w3.org/2006/vcard/ns#Individual"
+        ],
+        "http://www.w3.org/2006/vcard/ns#fn": [
+            {
+                "@type": "http://www.w3.org/2001/XMLSchema#string",
+                "@value": "Daniel Garijo"
+            }
+        ],
+        "http://www.w3.org/2006/vcard/ns#hasEmail": [
+            {
+                "@id": "mailto:dgarijo@upm.es"
             }
         ]
     }
