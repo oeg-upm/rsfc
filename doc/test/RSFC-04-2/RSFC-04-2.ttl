@@ -26,6 +26,8 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-04-2" ;
     dcat:keyword "Readme"@en ,
                  "Test"@en ;
+    dcat:endpointDescription <https://w3id.org/rsfc/api> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-04-2> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_documentation> ; 

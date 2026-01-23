@@ -22,7 +22,7 @@ PREFIX dqv: <http://www.w3.org/ns/dqv#>
 
 SELECT DISTINCT ?s ?title ?label ?description ?keywords ?version ?dimension ?label_dimension ?desc_dimension ?license
 ?publisher_uri ?publisher_label ?metric ?creator_name ?creator_orcid ?contact_orcid ?contact_name ?contact_mail 
-?applicable_for ?supported_by ?web_repository
+?applicable_for ?supported_by ?web_repository ?endpoint_desc ?endpoint_url 
 WHERE {
     ?s a ftr:Test .
     ?s dcterms:title ?title .
@@ -50,6 +50,8 @@ WHERE {
     ?s dcat:contactPoint ?contact_orcid .
     ?contact_orcid vcard:fn ?contact_name .
     ?contact_orcid vcard:hasEmail ?contact_mail .
+    ?s dcat:endpointDescription ?endpoint_desc .
+    ?s dcat:endpointURL ?endpoint_url .
 
 }
 """
@@ -211,7 +213,9 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         'test_contactName': '',
         'test_contactMail': '',
         'test_applicable_for': '',
-        'test_supported_by': ''
+        'test_supported_by': '',
+        'test_endpoint_desc': '',
+        'test_endpoint_url': '',
     }
 
     keywords = []
@@ -241,7 +245,9 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         data['test_turtle'] = row.label + '.ttl'
         data['test_applicable_for'] = row.applicable_for
         data['test_supported_by'] = row.supported_by
-
+        data['test_endpoint_desc'] = row.endpoint_desc
+        data['test_endpoint_url'] = row.endpoint_url
+        
         if str(row.keywords) not in keywords:
             keywords.append(str(row.keywords))
 
