@@ -990,7 +990,7 @@ def test_license_spdx_compliant(somef_data):
     return check.convert()
 
 
-def test_license_information_provided(somef_data):
+'''def test_license_information_provided(somef_data):
     
     if 'license' not in somef_data:
         output = "false"
@@ -1010,7 +1010,7 @@ def test_license_information_provided(somef_data):
                 
     check = ch.Check(constants.INDICATORS_DICT['software_has_license'], 'RSFC-15-3', "License information is provided", constants.PROCESS_LICENSE_INFORMATION_PROVIDED, output, evidence, suggest)
     
-    return check.convert()
+    return check.convert()'''
 
 ################################################### FRSM_16 ###################################################
 

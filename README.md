@@ -152,7 +152,13 @@ poetry run rsfc --help
 
 ## Usage
 
-After installation, you can use the package by running if you activated the poetry env
+Before anything, RSFC uses SOMEF internally. If this is your first time working with somef, you should run the following command in the root directory of the project:
+
+```
+somef configure -a
+```
+
+Now, you can use the package by running if you activated the poetry env
 
 ```
 rsfc --repo <repo_url>
