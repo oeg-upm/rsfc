@@ -22,7 +22,7 @@ def start_assessment(repo_url, ftr, test_id):
     
     assess = asmt.Assessment(checks)
     
-    rsfc_asmt = assess.render_template(sw, ftr)
+    rsfc_asmt = assess.render_template(sw, ftr, test_id)
     table = assess.to_terminal_table(test_id)
     
     return rsfc_asmt, table

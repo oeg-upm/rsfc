@@ -35,8 +35,8 @@ class SomefHarvester:
             
         repo_data = json.loads(json.dumps(repo_data.results))
         
-        '''os.makedirs('./rsfc_output/', exist_ok=True)
+        os.makedirs('./rsfc_output/', exist_ok=True)
         with open('./rsfc_output/somef_assessment.json', 'w', encoding='utf-8') as f:
-            json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
+            json.dump(repo_data, f, indent=4, ensure_ascii=False)
         
         return repo_data

@@ -4,13 +4,14 @@ from datetime import datetime, timezone
 import json
 from importlib.resources import files
 from rsfc.utils import constants
+import uuid
 
 class Assessment:
     def __init__(self, checks):
         self.checks = checks
         
 
-    def render_template(self, sw, ftr):
+    def render_template(self, sw, ftr, test_id):
         
         print("Rendering assessment...")
         
@@ -19,13 +20,21 @@ class Assessment:
         data['url'] = sw.url
         data['version'] = sw.version
         data['doi'] = sw.id
-        data['checks'] = self.checks
+        
+        if ftr and test_id:
+            data['check'] = self.checks[0]
+            data['result_id'] = f"urn:rsfc:{uuid.uuid4()}"
+        else:
+            data['checks'] = self.checks
             
         now = datetime.now(timezone.utc)
         data.setdefault("date", str(now.date()))
         data.setdefault("date_iso", now.replace(microsecond=0).isoformat().replace('+00:00', 'Z'))
-            
-        if ftr:
+        
+        if ftr and test_id:
+            with files("rsfc").joinpath("templates/assessment_schema_ftr_single.json.j2").open("r", encoding="utf-8") as f:
+                template_source = f.read()
+        elif ftr:
             with files("rsfc").joinpath("templates/assessment_schema_ftr.json.j2").open("r", encoding="utf-8") as f:
                 template_source = f.read()
         else:

@@ -1,0 +1,54 @@
+{
+  "@context": "https://w3id.org/ftr/context",
+  "@id": "{{ result_id }}",
+  "@type": "https://w3id.org/ftr#TestResult",
+  "identifier": "{{ result_id }}",
+  "title": "Output from running test: {{ check['test_id'] }} (https://w3id.org/rsfc/test/{{ check['test_id'] }})",
+  "description": {{ check['evidence'] | tojson }},
+  "license": { 
+    "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "value": "{{ check['output'] }}",
+  "completion": {
+    "@value": 100
+  },
+  "assessmentTarget": {
+    "title": "{{name}}",
+    "url": "{{url}}"
+    {% if version %},
+    "version": "{{ version }}"
+    {% endif %}
+    {% if doi %},
+    "@id": "{{doi}}"
+    {% endif %}
+  },
+  "log": {{ check['evidence'] | tojson }},
+  "outputFromTest": {
+    "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+    "@type": "Test",
+    "title": "{{ check['test_name'] }}",
+    "description": "{{ check['process'] }}"
+  },
+  "generatedAtTime": {
+    "@type": "http://www.w3.org/2001/XMLSchema#date",
+    "@value": "{{ date }}"
+  },
+  "wasGeneratedBy": {
+    "@type": "TestExecutionActivity",
+    "used": {
+      "@id": "{{ url }}"
+    },
+    "wasAssociatedWith": {
+      "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+      "identifier": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
+      "title": "{{ check['test_name'] }}",
+      "description": "{{ check['process'] }}",
+      "endpointDescription": {
+        "@id": "https://rsfc.linkeddata.es/docs"
+      },
+      "endpointURL": {
+        "@id": "https://rsfc.linkeddata.es/assess/test/{{ check['test_id'] }}"
+      }
+    }
+  }
+}
