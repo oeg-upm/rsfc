@@ -218,8 +218,10 @@ def resolve_w3id(url):
         print("Error resolving the w3id")
         return None
     
-    
+ 
 def remove_git_from_url(url):
-    if "github" in url or "gitlab" in url:
-        return url.rstrip(".git")
-        
+
+    if url.endswith(".git"):
+        return url[:-4]
+
+    return url

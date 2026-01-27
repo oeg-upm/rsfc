@@ -24,7 +24,7 @@
     {% for check in checks -%}
     {
       "@type": "https://w3id.org/ftr#TestResult",
-      "description": {{ check.evidence | tojson }},
+      "description": {{ check['evidence'] | tojson }},
       "hasAssociatedMetric": { 
         "@id": "{{ check['assessesIndicator']['@id'] }}"
       },
@@ -42,7 +42,7 @@
       "wasGeneratedBy": {
         "@type": "TestExecutionActivity",
         "used": {
-          "@id": "{{ check['checkingSoftware']['@id'] }}"
+          "@id": "{{url}}"
         }
       }
     }{{ "," if not loop.last else "" }}

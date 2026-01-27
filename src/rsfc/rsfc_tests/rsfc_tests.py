@@ -48,7 +48,7 @@ def test_id_common_schema(somef_data):
     if 'identifier' in somef_data:
         compiled_patterns = []
         for pattern in constants.ID_SCHEMA_REGEX_LIST:
-            compiled = re.compile(pattern)
+            compiled = re.compile(pattern, re.IGNORECASE)
             compiled_patterns.append(compiled)
             
         output = "true"
@@ -648,6 +648,7 @@ def test_identifier_resolves_to_software(somef_data, codemeta_data, cff_data, re
     
     output = "false"
     evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
+    suggest = constants.SUGGEST_NO_IDENTIFIER
     identifier = None
     pause = False
 
