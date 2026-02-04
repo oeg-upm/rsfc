@@ -6,9 +6,11 @@ from rsfc.utils import constants
 
 class GithubHarvester:
     
-    def __init__(self, repo_url):
+    def __init__(self, repo_url, token):
         self.repo_url =  repo_url
+        self.token = token
         self.repo_type = self.get_repo_type()
+        self.session = self.init_session()
         self.api_url = self.get_repo_api_url()
         self.repo_branch = self.get_repo_default_branch()
         self.version = self.get_soft_version()
@@ -17,6 +19,16 @@ class GithubHarvester:
         self.commits = self.get_commits()
         self.issues = self.get_issues()
         self.tests = self.get_tests()
+        
+        
+    def init_session(self):
+        session = requests.Session()
+        if self.token and self.repo_type == constants.REPO_TYPES[0]:
+            session.headers.update({"Authorization": f"token {self.token}"})
+        elif self.repo_type == "GITLAB":
+            session.headers.update({"PRIVATE-TOKEN": self.token})
+            
+        return session
     
     
     def get_repo_api_url(self):
@@ -62,16 +74,15 @@ class GithubHarvester:
                 req_url = self.api_url + '/contents/codemeta.json'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
                 params = {'ref': self.repo_branch}
-
-                response = requests.get(req_url, headers=headers, params=params)
+                response = self.session.get(req_url, headers=headers, params=params)
                 response.raise_for_status()
                 return response.json()
-            elif self.repo_type == "gitlab":
+            elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
                 branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/codemeta.json/raw"
                 params = {'ref': branch}
-                response = requests.get(req_url, params=params)
+                response = self.session.get(req_url, params=params)
                 response.raise_for_status()
                 return response.json()
             else:
@@ -87,7 +98,7 @@ class GithubHarvester:
                 req_url = self.api_url + '/contents/CITATION.cff'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
                 params = {'ref': self.repo_branch}
-                response = requests.get(req_url, headers=headers, params=params)
+                response = self.session.get(req_url, headers=headers, params=params)
                 response.raise_for_status()
                 return yaml.safe_load(response.text)
             elif self.repo_type == "GITLAB":
@@ -95,7 +106,7 @@ class GithubHarvester:
                 branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/CITATION.cff/raw"
                 params = {'ref': branch}
-                response = requests.get(req_url, params=params)
+                response = self.session.get(req_url, params=params)
                 response.raise_for_status()
                 return yaml.safe_load(response.text)
             else:
@@ -109,7 +120,7 @@ class GithubHarvester:
         try:
             releases_url = f"{self.api_url}/releases"
 
-            response = requests.get(releases_url)
+            response = self.session.get(releases_url)
             response.raise_for_status()
             releases = response.json()
 
@@ -147,11 +158,11 @@ class GithubHarvester:
         if self.repo_type == "GITHUB":
             commits_url = f"{self.api_url}/commits?per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
-            response = requests.get(commits_url, headers=headers)
+            response = self.session.get(commits_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
             commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}&per_page=100"
-            response = requests.get(commits_url)
+            response = self.session.get(commits_url)
 
         else:
             raise ValueError(f"Not supported repository: {self.repo_type}")
@@ -170,11 +181,11 @@ class GithubHarvester:
         if self.repo_type == "GITHUB":
             issues_url = f"{self.api_url}/issues?state=all&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
-            response = requests.get(issues_url, headers=headers)
+            response = self.session.get(issues_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
             issues_url = f"{self.api_url}/issues?state=all&per_page=100"
-            response = requests.get(issues_url)
+            response = self.session.get(issues_url)
 
         else:
             raise ValueError(f"Not supported repository: {self.repo_type}")
@@ -195,13 +206,13 @@ class GithubHarvester:
 
         if self.repo_type == "GITHUB":
             tree_url = f"{self.api_url}/git/trees/HEAD?recursive=1"
-            resp = requests.get(tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
+            resp = self.session.get(tree_url,headers={'Accept': 'application/vnd.github.v3+json'})
             if resp.status_code == 200:
                 test_evidences = resp.json().get("tree", [])
 
         elif self.repo_type == "GITLAB":
             tree_url = f"{self.api_url}/repository/tree?recursive=true&ref={self.repo_branch}&per_page=100"
-            resp = requests.get(tree_url)
+            resp = self.session.get(tree_url)
             if resp.status_code == 200:
                 test_evidences = [{"path": item["path"]} for item in resp.json()]
 

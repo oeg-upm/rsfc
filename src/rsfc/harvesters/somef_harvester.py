@@ -7,18 +7,34 @@ import os
 
 class SomefHarvester:
     
-    def __init__(self, repo_url):
-        self.somef_configure()
+    def __init__(self, repo_url, token):
+        self.somef_configure(token)
         self.somef_data = self.somef_assessment(repo_url, 0.8)
         
         
-    def somef_configure(self):
+    def somef_configure(self, token):
         
         print("Configuring SOMEF...")
+        
+        if token:
+            configure = ["somef", "configure"]
+            stdin_data = (
+            f"{token}\n" #To deal with the inputs asked by somef configure
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            "\n"
+            )
+        else:
+            configure = ["somef", "configure", "-a"]
+            stdin_data = None
 
         try:
             subprocess.run(
-                ["somef", "configure", "-a"],
+                configure,
+                input=stdin_data,
+                text=True,
                 check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
@@ -35,8 +51,8 @@ class SomefHarvester:
             
         repo_data = json.loads(json.dumps(repo_data.results))
         
-        os.makedirs('./rsfc_output/', exist_ok=True)
+        '''os.makedirs('./rsfc_output/', exist_ok=True)
         with open('./rsfc_output/somef_assessment.json', 'w', encoding='utf-8') as f:
-            json.dump(repo_data, f, indent=4, ensure_ascii=False)
+            json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
         
         return repo_data

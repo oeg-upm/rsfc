@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rsfc"
-version = "0.1.1"
+version = "0.1.2"
 description = "EVERSE Research Software Fairness Checks"
 authors = ["Andres Montero <andres.montero.martin@upm.es>"]
 license = "MIT"

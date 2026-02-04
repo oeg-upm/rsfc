@@ -5,6 +5,7 @@ def main():
     parser.add_argument("--repo", required=True, help="URL of the Github/Gitlab repository to be analyzed")
     parser.add_argument("--ftr", action="store_true", help="Flag to indicate if JSON-LD in FTR format is desired")
     parser.add_argument("--id", required=False, help="Identifier of a specific test. Only that test will be ran")
+    parser.add_argument("-t", required=False, help="Authorization Github token")
 
     args = parser.parse_args()
     
@@ -20,7 +21,7 @@ def main():
     repo_url = resolve_w3id(args.repo)
     repo_url = remove_git_from_url(repo_url)
     
-    rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id)
+    rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id, args.t)
     
     output_dir = './rsfc_output/'
     output_file = "rsfc_assessment.json"
