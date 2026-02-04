@@ -39,7 +39,7 @@ jobs:
             rsfc --repo ${{ inputs.repo_url }} | tee rsfc_output.txt
           else
             echo "Running RSFC on private repo with token"
-            rsfc --repo ${{ inputs.repo_url }} --token ${{ secrets.RSFC_TOKEN }} | tee rsfc_output.txt
+            rsfc --repo ${{ inputs.repo_url }} -t ${{ secrets.RSFC_TOKEN }} | tee rsfc_output.txt
           fi
       - name: Upload RSFC report
         uses: actions/upload-artifact@v4
