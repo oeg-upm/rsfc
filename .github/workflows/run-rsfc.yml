@@ -12,6 +12,7 @@ on:
 
 jobs:
   run-rsfc:
+    name: "RSFC analysis"
     runs-on: ubuntu-latest
 
     steps:
