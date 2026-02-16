@@ -6,6 +6,9 @@ on:
         description: 'Repository URL to analyze'
         required: true
         type: string
+      is_fork: 
+        required: true 
+        type: boolean
     secrets:
       RSFC_TOKEN:
         required: false
@@ -74,7 +77,8 @@ jobs:
             const job = jobs.data.jobs[jobs.data.jobs.length - 1]
             core.setOutput("job_id", job.id)
       - name: Create neutral check
-        if: ${{ github.event_name == 'pull_request' }}
+        # if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ !inputs.is_fork }}
         uses: actions/github-script@v7
         with:
           script: |
