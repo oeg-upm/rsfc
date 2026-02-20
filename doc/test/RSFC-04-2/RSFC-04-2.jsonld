@@ -72,7 +72,7 @@
         ],
         "http://www.w3.org/ns/dcat#endpointDescription": [
             {
-                "@id": "https://w3id.org/rsfc/api"
+                "@id": "https://rsfc.linkeddata.es/docs"
             }
         ],
         "http://www.w3.org/ns/dcat#endpointURL": [
