@@ -188,6 +188,10 @@ RSFC also offers the possibility of using a personal Github token to avoid a rat
 rsfc --repo <repo_url> -t <token>
 ```
 
+## RSFC Badge
+
+Below the output table you will find a README badge that states what score you got in your assessment. It is already adapted to Markdown so you will just need to copy it.
+
 ## Docker installation
 
 RSFC also offers a Dockerfile which you can build using the following commmand:
