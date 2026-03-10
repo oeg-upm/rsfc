@@ -268,5 +268,7 @@ jobs:
     uses: oeg-upm/rsfc/.github/workflows/run-rsfc.yml@main
     with:
       repo_url: https://github.com/${{ github.repository }}
+      is_fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+      pr_sha: ${{ github.event.pull_request.head.sha }}
     secrets:
-      RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}
+      RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}   
