@@ -26,6 +26,8 @@
     dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.b93697>, <https://doi.org/10.25504/FAIRsharing.6fff5e>,<https://doi.org/10.25504/FAIRsharing.0c61dd>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:keyword "URL"@en , "Github"@en , 
                  "Test"@en ;
+    dcat:endpointDescription <https://rsfc.linkeddata.es/docs> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-09-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/version_control_use> ; 

@@ -26,6 +26,8 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-01-1" ;
     dcat:keyword "Identifier resolve"@en ,
                  "Test"@en ;
+    dcat:endpointDescription <https://rsfc.linkeddata.es/docs> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-01-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/persistent_and_unique_identifier> ; 

@@ -18,7 +18,7 @@
     rdfs:label "RSFC-16-1"^^xsd:string ;
     vivo:abbreviation "RSFC-16-1"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if metadata files like codemeta.json, CITATION.cff or package file contain a link to the repository license. This is done by looking if a license field is within said files."""@en ;
+    dcterms:description """This test checks if metadata files like codemeta.json, CITATION.cff and package file mention the repository license. This is done by looking if a license field is within said files."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
 	dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.95c69f>;
@@ -26,6 +26,8 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-16-1" ;
     dcat:keyword "Metadata"@en , "Codemeta"@en , "Citation"@en , "Repository"@en , 
                  "Test"@en ;
+    dcat:endpointDescription <https://rsfc.linkeddata.es/docs> ;
+    dcat:endpointURL <https://rsfc.linkeddata.es/assess/test/RSFC-16-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
     <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/software_has_license> ; 

@@ -73,7 +73,6 @@ def ttl_to_item_catalogue(path_ttl, pquery):
     '''
     g = Graph()
     g.parse(path_ttl, format="turtle")
-    # Ejecutar la consulta
     results = g.query(pquery)
 
     data = {}
@@ -116,7 +115,6 @@ def item_to_list(path, plist, pquery):
     for root, _, files in os.walk(path):
         for file in files:
             if file.endswith(".ttl"):
-                # si encontramos el archivo ttl podemos llamar a las funciones de transformacion
                 path_ttl = os.path.join(root, file)
                 plist.append(ttl_to_item_catalogue(path_ttl, pquery))
 
@@ -130,7 +128,7 @@ def items_to_register(test):
 
     url_register = config.get('Paths', 'path_url_register').strip('"')
     print(f"URL: {url_register}")
-
+    print(f"Number of items to register: {len(test)}")
     for item in test:
         client_url = {"clientUrl": str(item['identifier'])}
         headers = {"Content-Type": "application/json"}
@@ -139,10 +137,9 @@ def items_to_register(test):
         try:
             response = requests.post(
                 url_register, json=client_url, headers=headers, timeout=60)
-            # Imprimir detalles
+  
             print(f"File found: {client_url}")
             print(f"Response Status Code: {response.status_code}")
-            # print(f"Response Body: {response.text}\n")
             if response.status_code == 200:
                 print(f"Test: {str(item['identifier'])} registered OK")
             else:
