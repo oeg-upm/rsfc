@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-rsfc-checks:
-    uses: juanjemdIos/oeg_rsfc/.github/workflows/run-rsfc.yml@fix_internal_PR
+    uses: oeg-upm/rsfc/.github/workflows/run-rsfc.yml@main
     with:
       repo_url: https://github.com/${{ github.repository }}
       is_fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
