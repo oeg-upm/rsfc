@@ -252,7 +252,6 @@ To download it:
 2. Select the job **Run RSFC Analysis**  
 3. Download the artifact from the **Artifacts** section  
 
-
 Example:
 
 ```yaml
@@ -268,5 +267,7 @@ jobs:
     uses: oeg-upm/rsfc/.github/workflows/run-rsfc.yml@main
     with:
       repo_url: https://github.com/${{ github.repository }}
+      is_fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+      pr_sha: ${{ github.event.pull_request.head.sha }}
     secrets:
       RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}
