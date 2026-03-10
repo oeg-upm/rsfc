@@ -252,7 +252,6 @@ To download it:
 2. Select the job **Run RSFC Analysis**  
 3. Download the artifact from the **Artifacts** section  
 
-
 Example:
 
 ```yaml
