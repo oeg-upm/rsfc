@@ -91,7 +91,7 @@ jobs:
             const repo = context.repo.repo
 
             await github.rest.checks.create({
-              owner: owner
+              owner: owner,
               repo: repo,
               name: "View report RSFC",
               head_sha: headSha,
