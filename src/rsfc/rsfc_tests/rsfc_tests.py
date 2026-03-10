@@ -843,14 +843,12 @@ def test_dependencies_have_version(somef_data):
         evidence = constants.EVIDENCE_DEPENDENCIES_VERSION
         suggest = "No suggestions"
         for item in somef_data['requirements']:
-            if 'README' not in item['source'] and "version" in item["result"]:
-                if item["result"]["version"]:
-                    continue
-            else:
-                output = "false"
-                evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
-                suggest = constants.SUGGEST_NO_DEPENDENCIES_VERSION
-                break
+            if 'README' not in item['source']:
+                if not item["result"].get("version"):
+                    output = "false"
+                    evidence = constants.EVIDENCE_NO_DEPENDENCIES_VERSION
+                    suggest = constants.SUGGEST_NO_DEPENDENCIES_VERSION
+                    break
     
     check = ch.Check(constants.INDICATORS_DICT['requirements_specified'], 'RSFC-13-3', "Dependencies have version numbers", constants.PROCESS_DEPENDENCIES_VERSION, output, evidence, suggest)
     
