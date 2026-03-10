@@ -3,7 +3,7 @@
 
 # Research Software FAIRness Checks (RSFC)
 
-A command line interface to automatically evaluate the quality of a Github or Gitlab repository.
+A command line interface to automatically evaluate the fairness of a Github or Gitlab repository.
 
 **Authors**: Daniel Garijo, Andrés Montero
 
@@ -271,4 +271,4 @@ jobs:
       is_fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
       pr_sha: ${{ github.event.pull_request.head.sha }}
     secrets:
-      RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}   
+      RSFC_TOKEN: ${{ secrets.RSFC_TOKEN }}
