@@ -13,15 +13,23 @@ def main():
     
     from rsfc.rsfc_core import start_assessment
     from rsfc.utils.rsfc_helpers import resolve_w3id, remove_git_from_url
+    from rsfc.utils.exceptions import GithubRateLimitExceeded
     import os
     import json
+    import sys
+    
     
     print("Checking if url is w3id")
     
     repo_url = resolve_w3id(args.repo)
     repo_url = remove_git_from_url(repo_url)
     
-    rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id, args.t)
+    try:
+        rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id, args.t)
+
+    except GithubRateLimitExceeded as e:
+        print(f"\nERROR: {e}")
+        sys.exit(1)
     
     output_dir = './rsfc_output/'
     output_file = "rsfc_assessment.json"

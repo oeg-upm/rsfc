@@ -3,6 +3,7 @@ from datetime import datetime
 import urllib
 import yaml
 from rsfc.utils import constants
+from rsfc.utils.exceptions import GithubRateLimitExceeded
 
 class GithubHarvester:
     
@@ -60,8 +61,7 @@ class GithubHarvester:
     
     
     def get_repo_default_branch(self):
-        res = requests.get(self.api_url)
-        res.raise_for_status()
+        res = self.safe_request("GET", self.api_url)
         data = res.json()
         return data.get("default_branch", "main")
     
@@ -74,17 +74,17 @@ class GithubHarvester:
                 req_url = self.api_url + '/contents/codemeta.json'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
                 params = {'ref': self.repo_branch}
-                response = self.session.get(req_url, headers=headers, params=params)
-                response.raise_for_status()
+                response = self.safe_request("GET", req_url, headers=headers, params=params)
                 return response.json()
+
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
                 branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/codemeta.json/raw"
                 params = {'ref': branch}
-                response = self.session.get(req_url, params=params)
-                response.raise_for_status()
+                response = self.safe_request("GET", req_url, params=params)
                 return response.json()
+
             else:
                 return None
             
@@ -92,23 +92,25 @@ class GithubHarvester:
             return None
             
     def get_cff_file(self):
-        
+
         try:
             if self.repo_type == "GITHUB":
                 req_url = self.api_url + '/contents/CITATION.cff'
                 headers = {'Accept': 'application/vnd.github.v3.raw'}
                 params = {'ref': self.repo_branch}
-                response = self.session.get(req_url, headers=headers, params=params)
-                response.raise_for_status()
+
+                response = self.safe_request("GET", req_url, headers=headers, params=params)
                 return yaml.safe_load(response.text)
+
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
                 branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/CITATION.cff/raw"
                 params = {'ref': branch}
-                response = self.session.get(req_url, params=params)
-                response.raise_for_status()
+
+                response = self.safe_request("GET", req_url, params=params)
                 return yaml.safe_load(response.text)
+
             else:
                 return None
 
@@ -120,8 +122,7 @@ class GithubHarvester:
         try:
             releases_url = f"{self.api_url}/releases"
 
-            response = self.session.get(releases_url)
-            response.raise_for_status()
+            response = self.safe_request("GET", releases_url)
             releases = response.json()
 
             latest_release = None
@@ -158,11 +159,11 @@ class GithubHarvester:
         if self.repo_type == "GITHUB":
             commits_url = f"{self.api_url}/commits?per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
-            response = self.session.get(commits_url, headers=headers)
+            response = self.safe_request("GET", commits_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
             commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}&per_page=100"
-            response = self.session.get(commits_url)
+            response = self.safe_request("GET", commits_url)
 
         else:
             raise ValueError(f"Not supported repository: {self.repo_type}")
@@ -181,11 +182,11 @@ class GithubHarvester:
         if self.repo_type == "GITHUB":
             issues_url = f"{self.api_url}/issues?state=all&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
-            response = self.session.get(issues_url, headers=headers)
+            response = self.safe_request("GET", issues_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
             issues_url = f"{self.api_url}/issues?state=all&per_page=100"
-            response = self.session.get(issues_url)
+            response = self.safe_request("GET", issues_url)
 
         else:
             raise ValueError(f"Not supported repository: {self.repo_type}")
@@ -193,30 +194,69 @@ class GithubHarvester:
         issues = []
         if response.status_code == 200:
             data = response.json()
-            issues = [issue for issue in data if "pull_request" not in issue] #Filter pull requests
+            issues = [issue for issue in data if "pullsafe_request" not in issue]
         else:
             print(f"Error getting issues: {response.status_code}")
 
         return issues
 
     
-    
     def get_tests(self):
         test_evidences = []
 
         if self.repo_type == "GITHUB":
             tree_url = f"{self.api_url}/git/trees/HEAD?recursive=1"
-            resp = self.session.get(tree_url,headers={'Accept': 'application/vnd.github.v3+json'})
+            resp = self.safe_request("GET", tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
             if resp.status_code == 200:
                 test_evidences = resp.json().get("tree", [])
 
         elif self.repo_type == "GITLAB":
             tree_url = f"{self.api_url}/repository/tree?recursive=true&ref={self.repo_branch}&per_page=100"
-            resp = self.session.get(tree_url)
+            resp = self.safe_request("GET", tree_url)
             if resp.status_code == 200:
                 test_evidences = [{"path": item["path"]} for item in resp.json()]
 
         else:
             raise ValueError("Unsupported repository type")
-        
+
         return test_evidences
+    
+    
+    #Funcion wrapper que implementa la captura de fallo por rate limit alcanzado en la API de Github/lab
+    def safe_request(self, method, url, **kwargs):
+        response = self.session.request(method, url, **kwargs)
+
+        if self.repo_type == constants.REPO_TYPES[0] and response.status_code in (403, 429):
+            remaining = response.headers.get("X-RateLimit-Remaining")
+            if remaining == "0":
+                reset = response.headers.get("X-RateLimit-Reset")
+                if reset:
+                    reset_time = datetime.fromtimestamp(int(reset))
+                    raise GithubRateLimitExceeded(
+                        f"GitHub rate limit exceeded. Resets at {reset_time}."
+                    )
+                else:
+                    raise GithubRateLimitExceeded(
+                        "GitHub rate limit exceeded."
+                    )
+
+        if self.repo_type == constants.REPO_TYPES[1] and response.status_code == 429:
+            retry_after = response.headers.get("Retry-After")
+            reset = response.headers.get("RateLimit-Reset")
+
+            if retry_after:
+                raise GithubRateLimitExceeded(
+                    f"GitLab rate limit exceeded. Retry after {retry_after} seconds."
+                )
+            elif reset:
+                reset_time = datetime.fromtimestamp(int(reset))
+                raise GithubRateLimitExceeded(
+                    f"GitLab rate limit exceeded. Resets at {reset_time}."
+                )
+            else:
+                raise GithubRateLimitExceeded(
+                    "GitLab rate limit exceeded."
+                )
+
+        response.raise_for_status()
+        return response
