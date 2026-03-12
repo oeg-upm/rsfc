@@ -29,7 +29,7 @@ def main():
 
     except GithubRateLimitExceeded as e:
         print(f"\nERROR: {e}")
-        print("If you want to keep using RSFC, use a Github token. More information available in this project's README file.")
+        print("If you want to keep using RSFC, please use a Github token. More information available in this project's README file.")
         sys.exit(1)
     
     output_dir = './rsfc_output/'
