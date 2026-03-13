@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![RSFC_Score](https://img.shields.io/badge/rsfc-score_76/100-green)](https://github.com/oeg-upm/rsfc)
 
 
 # Research Software FAIRness Checks (RSFC)
@@ -187,6 +187,10 @@ RSFC also offers the possibility of using a personal Github token to avoid a rat
 ```
 rsfc --repo <repo_url> -t <token>
 ```
+
+## RSFC Badge
+
+Below the output table you will find a README badge that states what score you got in your assessment. It is already adapted to Markdown so you will just need to copy it.
 
 ## Docker installation
 

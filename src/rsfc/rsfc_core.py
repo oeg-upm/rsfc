@@ -5,6 +5,7 @@ from rsfc.harvesters import somef_harvester as som
 from rsfc.harvesters import codemeta_harvester as cm
 from rsfc.harvesters import cff_harvester as cf
 from rsfc.harvesters import github_harvester as gt
+from rsfc.utils import rsfc_helpers
 
 
 def start_assessment(repo_url, ftr, test_id, token):
@@ -23,6 +24,7 @@ def start_assessment(repo_url, ftr, test_id, token):
     assess = asmt.Assessment(checks)
     
     rsfc_asmt = assess.render_template(sw, ftr, test_id)
-    table = assess.to_terminal_table(test_id)
+    badge_url = rsfc_helpers.generate_badge(checks)
+    table = assess.to_terminal_table(test_id, badge_url)
     
     return rsfc_asmt, table

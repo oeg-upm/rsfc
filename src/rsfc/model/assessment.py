@@ -10,7 +10,6 @@ class Assessment:
     def __init__(self, checks):
         self.checks = checks
         
-
     def render_template(self, sw, ftr, test_id):
         
         print("Rendering assessment...")
@@ -49,7 +48,7 @@ class Assessment:
         return json.loads(rendered)
     
     
-    def to_terminal_table(self, test_id):
+    def to_terminal_table(self, test_id, badge_url):
         rows = []
         
         for check in self.checks:
@@ -74,6 +73,6 @@ class Assessment:
         headers = ["TEST ID", "Short Description", "Output"]
         table = tabulate(rows, headers, tablefmt="grid")
         info = "\n\nFor rationale on the tests performed, please check the assessment file created in the outputs folder.\n"
-        table = table + info
+        badge = f"\n\nRSFC badge for your README file:, {badge_url}\n"
         
-        return table
+        return table + info + badge
