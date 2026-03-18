@@ -109,12 +109,12 @@
         ],
         "http://www.w3.org/ns/dcat#endpointDescription": [
             {
-                "@id": "https://rsfc.linkeddata.es/docs"
+                "@id": "http://w3id.org/rsfc/api"
             }
         ],
         "http://www.w3.org/ns/dcat#endpointURL": [
             {
-                "@id": "https://rsfc.linkeddata.es/assess/test/RSFC-17-2"
+                "@id": "https://api.rsfc.linkeddata.es/assess/test/RSFC-17-2"
             }
         ],
         "http://www.w3.org/ns/dcat#keyword": [
