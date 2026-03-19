@@ -147,7 +147,11 @@ rsfc --repo <repo_url> -t <token>
 
 ## RSFC Badge
 
-Below the output table you will find a README badge that states what score you got in your assessment. It is already adapted to Markdown so you will just need to copy it.
+Below the output table you will find a README badge that states what the total FAIR coverage you got in your assessment. It is already adapted to Markdown so you will just need to copy it.
+
+### How is the coverage calculated?
+
+The coverage is simply the rounded average percentage of the total tests passed. For example, if you passed 20 tests, the coverage will be (20/33)*100 = 61%
 
 ## Docker installation
 
