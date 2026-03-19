@@ -2,7 +2,10 @@
 name = "rsfc"
 version = "0.1.3"
 description = "EVERSE Research Software Fairness Checks"
-authors = ["Andres Montero <andres.montero.martin@upm.es>"]
+authors = [
+    {"Andres Montero <andres.montero.martin@upm.es>"},
+    {"Daniel Garijo <daniel.garijo@upm.es>"}
+    ]
 license = "MIT"
 readme = "README.md"
 packages = [{ include = "rsfc", from = "src" }]
