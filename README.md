@@ -25,6 +25,7 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 - archived_in_software_heritage
 - versioning_standards_use
 - support_issue_tracking
+- has_contribution_guidelines
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
 
