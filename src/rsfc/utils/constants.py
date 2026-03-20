@@ -84,6 +84,7 @@ PROCESS_COMMITS_LINKED_TO_ISSUES = 'Checks if there is at least one of the exist
 PROCESS_COMMITS_HISTORY = 'Checks if the software repository has a commits history'
 PROCESS_LICENSE_INFORMATION_PROVIDED = 'Checks if license information is found in the README file of the repository'
 PROCESS_ISSUE_TRACKER = "Checks if there is an issue tracker in the repository."
+PROCESS_CONTRIBUTION_GUIDELINES = "Checks if there are contribution guidelines either in the README file or if there is a CONTRIBUTING.md file"
 
 
 #Evidences
@@ -145,6 +146,7 @@ EVIDENCE_CONTRIBUTORS = 'Found contributors metadata in the codemeta or package 
 EVIDENCE_COMMITS_LINKED_TO_ISSUES = 'There is at least one commit linked to an issue'
 EVIDENCE_DOI_LINKS_BACK_TO_REPO = "The landing page of the software's identifier links back to the software repository"
 EVIDENCE_ISSUE_TRACKER = "Found an issue tracker in the repository"
+EVIDENCE_CONTRIBUTION_GUIDELINES = "Found contribution guidelines at: "
 
 
 EVIDENCE_NO_LICENSE = 'Could not find any license in the repository'
@@ -205,6 +207,7 @@ EVIDENCE_NOT_ENOUGH_ISSUES_COMMITS_INFO = 'Could not get the necessary informati
 EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES = 'There is not any commits linked to any issues in the repository'
 EVIDENCE_DOI_NO_LINK_BACK_TO_REPO = "The landing page of the software's identifier does not link back to the software repository"
 EVIDENCE_NO_ISSUE_TRACKER = "Could not find an issue tracker in the repository"
+EVIDENCE_NO_CONTRIBUTION_GUIDELINES = "Could not find contribution guidelines in the repository"
 
 
 #Suggestions
@@ -256,7 +259,7 @@ SUGGEST_NO_ISSUES_LINK_COMMITS = "It is good practice to indicate in your commit
 SUGGEST_NO_ACTIVE_REPO = "You should keep your repository active and indicate it with a repostatus badge"
 SUGGEST_NO_ISSUE_TRACKER = "You should have an issue tracker in your repository to help you manage your ideas, next steps and bugs to fix."
 SUGGEST_NO_COMMITS_OR_ISSUES = "Don't forget to make commits of your source code to your git repository and issues to improve version control. More information at https://everse.software/RSQKit/using_version_control"
-
+SUGGEST_NO_CONTRIBUTION_GUIDELINES = "If you want to properly keep track of the colaborations your project receives to ensure its quality and fiability, you should add some contribution guidelines so the colaborators know how you want contributions to be made"
 
 
 #RSFC test identifiers
@@ -303,6 +306,7 @@ RSFC_17_3_ID = "https://w3id.org/rsfc/test/RSFC-17-3"
 RSFC_18_1_ID = "https://w3id.org/rsfc/test/RSFC-18-1"
 RSFC_19_1_ID = "https://w3id.org/rsfc/test/RSFC-19-1"
 RSFC_20_1_ID = "https://w3id.org/rsfc/test/RSFC-20-1"
+RSFC_21_1_ID = "https://w3id.org/rsfc/test/RSFC-21-1"
 
 
 #Short descriptions
@@ -349,6 +353,7 @@ DESC_RSFC_17_3 = "Commits are linked to issues"
 DESC_RSFC_18_1 = "There are citations"
 DESC_RSFC_19_1 = "Repository has continuous integration workflows"
 DESC_RSFC_20_1 = "Repository has an issue tracker"
+DESC_RSFC_21_1 = "Repository has contribution guidelines"
 
 
 TEST_DESC_DICT = {
@@ -393,7 +398,8 @@ TEST_DESC_DICT = {
     "RSFC-17-3": DESC_RSFC_17_3,
     "RSFC-18-1": DESC_RSFC_18_1,
     "RSFC-19-1": DESC_RSFC_19_1,
-    "RSFC-20-1": DESC_RSFC_20_1
+    "RSFC-20-1": DESC_RSFC_20_1,
+    "RSFC-21-1": DESC_RSFC_21_1
 }
 
 
@@ -413,14 +419,15 @@ INDICATORS_DICT = {
     'descriptive_metadata': 'https://w3id.org/everse/i/indicators/descriptive_metadata',
     'versioning_standards_use': 'https://w3id.org/everse/i/indicators/versioning_standards_use',
     'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage',
-    'support_issue_tracking': 'https://w3id.org/everse/i/indicators/support_issue_tracking'
+    'support_issue_tracking': 'https://w3id.org/everse/i/indicators/support_issue_tracking',
+    'has_contribution_guidelines': 'https://w3id.org/everse/i/indicators/has_contribution_guidelines'
 }
 
 CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://w3id.org/rsfc/',
-        'version' : '0.1.3'
+        'version' : '0.1.4'
     }
 }
 

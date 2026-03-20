@@ -127,6 +127,9 @@ class Indicator:
             ],
             "RSFC-20-1": [
                 (rt.test_has_issue_tracker, [somef.somef_data])
+            ],
+            "RSFC-21-1": [
+                (rt.test_has_contribution_guidelines, [somef.somef_data])
             ]
         }
         
