@@ -24,6 +24,7 @@
     {% endif %}
   },
   "log": {{ check['evidence'] | tojson }},
+  "suggestion": {{ check['suggestions'] | tojson }},
   "outputFromTest": {
     "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
     "@type": "Test",
