@@ -57,5 +57,5 @@ fi
 docker run --rm \
     -v "$(pwd)/$OUTPUT_DIR:/rsfc/rsfc_output" \
     -e PYTHONWARNINGS="ignore" \
-    rsfc-docker \
+    amonterodx/rsfc:0.1.3 \
     $DOCKER_ARGS

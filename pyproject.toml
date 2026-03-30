@@ -4,7 +4,9 @@ version = "0.1.4"
 description = "EVERSE Research Software Fairness Checks"
 authors = [
     "Andres Montero <andres.montero.martin@upm.es>",
-    "Daniel Garijo <daniel.garijo@upm.es>"
+    "Daniel Garijo <daniel.garijo@upm.es>",
+    "Juanje Mendoza <juanjesus.mendoza@upm.es>",
+    "Esteban Gonzalez <egonzalez@fi.upm.es>"
 ]
 license = "MIT"
 readme = "README.md"

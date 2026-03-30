@@ -16,6 +16,20 @@
             "email": "andres.montero.martin@upm.es",
             "familyName": "Montero",
             "givenName": "Andrés"
+        },
+        {
+            "id": "_:author_3",
+            "type": "Person",
+            "email": "juanjesus.mendoza@upm.es",
+            "familyName": "Mendoza",
+            "givenName": "Juanje"
+        },
+        {
+            "id": "https://orcid.org/0000-0003-4112-6825",
+            "type": "Person",
+            "email": "egonzalez@fi.upm.es",
+            "familyName": "Gonzalez",
+            "givenName": "Esteban"
         }
     ],
     "codeRepository": "https://github.com/oeg-upm/rsfc",

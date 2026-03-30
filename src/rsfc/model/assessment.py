@@ -75,4 +75,4 @@ class Assessment:
         info = "\n\nFor rationale on the tests performed, please check the assessment file created in the outputs folder.\n"
         badge = f"\n\nRSFC badge for your README file:, {badge_url}\n"
         
-        return table + info + badge
+        return table, info, badge

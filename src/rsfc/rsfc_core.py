@@ -1,6 +1,7 @@
 from rsfc.model import assessedSoftware as soft
 from rsfc.model import indicator as ind
 from rsfc.model import assessment as asmt
+from rsfc.model import markdownReportGenerator as mdRep
 from rsfc.harvesters import somef_harvester as som
 from rsfc.harvesters import codemeta_harvester as cm
 from rsfc.harvesters import cff_harvester as cf
@@ -25,6 +26,9 @@ def start_assessment(repo_url, ftr, test_id, token):
     
     rsfc_asmt = assess.render_template(sw, ftr, test_id)
     badge_url = rsfc_helpers.generate_badge(checks)
-    table = assess.to_terminal_table(test_id, badge_url)
+    table, info, badge = assess.to_terminal_table(test_id, badge_url)
+    report = mdRep.MarkdownReportGenerator(rsfc_asmt, table)
+    report.generate("./RSFC_REPORT.md")
+    table = table + info + badge
     
     return rsfc_asmt, table
