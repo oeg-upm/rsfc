@@ -18,7 +18,14 @@
             "givenName": "Andrés"
         },
         {
-            "id": "_author_3",
+            "id": "_:author_3",
+            "type": "Person",
+            "email": "juanjesus.mendoza@upm.es",
+            "familyName": "Mendoza",
+            "givenName": "Juanje"
+        },
+        {
+            "id": "https://orcid.org/0000-0003-4112-6825",
             "type": "Person",
             "email": "egonzalez@fi.upm.es",
             "familyName": "Gonzalez",
