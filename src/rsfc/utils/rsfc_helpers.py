@@ -240,4 +240,4 @@ def generate_badge(checks):
     else:
         color = "red"
     
-    return f"[![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_{score}/100-{color})](./RSFC_REPORT.md)"
+    return f"[![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_{score}%-{color})](./RSFC_REPORT.md)"
