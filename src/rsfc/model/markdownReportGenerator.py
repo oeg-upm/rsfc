@@ -1,4 +1,5 @@
 from collections import Counter, defaultdict
+from rsfc.utils import constants
 
 class MarkdownReportGenerator:
     
@@ -10,8 +11,8 @@ class MarkdownReportGenerator:
             self.checks = asmt.get("checks", [])
 
         elif "hadMember" in asmt:
-            self.data = self._normalize_ftr_metadata(asmt)
-            self.checks = self._normalize_ftr_checks(asmt.get("hadMember", []))
+            self.data = self.normalize_ftr_metadata(asmt)
+            self.checks = self.normalize_ftr_checks(asmt.get("hadMember", []))
 
         else:
             self.data = asmt
@@ -19,16 +20,17 @@ class MarkdownReportGenerator:
         
 
     @staticmethod
-    def _status_value(check):
-        return check.get("output", "unknown").strip().lower()
+    def status_value(check):
+        raw = str(check.get("output", "unknown")).strip().lower()
+        return constants.STATUS_MAP_REPORT.get(raw, raw)
 
     @staticmethod
-    def _indicator_name(check):
+    def indicator_name(check):
         indicator = check.get("assessesIndicator", {})
         return indicator.get("@id", "unknown").split("/")[-1]
 
     @staticmethod
-    def _escape_html(text):
+    def escape_html(text):
         text = str(text)
         return (
             text.replace("&", "&amp;")
@@ -38,14 +40,14 @@ class MarkdownReportGenerator:
         )
 
     @staticmethod
-    def _make_anchor(text: str) -> str:
+    def make_anchor(text: str) -> str:
         anchor = str(text).strip().lower()
         for ch in [" ", "/", ".", ":"]:
             anchor = anchor.replace(ch, "-")
         return anchor
 
     @staticmethod
-    def _row_color(output: str) -> str:
+    def row_color(output: str) -> str:
         output = str(output).strip().lower()
         if output == "true":
             return "#d4edda"
@@ -55,17 +57,17 @@ class MarkdownReportGenerator:
 
 
 
-    def _compute_counts(self):
-        return Counter(self._status_value(c) for c in self.checks)
+    def compute_counts(self):
+        return Counter(self.status_value(c) for c in self.checks)
 
-    def _group_by_indicator(self):
+    def group_by_indicator(self):
         grouped = defaultdict(list)
         for check in self.checks:
-            grouped[self._indicator_name(check)].append(check)
+            grouped[self.indicator_name(check)].append(check)
         return grouped
 
 
-    def _header_section(self):
+    def header_section(self):
         name = self.data.get("name", "Software Quality Assessment")
         description = self.data.get("description", "")
 
@@ -74,7 +76,7 @@ class MarkdownReportGenerator:
             md.append(f"{description}\n")
         return md
 
-    def _general_info_section(self):
+    def general_info_section(self):
         assessed = self.data.get("assessedSoftware", {})
         software_name = assessed.get("name", "unknown")
         software_url = assessed.get("url", "")
@@ -88,38 +90,36 @@ class MarkdownReportGenerator:
         md.append(f"- **Total checks:** {len(self.checks)}\n")
         return md
 
-    def _summary_section(self, counts):
+    def summary_section(self, counts):
         md = ["## Summary\n"]
         md.append(f"- **Passed (`true`)**: {counts.get('true', 0)}")
         md.append(f"- **Failed (`false`)**: {counts.get('false', 0)}")
         md.append(f"- **Errors (`error`)**: {counts.get('error', 0)}\n")
         return md
 
-    def _results_table_section(self):
+    def results_table_section(self):
 
         md = ["## Results Table\n"]
-
-        # Render as fenced code block to preserve formatting
         md.append("```text")
         md.append(self.table.strip())
         md.append("```\n")
 
         return md
 
-    def _detailed_section(self, grouped):
+    def detailed_section(self, grouped):
         md = ["## Detailed Results by Indicator\n"]
 
         for ind in sorted(grouped):
             md.append(f"### {ind}\n")
 
             for check in grouped[ind]:
-                anchor = self._make_anchor(f"{ind}-{check.get('test_id', '')}")
+                anchor = self.make_anchor(f"{ind}-{check.get('test_id', '')}")
 
                 md.extend([
                     f'<a id="{anchor}"></a>',
                     f"#### {check.get('test_name', 'Unnamed test')}\n",
                     f"- **Test ID:** {check.get('test_id', '')}",
-                    f"- **Result:** {self._status_value(check)}",
+                    f"- **Result:** {self.status_value(check)}",
                     f"- **Process:** {check.get('process', 'N/A')}",
                     f"- **Evidence:** {check.get('evidence', 'N/A')}",
                     f"- **Suggestions:** {check.get('suggestions', 'N/A')}\n",
@@ -128,7 +128,7 @@ class MarkdownReportGenerator:
         return md
     
     
-    def _normalize_ftr_metadata(self, data):
+    def normalize_ftr_metadata(self, data):
 
         normalized = {}
 
@@ -152,7 +152,7 @@ class MarkdownReportGenerator:
         return normalized
     
     
-    def _normalize_ftr_checks(self, members):
+    def normalize_ftr_checks(self, members):
 
         checks = []
 
@@ -179,7 +179,7 @@ class MarkdownReportGenerator:
         return checks
     
     
-    def _table_to_markdown(self):
+    def table_to_markdown(self):
 
         lines = self.table.strip().splitlines()
 
@@ -216,11 +216,11 @@ class MarkdownReportGenerator:
         return "\n".join(md)
     
     
-    def _results_table_section(self):
+    def results_table_section(self):
 
         md = ["## Results Table\n"]
 
-        markdown_table = self._table_to_markdown()
+        markdown_table = self.table_to_markdown()
 
         md.append(markdown_table + "\n")
 
@@ -228,15 +228,15 @@ class MarkdownReportGenerator:
 
 
     def generate(self, output_path):
-        counts = self._compute_counts()
-        grouped = self._group_by_indicator()
+        counts = self.compute_counts()
+        grouped = self.group_by_indicator()
 
         md = []
-        md.extend(self._header_section())
-        md.extend(self._general_info_section())
-        md.extend(self._summary_section(counts))
-        md.extend(self._results_table_section())
-        md.extend(self._detailed_section(grouped))
+        md.extend(self.header_section())
+        md.extend(self.general_info_section())
+        md.extend(self.summary_section(counts))
+        md.extend(self.results_table_section())
+        md.extend(self.detailed_section(grouped))
 
         content = "\n".join(md)
 

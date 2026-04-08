@@ -227,7 +227,8 @@ def remove_git_from_url(url):
     return url
 
 def generate_badge(checks):
-    passed_tests = sum([check["output"] == "true" for check in checks])
+    
+    passed_tests = sum(check.get("output", "") == "true" for check in checks)
     total_checks = len(checks)
     score = round((passed_tests/total_checks)*100)
     

@@ -134,7 +134,7 @@ EVIDENCE_ZENODO_DOI_AND_SOFTWARE_HERITAGE = 'A Zenodo DOI identifier and a Softw
 EVIDENCE_INSTALLATION = 'Installation instructions were found in the repository'
 EVIDENCE_DEPENDENCIES_VERSION = 'All of the dependencies have a version stated'
 EVIDENCE_DEPENDENCIES_MACHINE_READABLE_FILE = 'There is a machine-readable file for dependencies'
-EVIDENCE_ID_RESOLVES = "Found the identifier {id} in the README and it resolves"
+EVIDENCE_ID_FOUND_AND_RESOLVES = "Found the identifier {id} in the README and it resolves"
 EVIDENCE_ID_COMMON_SCHEMA = 'All of the identifiers detected follow a common schema'
 EVIDENCE_ID_ASSOCIATED_WITH_SOFTWARE = 'There is an identifier in the CITATION, codemeta and README files'
 EVIDENCE_AUTOMATED_TESTS = 'There are workflows or actions that perform automated tests'
@@ -212,7 +212,8 @@ EVIDENCE_NO_CONTRIBUTION_GUIDELINES = "Could not find contribution guidelines in
 
 #Suggestions
 
-SUGGEST_NO_IDENTIFIER = "You should include a resolvable, unique and persistent identifier in your README file. More information at https://everse.software/RSQKit/software_identifiers"
+SUGGEST_NO_IDENTIFIER = "You should include a resolvable, unique and persistent identifier in your repository. More information at https://everse.software/RSQKit/software_identifiers"
+SUGGEST_NO_IDENTIFIER_README = "You should include a resolvable, unique and persistent identifier in your README file. More information at https://everse.software/RSQKit/software_identifiers"
 SUGGEST_IDENTIFIER_NO_RESOLVE = "You should make sure that your identifier is resolvable and persistent. More information at https://everse.software/RSQKit/software_identifiers"
 SUGGEST_IDENTIFIER_NOT_HTTP = "The repository your identifier resolves to should  use a standard communication protocol. More information at https://everse.software/RSQKit/software_identifiers"
 SUGGEST_IDENTIFIER_SCHEME = "Your identifier should follow a common schema like URN, DOI or SWHID. More information at https://everse.software/RSQKit/software_identifiers"
@@ -427,10 +428,21 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://w3id.org/rsfc/',
-        'version' : '0.1.4'
+        'version' : '0.1.5'
     }
 }
 
+STATUS_MAP_FTR = {
+    "true": "pass",
+    "false": "fail",
+    "error": "indeterminate",
+}
+
+STATUS_MAP_REPORT = {
+    "pass": "true",
+    "fail": "false",
+    "indeterminate": "error"
+}
 
 REPO_TYPES = {
     0: 'GITHUB',

@@ -7,9 +7,9 @@ import os
 
 class SomefHarvester:
     
-    def __init__(self, repo_url, token):
+    def __init__(self, repo_url, branch, tag, token):
         self.somef_configure(token)
-        self.somef_data = self.somef_assessment(repo_url, 0.8)
+        self.somef_data = self.somef_assessment(repo_url, branch, tag, 0.8)
         
         
     def somef_configure(self, token):
@@ -42,17 +42,29 @@ class SomefHarvester:
         except subprocess.CalledProcessError as e:
             raise RuntimeError("SOMEF configuration failed") from e
 
-    def somef_assessment(self, repo_url, threshold):
+    def somef_assessment(self, repo_url, branch=None, tag=None, threshold=0.8):
     
         print("Extracting repository metadata with SOMEF...")
         
+        somef_kwargs = {
+            "threshold": threshold,
+            "ignore_classifiers": True,
+            "repo_url": repo_url,
+            "readme_only": False
+        }
+
+        if branch is not None:
+            somef_kwargs["branch"] = branch
+        elif tag is not None:
+            somef_kwargs["tag"] = tag
+
         with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-            repo_data = somef_cli.cli_get_data(threshold=threshold, ignore_classifiers=True, repo_url=repo_url, readme_only=False)
+            repo_data = somef_cli.cli_get_data(**somef_kwargs)
             
         repo_data = json.loads(json.dumps(repo_data.results))
         
-        os.makedirs('./rsfc_output/', exist_ok=True)
+        '''os.makedirs('./rsfc_output/', exist_ok=True)
         with open('./rsfc_output/somef_assessment.json', 'w', encoding='utf-8') as f:
-            json.dump(repo_data, f, indent=4, ensure_ascii=False)
+            json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
         
         return repo_data

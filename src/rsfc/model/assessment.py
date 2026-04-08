@@ -20,6 +20,11 @@ class Assessment:
         data['version'] = sw.version
         data['doi'] = sw.id
         
+        if ftr:
+            for check in self.checks:
+                if isinstance(check["output"], str):
+                    check["output"] = constants.STATUS_MAP_FTR.get(check["output"].lower(), check["output"])
+        
         if ftr and test_id:
             data['check'] = self.checks[0]
             data['result_id'] = f"urn:rsfc:{uuid.uuid4()}"
