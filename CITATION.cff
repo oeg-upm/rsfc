@@ -26,6 +26,7 @@ authors:
     family-names: Gonzalez
     email: egonzalez@fi.upm.es
     affiliation: Researcher
+    orcid: 'https://orcid.org/0000-0003-4112-6825'
 repository-code: 'https://github.com/oeg-upm/rsfc'
 keywords:
   - quality
@@ -33,4 +34,4 @@ keywords:
   - indicators
   - fairness
 license: MIT
-version: 0.1.4
+version: 0.1.5

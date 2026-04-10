@@ -7,13 +7,13 @@ from rsfc.utils.exceptions import GithubRateLimitExceeded
 
 class GithubHarvester:
     
-    def __init__(self, repo_url, token):
+    def __init__(self, repo_url, branch, tag, token):
         self.repo_url =  repo_url
         self.token = token
         self.repo_type = self.get_repo_type()
         self.session = self.init_session()
         self.api_url = self.get_repo_api_url()
-        self.repo_branch = self.get_repo_default_branch()
+        self.repo_branch = branch or tag or self.get_repo_default_branch()
         self.version = self.get_soft_version()
         self.cff = self.get_cff_file()
         self.codemeta = self.get_codemeta_file()
@@ -79,9 +79,8 @@ class GithubHarvester:
 
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
-                branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/codemeta.json/raw"
-                params = {'ref': branch}
+                params = {'ref': self.repo_branch}
                 response = self.safe_request("GET", req_url, params=params)
                 return response.json()
 
@@ -104,10 +103,8 @@ class GithubHarvester:
 
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
-                branch = self.repo_branch or "main"
                 req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/CITATION.cff/raw"
-                params = {'ref': branch}
-
+                params = {'ref': self.repo_branch}
                 response = self.safe_request("GET", req_url, params=params)
                 return yaml.safe_load(response.text)
 
@@ -157,7 +154,7 @@ class GithubHarvester:
         
     def get_commits(self):
         if self.repo_type == "GITHUB":
-            commits_url = f"{self.api_url}/commits?per_page=100"
+            commits_url = f"{self.api_url}/commits?sha={self.repo_branch}&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
             response = self.safe_request("GET", commits_url, headers=headers)
 
@@ -205,7 +202,7 @@ class GithubHarvester:
         test_evidences = []
 
         if self.repo_type == "GITHUB":
-            tree_url = f"{self.api_url}/git/trees/HEAD?recursive=1"
+            tree_url = f"{self.api_url}/git/trees/{self.repo_branch}?recursive=1"
             resp = self.safe_request("GET", tree_url, headers={'Accept': 'application/vnd.github.v3+json'})
             if resp.status_code == 200:
                 test_evidences = resp.json().get("tree", [])

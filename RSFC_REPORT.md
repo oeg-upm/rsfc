@@ -1,12 +1,12 @@
-# Quality Assessment for rsfc v0.1.3
+# Quality Assessment for rsfc v0.1.4
 
-An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-03-27.
+An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-04-08.
 
 ## General Information
 
 - **Software:** rsfc
 - **Repository:** https://github.com/oeg-upm/rsfc
-- **Assessment date:** 2026-03-27
+- **Assessment date:** 2026-04-08
 - **Total checks:** 42
 
 ## Summary
@@ -19,48 +19,48 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 
 | TEST ID | Short Description | Output |
 | --- | --- | --- |
-| RSFC-01-1 | There is an identifier and it resolves | true |
-| RSFC-01-2 | There is an identifier in the metadata files | true |
-| RSFC-01-3 | There is an identifier and it follows a common schema | true |
-| RSFC-03-1 | The software has releases | true |
-| RSFC-03-2 | Releases have version and identifier | true |
-| RSFC-03-3 | Release versions follow SemVer or CalVer | true |
-| RSFC-03-4 | Release identifiers follow the same scheme | true |
-| RSFC-03-5 | Last release version corresponds to version in package file | false |
-| RSFC-03-6 | There is a version number stated in metadata files | true |
-| RSFC-04-1 | Metadata files exist | true |
-| RSFC-04-2 | There is a README file | true |
-| RSFC-04-3 | Title and description are declared | true |
-| RSFC-04-4 | There is descriptive metadata | false |
-| RSFC-04-5 | There is a codemeta file | true |
-| RSFC-05-1 | There is a repostatus badge in the README file | true |
-| RSFC-05-2 | Contact and support metadata exists | false |
-| RSFC-05-3 | Software documentation exists | true |
-| RSFC-06-1 | Authors are declared | true |
-| RSFC-06-2 | Contributors are declared | false |
-| RSFC-06-3 | Authors have an ORCID assigned | false |
-| RSFC-06-4 | Authors have their roles stated | false |
-| RSFC-07-1 | There is an identifier in README or CITATION | true |
-| RSFC-07-2 | Software identifier resolves and links back to software | true |
-| RSFC-08-1 | Metadata record is found in SWHeritage or Zenodo | true |
-| RSFC-09-1 | Repository is from Github or Gitlab | true |
-| RSFC-12-1 | There is an article citation or reference publication | false |
-| RSFC-13-1 | Dependencies are declared | true |
-| RSFC-13-2 | There are installation instructions | true |
-| RSFC-13-3 | Dependencies have version numbers | false |
-| RSFC-13-4 | Dependencies are in a machine-readable format | true |
-| RSFC-14-1 | Tests are provided | true |
-| RSFC-14-2 | There are actions to automate tests | false |
-| RSFC-15-1 | There is a license | true |
-| RSFC-15-2 | License is in SPDX format | true |
-| RSFC-16-1 | License is referenced in metadata files | true |
-| RSFC-17-1 | The repository has an 'active' status | true |
-| RSFC-17-2 | Repository has a commit history | true |
-| RSFC-17-3 | Commits are linked to issues | true |
-| RSFC-18-1 | There are citations | true |
-| RSFC-19-1 | Repository has continuous integration workflows | true |
-| RSFC-20-1 | Repository has an issue tracker | true |
-| RSFC-21-1 | Repository has contribution guidelines | false |
+| RSFC-01-1 | There is an identifier and it resolves | pass |
+| RSFC-01-2 | There is an identifier in the metadata files | pass |
+| RSFC-01-3 | There is an identifier and it follows a common schema | pass |
+| RSFC-03-1 | The software has releases | pass |
+| RSFC-03-2 | Releases have version and identifier | pass |
+| RSFC-03-3 | Release versions follow SemVer or CalVer | pass |
+| RSFC-03-4 | Release identifiers follow the same scheme | pass |
+| RSFC-03-5 | Last release version corresponds to version in package file | fail |
+| RSFC-03-6 | There is a version number stated in metadata files | pass |
+| RSFC-04-1 | Metadata files exist | pass |
+| RSFC-04-2 | There is a README file | pass |
+| RSFC-04-3 | Title and description are declared | pass |
+| RSFC-04-4 | There is descriptive metadata | pass |
+| RSFC-04-5 | There is a codemeta file | pass |
+| RSFC-05-1 | There is a repostatus badge in the README file | pass |
+| RSFC-05-2 | Contact and support metadata exists | fail |
+| RSFC-05-3 | Software documentation exists | pass |
+| RSFC-06-1 | Authors are declared | pass |
+| RSFC-06-2 | Contributors are declared | fail |
+| RSFC-06-3 | Authors have an ORCID assigned | fail |
+| RSFC-06-4 | Authors have their roles stated | fail |
+| RSFC-07-1 | There is an identifier in README or CITATION | pass |
+| RSFC-07-2 | Software identifier resolves and links back to software | pass |
+| RSFC-08-1 | Metadata record is found in SWHeritage or Zenodo | pass |
+| RSFC-09-1 | Repository is from Github or Gitlab | pass |
+| RSFC-12-1 | There is an article citation or reference publication | fail |
+| RSFC-13-1 | Dependencies are declared | pass |
+| RSFC-13-2 | There are installation instructions | pass |
+| RSFC-13-3 | Dependencies have version numbers | fail |
+| RSFC-13-4 | Dependencies are in a machine-readable format | pass |
+| RSFC-14-1 | Tests are provided | pass |
+| RSFC-14-2 | There are actions to automate tests | fail |
+| RSFC-15-1 | There is a license | pass |
+| RSFC-15-2 | License is in SPDX format | fail |
+| RSFC-16-1 | License is referenced in metadata files | pass |
+| RSFC-17-1 | The repository has an 'active' status | pass |
+| RSFC-17-2 | Repository has a commit history | pass |
+| RSFC-17-3 | Commits are linked to issues | pass |
+| RSFC-18-1 | There are citations | pass |
+| RSFC-19-1 | Repository has continuous integration workflows | pass |
+| RSFC-20-1 | Repository has an issue tracker | pass |
+| RSFC-21-1 | Repository has contribution guidelines | fail |
 
 ## Detailed Results by Indicator
 
@@ -108,10 +108,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### Software has descriptive metadata
 
 - **Test ID:** RSFC-04-4
-- **Result:** false
+- **Result:** true
 - **Process:** Searches for description, programming languages, date of creation and keywords in the repository
-- **Evidence:** Could not find any of the following metadata: keywords
-- **Suggestions:** You should describe your software using metadata. More information at https://everse.software/RSQKit/software_metadata
+- **Evidence:** Descriptive metadata was found in the repository
+- **Suggestions:** No suggestions
 
 <a id="descriptive_metadata-rsfc-04-5"></a>
 #### There is a codemeta file
@@ -178,6 +178,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for release tags in the repository
 - **Evidence:** These releases were found:
+	- RSFC-0.1.4
 	- RSFC-0.1.3
 	- RSFC-0.1.2
 	- RSFC-0.1.1
@@ -301,7 +302,6 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Evidence:** Requirements were found in:
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/requirements.txt
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/doc/web_generation_scripts/requirements.txt
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/README.md
 - **Suggestions:** No suggestions
 
@@ -392,6 +392,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for a file named 'LICENSE' or 'LICENSE.md' in the root of the repository.
 - **Evidence:** A license was found in:
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
 - **Suggestions:** No suggestions
@@ -400,10 +401,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### License is SPDX compliant
 
 - **Test ID:** RSFC-15-2
-- **Result:** true
+- **Result:** false
 - **Process:** Checks if the licenses detected are SPDX compliant
-- **Evidence:** Licenses are SPDX compliant
-- **Suggestions:** No suggestions
+- **Evidence:** There is one or more licenses that are not SPDX compliant
+- **Suggestions:** You should include SPDX tags to ensure that your licenses are machine-readable. More information at https://everse.software/RSQKit/licensing_software
 
 <a id="software_has_license-rsfc-16-1"></a>
 #### License referenced in metadata files
