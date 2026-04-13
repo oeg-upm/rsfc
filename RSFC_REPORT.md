@@ -6,7 +6,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 
 - **Software:** rsfc
 - **Repository:** https://github.com/oeg-upm/rsfc
-- **Assessment date:** 2026-04-13T07:06:36Z
+- **Assessment date:** 2026-04-13T11:10:53Z
 - **Total checks:** 42
 
 ## Summary
