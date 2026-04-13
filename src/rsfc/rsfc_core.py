@@ -29,6 +29,9 @@ def start_assessment(repo_url, branch, tag, ftr, test_id, token):
     table, info, badge = assess.to_terminal_table(test_id, badge_url)
     report = mdRep.MarkdownReportGenerator(rsfc_asmt, table)
     report.generate("./RSFC_REPORT.md")
-    table = table + info + badge
+    if test_id != None:
+        table = table + info
+    else:
+        table = table + info + badge
     
     return rsfc_asmt, table

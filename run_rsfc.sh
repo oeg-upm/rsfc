@@ -5,6 +5,8 @@ REPO_URL=""
 TEST_ID=""
 FTR_FLAG=false
 TOKEN=""
+BRANCH=""
+TAG=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -24,9 +26,17 @@ while [[ $# -gt 0 ]]; do
             TOKEN="$2"
             shift 2
             ;;
+        -b)
+            BRANCH="$2"
+            shift 2
+            ;;
+        -v)
+            TAG="$2"
+            shift 2
+            ;;
         *)
             echo "Unknown argument: $1"
-            echo "Usage: $0 --repo <repo_url> [--ftr] [--id <test_id>] [-t <github_token>]"
+            echo "Usage: $0 --repo <repo_url> [--ftr] [--id <test_id>] [-t <github_token>] [-b <branch>] [-v <tag>]"
             exit 1
             ;;
     esac
@@ -41,6 +51,14 @@ OUTPUT_DIR="rsfc_output"
 mkdir -p "$OUTPUT_DIR"
 
 DOCKER_ARGS="--repo $REPO_URL"
+
+if [ -n "$BRANCH" ]; then
+    DOCKER_ARGS="$DOCKER_ARGS -b $BRANCH"
+fi
+
+if [ -n "$TAG" ]; then
+    DOCKER_ARGS="$DOCKER_ARGS -v $TAG"
+fi
 
 if [ "$FTR_FLAG" = true ]; then
     DOCKER_ARGS="$DOCKER_ARGS --ftr"
@@ -57,5 +75,5 @@ fi
 docker run --rm \
     -v "$(pwd)/$OUTPUT_DIR:/rsfc/rsfc_output" \
     -e PYTHONWARNINGS="ignore" \
-    amonterodx/rsfc:0.1.3 \
+    rsfc-docker \
     $DOCKER_ARGS
