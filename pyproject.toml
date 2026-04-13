@@ -14,7 +14,7 @@ packages = [{ include = "rsfc", from = "src" }]
 homepage = "https://github.com/oeg-upm/rsfc"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<=3.13"
+python = ">=3.11,<3.13"
 somef = "0.10.1"
 regex = "2024.11.6"
 requests = "2.32.4"
