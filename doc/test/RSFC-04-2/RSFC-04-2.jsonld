@@ -72,7 +72,7 @@
         ],
         "http://www.w3.org/ns/dcat#endpointDescription": [
             {
-                "@id": "http://w3id.org/rsfc/api"
+                "@id": "https://w3id.org/rsfc/api"
             }
         ],
         "http://www.w3.org/ns/dcat#endpointURL": [

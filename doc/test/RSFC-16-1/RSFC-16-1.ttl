@@ -26,7 +26,7 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-16-1" ;
     dcat:keyword "Metadata"@en , "Codemeta"@en , "Citation"@en , "Repository"@en , 
                  "Test"@en ;
-    dcat:endpointDescription <http://w3id.org/rsfc/api> ;
+    dcat:endpointDescription <https://w3id.org/rsfc/api> ;
     dcat:endpointURL <https://api.rsfc.linkeddata.es/assess/test/RSFC-16-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;

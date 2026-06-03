@@ -26,7 +26,7 @@
     dcterms:identifier "https://w3id.org/rsfc/test/RSFC-17-1" ;
     dcat:keyword "Active"@en , "Repository"@en , 
                  "Test"@en ;
-    dcat:endpointDescription <http://w3id.org/rsfc/api> ;
+    dcat:endpointDescription <https://w3id.org/rsfc/api> ;
     dcat:endpointURL <https://api.rsfc.linkeddata.es/assess/test/RSFC-17-1> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
