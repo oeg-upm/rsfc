@@ -3,6 +3,8 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description="RSFC - EVERSE Research Software Fairness Checks")
     parser.add_argument("--repo", required=True, help="URL of the Github/Gitlab repository to be analyzed")
+    parser.add_argument("-b", required=False, help="Name of the repo branch to analyze. By default main/master")
+    parser.add_argument("-v", required=False, help="Tag of the release to analyze. By default latest release. Cannot be used together with the branch parameter")
     parser.add_argument("--ftr", action="store_true", help="Flag to indicate if JSON-LD in FTR format is desired")
     parser.add_argument("--id", required=False, help="Identifier of a specific test. Only that test will be ran")
     parser.add_argument("-t", required=False, help="Authorization Github token")
@@ -25,8 +27,8 @@ def main():
     repo_url = remove_git_from_url(repo_url)
     
     try:
-        rsfc_asmt, table = start_assessment(repo_url, args.ftr, args.id, args.t)
-
+        rsfc_asmt, table = start_assessment(repo_url, args.b, args.v, args.ftr, args.id, args.t)
+        
     except GithubRateLimitExceeded as e:
         print(f"\nERROR: {e}")
         print("If you want to keep using RSFC, please use a Github token. More information available in this project's README file.")

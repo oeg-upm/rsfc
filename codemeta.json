@@ -16,13 +16,27 @@
             "email": "andres.montero.martin@upm.es",
             "familyName": "Montero",
             "givenName": "Andrés"
+        },
+        {
+            "id": "_:author_3",
+            "type": "Person",
+            "email": "juanjesus.mendoza@upm.es",
+            "familyName": "Mendoza",
+            "givenName": "Juanje"
+        },
+        {
+            "id": "https://orcid.org/0000-0003-4112-6825",
+            "type": "Person",
+            "email": "egonzalez@fi.upm.es",
+            "familyName": "Gonzalez",
+            "givenName": "Esteban"
         }
     ],
     "codeRepository": "https://github.com/oeg-upm/rsfc",
     "dateCreated": "2025-07-01",
     "description": "Package that performs a series of checks based on a list of research software fairness indicators",
     "isPartOf": "https://everse.software/",
-    "identifier": "https://doi.org/10.5281/zenodo.1653148",
+    "identifier": "https://doi.org/10.5281/zenodo.16531481",
     "keywords": [
         "quality",
         "indicators",
@@ -34,6 +48,6 @@
     "operatingSystem": "Linux",
     "programmingLanguage": "Python",
     "relatedLink": "https://github.com/EVERSE-ResearchSoftware/indicators",
-    "version": "0.1.3",
+    "version": "0.1.5",
     "developmentStatus": "wip"
 }

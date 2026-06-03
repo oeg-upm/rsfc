@@ -227,7 +227,8 @@ def remove_git_from_url(url):
     return url
 
 def generate_badge(checks):
-    passed_tests = sum([check["output"] == "true" for check in checks])
+    
+    passed_tests = sum(check.get("output", "") == "true" for check in checks)
     total_checks = len(checks)
     score = round((passed_tests/total_checks)*100)
     
@@ -240,4 +241,4 @@ def generate_badge(checks):
     else:
         color = "red"
     
-    return f"[![RSFC_Score](https://img.shields.io/badge/rsfc-score_{score}/100-{color})](https://github.com/oeg-upm/rsfc)"
+    return f"[![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_{score}%25-{color})](./RSFC_REPORT.md)"

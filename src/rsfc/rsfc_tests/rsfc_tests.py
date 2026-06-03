@@ -10,7 +10,7 @@ from rsfc.utils import rsfc_helpers
 def test_id_presence_and_resolves(somef_data):
     if 'identifier' in somef_data:
         for item in somef_data['identifier']:
-            if item['source']:
+            if "source" in item:
                 if 'README' in item['source']:
                     id = item['result']['value']
                     
@@ -19,7 +19,7 @@ def test_id_presence_and_resolves(somef_data):
                             response = requests.head(id, allow_redirects=True, timeout=10)
                             if response.status_code == 200:
                                 output = "true"
-                                evidence = constants.EVIDENCE_ID_RESOLVES.format(id=id)
+                                evidence = constants.EVIDENCE_ID_FOUND_AND_RESOLVES.format(id=id)
                                 suggest = "No suggestions"
                             else:
                                 output = "false"
@@ -33,6 +33,10 @@ def test_id_presence_and_resolves(somef_data):
                         output = "false"
                         evidence = constants.EVIDENCE_ID_NOT_URL.format(id=id)
                         suggest = constants.SUGGEST_IDENTIFIER_NOT_HTTP
+                else:
+                    output = "false"
+                    evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND_README
+                    suggest = constants.SUGGEST_NO_IDENTIFIER_README
     else:
         output = "false"
         evidence = constants.EVIDENCE_NO_IDENTIFIER_FOUND
@@ -1186,5 +1190,22 @@ def test_has_issue_tracker(somef_data):
         suggest = "No suggestions"
         
     check = ch.Check(constants.INDICATORS_DICT['support_issue_tracking'], 'RSFC-20-1', "Repository has an issue tracker", constants.PROCESS_ISSUE_TRACKER, output, evidence, suggest)
+    
+    return check.convert()
+
+def test_has_contribution_guidelines(somef_data):
+    if "contributing_guidelines" not in somef_data:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_CONTRIBUTION_GUIDELINES
+        suggest = constants.SUGGEST_NO_CONTRIBUTION_GUIDELINES
+    else:
+        output = "true"
+        evidence = constants.EVIDENCE_CONTRIBUTION_GUIDELINES
+        suggest = "No suggestions"
+        
+        for item in somef_data["contributing_guidelines"]:
+            evidence += f'\n\t- {item["source"]}'
+        
+    check = ch.Check(constants.INDICATORS_DICT['has_contribution_guidelines'], 'RSFC-21-1', "Repository has contribution guidelines", constants.PROCESS_CONTRIBUTION_GUIDELINES, output, evidence, suggest)
     
     return check.convert()
