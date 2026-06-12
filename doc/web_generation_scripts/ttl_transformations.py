@@ -18,13 +18,12 @@ PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX doap: <http://usefulinc.com/ns/doap#>
 PREFIX dpv: <https://w3id.org/dpv#> 
-PREFIX dqv: <http://www.w3.org/ns/dqv#>
 PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT ?s ?title ?label ?description ?keywords ?version ?dimension ?label_dimension ?desc_dimension ?license
 ?publisher_uri ?publisher_label ?metric ?creator_name ?creator_orcid ?contact_orcid ?contact_name ?contact_mail 
-?applicable_for ?supported_by ?web_repository ?endpoint_desc ?endpoint_url 
+?applicable_for ?supported_by ?web_repository ?endpoint_desc ?endpoint_url ?metric_same_as
 WHERE {
     ?s a ftr:Test .
     ?s dcterms:title ?title .
@@ -42,9 +41,8 @@ WHERE {
     ?s dcat:version ?version .
     ?s dpv:isApplicableFor ?applicable_for .
     ?s ftr:supportedBy ?supported_by .
-    OPTIONAL {
-        ?metric a dqv:Metric .
-    }
+    ?metric a dqv:Metric .
+    OPTIONAL { ?metric owl:sameAs ?metric_same_as . }
     ?repository doap:repository ?repo .
     ?repo foaf:homePage ?web_repository .
     ?s dcterms:creator ?creator_orcid .
@@ -220,6 +218,7 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         'test_supported_by': '',
         'test_endpoint_desc': '',
         'test_endpoint_url': '',
+        'metric_same_as': '',
     }
 
     keywords = []
@@ -251,6 +250,7 @@ def ttl_to_html(path_ttl, path_mustache, pquery):
         data['test_supported_by'] = row.supported_by
         data['test_endpoint_desc'] = row.endpoint_desc
         data['test_endpoint_url'] = row.endpoint_url
+        data['metric_same_as'] = row.metric_same_as or ""
         
         if str(row.keywords) not in keywords:
             keywords.append(str(row.keywords))

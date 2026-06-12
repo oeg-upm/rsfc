@@ -124,14 +124,20 @@
             </div>
             {{#test_same_as}}
             <div class="row row-equal">
-                <div class="col-md-3 well tag_div"> <strong>Same as</strong></div>
+                <div class="col-md-3 well tag_div"> <strong>Test same as</strong></div>
                 <div class="col-md-9 well"> <a href="{{test_same_as}}" target="_blank"> {{test_same_as}} </a> </div>
             </div>
             {{/test_same_as}}
             <div class="row row-equal">
                 <div class="col-md-3 well tag_div"> <strong>Metric</strong></div>
                 <div class="col-md-9 well"> <a href="{{test_metric}}" target="_blank"> {{test_metric}} </a> </div>
+            </div>                 
+            {{#metric_same_as}}
+            <div class="row row-equal">
+                <div class="col-md-3 well tag_div"> <strong>Metric same as</strong></div>
+                <div class="col-md-9 well"> <a href="{{metric_same_as}}" target="_blank"> {{metric_same_as}} </a> </div>
             </div>
+            {{/metric_same_as}}
         </div>
 
         <div id="pie" class="row" style="margin-top: 20px;">
