@@ -9,6 +9,8 @@
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
 @prefix dpv: <https://w3id.org/dpv#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
 
 <https://w3id.org/rsfc/test/RSFC-04-2> a ftr:Test, dcat:DataService ;
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
@@ -60,4 +62,5 @@
 <https://w3id.org/rsfc/repository>
     foaf:homePage <https://github.com/oeg-upm/rsfc> ;
     dcterms:description "Main repository for Research Software Quality Checks (RSFC) code and documentation"@en .
-<https://w3id.org/everse/i/indicators/software_documentation> a dqv:Metric .
+<https://w3id.org/everse/i/indicators/software_documentation> a dqv:Metric ;
+    owl:sameAs <https://doi.org/10.25504/FAIRsharing.452bcd> .

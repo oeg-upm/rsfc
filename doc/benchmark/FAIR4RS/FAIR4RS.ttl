@@ -15,7 +15,7 @@
 	dcterms:title "General Benchmark for RSFC"@en ;
     rdfs:label "FAIR4RS Benchmark "^^xsd:string ;
     vivo:abbreviation "FAIR4RS Benchmark "^^xsd:string ;
-	dcterms:description """Benchmark for FAIR research software based on the metrics from the FAIR-IMPACT deliverable"""@en ; 
+	dcterms:description """Benchmark that implements FAIR4RS, based on the metrics from the FAIR-IMPACT deliverable D5.2 (Metrics for automated FAIR software assessment in a disciplinary context)"""@en ;
 	dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
 	dcterms:creator <https://orcid.org/0000-0003-0454-7145> ;
 	dcterms:creator <https://github.com/andriumon> ;
