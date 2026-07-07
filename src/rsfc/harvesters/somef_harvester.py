@@ -1,6 +1,7 @@
 import io
 import json
 import os
+import glob
 import tempfile
 import contextlib
 import subprocess
@@ -11,10 +12,36 @@ from somef.somef_cli import run_cli
 class SomefHarvester:
 
     def __init__(self, repo_url, branch=None, tag=None, token=None):
+        soca_metadata = self.find_soca_metadata(repo_url)
+
+        if soca_metadata:
+            print(f"Using existing SOMEF metadata from SOCA: {soca_metadata}")
+
+            with open(soca_metadata, "r", encoding="utf-8") as f:
+                self.somef_data = json.load(f)
+
+            return
+
+        print("No SOMEF metadata found in SOCA outputs, running SOMEF...")
 
         self.somef_configure(token)
-
         self.somef_data = self.somef_assessment(repo_url=repo_url, branch=branch, tag=tag, threshold=0.8)
+
+    @staticmethod
+    def find_soca_metadata(repo_url):
+        normalized_repo_url = repo_url.rstrip("/")
+        repo_owner, repo_name = normalized_repo_url.rsplit("/", 2)[-2:]
+
+        pattern = (
+            f"/app/outputs/soca/{repo_owner}/metadata/"
+            f"{repo_owner}_{repo_name}_*.json"
+        )
+        files = glob.glob(pattern)
+
+        if not files:
+            return None
+
+        return max(files, key=os.path.getmtime)
 
     def somef_configure(self, token):
 
@@ -26,6 +53,11 @@ class SomefHarvester:
 
             stdin_data = (
                 f"{token}\n"
+                "\n"
+                "\n"
+                "\n"
+                "\n"
+                "\n"
                 "\n"
                 "\n"
                 "\n"

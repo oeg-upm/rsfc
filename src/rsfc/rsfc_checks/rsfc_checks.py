@@ -234,7 +234,7 @@ def test_release_id_and_version(somef_data):
                 if output != "false":
                     output = "false"
                     suggest = constants.SUGGEST_NO_RELEASE_ID_AND_VERSION
-                bad_releases + f"\t\n- {item["result"]["html_url"]}"
+                bad_releases += f"\t\n- {item['result']['html_url']}"
         
         if output == "false":
             evidence = constants.EVIDENCE_NO_RELEASE_ID_AND_VERSION + bad_releases
@@ -1557,7 +1557,7 @@ def test_has_issue_tracker(somef_data):
         for item in somef_data["issue_tracker"]:
             sources = ""
             if "source" in item:
-                sources += f"\n\t- {item["source"]}"
+                sources += f"\n\t- {item['source']}"
                 
         if sources:
             evidence = constants.EVIDENCE_ISSUE_TRACKER_SOURCE + sources
