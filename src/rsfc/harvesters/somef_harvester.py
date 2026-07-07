@@ -32,11 +32,24 @@ class SomefHarvester:
         normalized_repo_url = repo_url.rstrip("/")
         repo_owner, repo_name = normalized_repo_url.rsplit("/", 2)[-2:]
 
-        pattern = (
+        target = os.environ.get("SQOO_SOCA_TARGET")
+
+        patterns = []
+
+        if target:
+            patterns.append(
+                f"/app/outputs/soca/{target}/metadata/"
+                f"{repo_owner}_{repo_name}_*.json"
+            )
+
+        patterns.append(
             f"/app/outputs/soca/{repo_owner}/metadata/"
             f"{repo_owner}_{repo_name}_*.json"
         )
-        files = glob.glob(pattern)
+
+        files = []
+        for pattern in patterns:
+            files.extend(glob.glob(pattern))
 
         if not files:
             return None
