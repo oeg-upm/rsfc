@@ -2,6 +2,8 @@
 set -e
 
 REPO_URL=""
+LOCAL_PATH=""
+METADATA_PATH=""
 TEST_ID=""
 FTR_FLAG=false
 TOKEN=""
@@ -12,6 +14,14 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --repo)
             REPO_URL="$2"
+            shift 2
+            ;;
+        --local)
+            LOCAL_PATH="$2"
+            shift 2
+            ;;
+        --metadata)
+            METADATA_PATH="$2"
             shift 2
             ;;
         --id)
@@ -36,21 +46,46 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Unknown argument: $1"
-            echo "Usage: $0 --repo <repo_url> [--ftr] [--id <test_id>] [-t <github_token>] [-b <branch>] [-v <tag>]"
+            echo "Usage: $0 (--repo <repo_url> | --local <local_path>) [--metadata <metadata_file>] [--ftr] [--id <test_id>] [-t <github_token>] [-b <branch>] [-v <tag>]"
             exit 1
             ;;
     esac
 done
 
-if [ -z "$REPO_URL" ]; then
-    echo "Error: --repo is required"
+if [ -n "$REPO_URL" ] && [ -n "$LOCAL_PATH" ]; then
+    echo "Error: You cannot use '--repo' and '--local' at the same time."
+    exit 1
+fi
+
+if [ -z "$REPO_URL" ] && [ -z "$LOCAL_PATH" ]; then
+    echo "Error: Either '--repo' or '--local' must be provided."
+    exit 1
+fi
+
+if [ -n "$LOCAL_PATH" ] && { [ -n "$BRANCH" ] || [ -n "$TAG" ] || [ -n "$TOKEN" ]; }; then
+    echo "Error: Remote options (-b, -v, -t) cannot be used with '--local'."
     exit 1
 fi
 
 OUTPUT_DIR="rsfc_output"
 mkdir -p "$OUTPUT_DIR"
 
-DOCKER_ARGS="--repo $REPO_URL"
+VOLUME_MOUNTS=""
+DOCKER_ARGS=""
+
+if [ -n "$REPO_URL" ]; then
+    DOCKER_ARGS="--repo $REPO_URL"
+elif [ -n "$LOCAL_PATH" ]; then
+    ABS_LOCAL_PATH=$(cd "$LOCAL_PATH" && pwd)
+    VOLUME_MOUNTS="-v $ABS_LOCAL_PATH:/rsfc/target_repo"
+    DOCKER_ARGS="--local /rsfc/target_repo"
+fi
+
+if [ -n "$METADATA_PATH" ]; then
+    ABS_METADATA_PATH=$(cd "$(dirname "$METADATA_PATH")" && pwd)/$(basename "$METADATA_PATH")
+    VOLUME_MOUNTS="$VOLUME_MOUNTS -v $ABS_METADATA_PATH:/rsfc/somef_metadata.json"
+    DOCKER_ARGS="$DOCKER_ARGS --metadata /rsfc/somef_metadata.json"
+fi
 
 if [ -n "$BRANCH" ]; then
     DOCKER_ARGS="$DOCKER_ARGS -b $BRANCH"
@@ -74,6 +109,7 @@ fi
 
 docker run --rm \
     -v "$(pwd)/$OUTPUT_DIR:/rsfc/rsfc_output" \
+    $VOLUME_MOUNTS \
     -e PYTHONWARNINGS="ignore" \
     rsfc-docker \
     $DOCKER_ARGS

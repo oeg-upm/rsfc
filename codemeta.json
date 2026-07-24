@@ -32,6 +32,15 @@
             "givenName": "Esteban"
         }
     ],
+    "contributor": [
+        {
+            "id": "https://orcid.org/0000-0002-8742-8952",
+            "@type": "Person",
+            "givenName": "Violaine",
+            "familyName": "Louvet",
+            "email": "violaine.louvet@univ-grenoble-alpes.fr"
+        }
+    ],
     "codeRepository": "https://github.com/oeg-upm/rsfc",
     "dateCreated": "2025-07-01",
     "description": "Package that performs a series of checks based on a list of research software fairness indicators",
