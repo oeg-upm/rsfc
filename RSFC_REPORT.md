@@ -6,13 +6,13 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 
 - **Software:** rsfc
 - **Repository:** https://github.com/oeg-upm/rsfc
-- **Assessment date:** 2026-07-24T06:32:02Z
+- **Assessment date:** 2026-07-24T07:01:46Z
 - **Total checks:** 41
 
 ## Summary
 
-- **Passed (`true`)**: 34
-- **Failed (`false`)**: 7
+- **Passed (`true`)**: 35
+- **Failed (`false`)**: 6
 - **Errors (`error`)**: 0
 
 ## Results Table
@@ -37,7 +37,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 | [RSFC-05-2](https://w3id.org/rsfc/test/RSFC-05-2) | Contact and support metadata exists | true |
 | [RSFC-05-3](https://w3id.org/rsfc/test/RSFC-05-3) | Software documentation exists | true |
 | [RSFC-06-1](https://w3id.org/rsfc/test/RSFC-06-1) | Authors are declared | true |
-| [RSFC-06-2](https://w3id.org/rsfc/test/RSFC-06-2) | Contributors are declared | false |
+| [RSFC-06-2](https://w3id.org/rsfc/test/RSFC-06-2) | Contributors are declared | true |
 | [RSFC-06-3](https://w3id.org/rsfc/test/RSFC-06-3) | Authors have an ORCID assigned | false |
 | [RSFC-07-1](https://w3id.org/rsfc/test/RSFC-07-1) | There is an identifier in README or CITATION | true |
 | [RSFC-07-2](https://w3id.org/rsfc/test/RSFC-07-2) | Software identifier resolves and links back to software | true |
@@ -141,10 +141,11 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### Contributors are declared
 
 - **Test ID:** https://w3id.org/rsfc/test/RSFC-06-2
-- **Result:** false
+- **Result:** true
 - **Process:** Searches for contributors in various files of the repository (i.e. codemeta.json, pyproject.toml, pom.xml)'
-- **Evidence:** Could not find any contributors in the repository
-- **Suggestions:** Your software should also document its contributors if there are any. More information at https://everse.software/RSQKit/documenting_software_project
+- **Evidence:** Contributors were found in:
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
+- **Suggestions:** N/A
 
 <a id="descriptive_metadata-https---w3id-org-rsfc-test-rsfc-06-3"></a>
 #### Authors have an ORCID
@@ -570,10 +571,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for a file named 'LICENSE' or 'LICENSE.md' in the root of the repository.
 - **Evidence:** A license was found in:
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
 - **Suggestions:** N/A
 
 <a id="software_has_license-https---w3id-org-rsfc-test-rsfc-15-2"></a>
@@ -659,7 +660,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Checks if the software repository has a commits history
 - **Evidence:** A commit history was found in:
-	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-04-25T06:31:49.855445+00:00&per_page=100
+	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-04-25T07:01:33.420239+00:00&per_page=100
 - **Suggestions:** N/A
 
 <a id="version_control_use-https---w3id-org-rsfc-test-rsfc-17-3"></a>
