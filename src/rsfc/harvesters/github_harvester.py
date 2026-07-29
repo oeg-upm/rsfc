@@ -66,7 +66,12 @@ class GithubHarvester:
         if self.repo_type == constants.REPO_TYPES[0]:
             url = f"https://api.github.com/repos/{owner}/{repo}"
         elif self.repo_type == constants.REPO_TYPES[1]:
-            project_path = urllib.parse.quote(f"{owner}/{repo}", safe="")
+            project_path = parsed_url.path.strip("/")
+            if project_path.endswith(".git"):
+                project_path = project_path[:-4]
+            if not project_path:
+                raise ValueError("Error when parsing repository API URL")
+            project_path = urllib.parse.quote(project_path, safe="")
             url = f"https://{parsed_url.netloc}/api/v4/projects/{project_path}"
         else:
             raise ValueError("URL not within supported types (Github and Gitlab)")
