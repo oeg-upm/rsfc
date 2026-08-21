@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![PyPI](https://img.shields.io/pypi/v/rsfc?label=PyPI)](https://pypi.org/project/rsfc/) [![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_85%25-green)](./RSFC_REPORT.md)
+[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![PyPI](https://img.shields.io/pypi/v/rsfc?label=PyPI)](https://pypi.org/project/rsfc/) [![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_87%25-green)](./RSFC_REPORT.md)
 
 
 # Research Software FAIRness Checks (RSFC)
@@ -26,7 +26,6 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 - versioning_standards_use
 - support_issue_tracking
 - has_contribution_guidelines
-- project_is_active
 - software_is_containerized
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.

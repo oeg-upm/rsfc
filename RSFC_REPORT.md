@@ -1,18 +1,18 @@
 # Quality Assessment for rsfc 0.1.8
 
-An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-07-24.
+An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-08-17.
 
 ## General Information
 
 - **Software:** rsfc
 - **Repository:** https://github.com/oeg-upm/rsfc
-- **Assessment date:** 2026-07-24T07:01:46Z
+- **Assessment date:** 2026-08-17T08:01:00Z
 - **Total checks:** 41
 
 ## Summary
 
-- **Passed (`true`)**: 35
-- **Failed (`false`)**: 6
+- **Passed (`true`)**: 36
+- **Failed (`false`)**: 5
 - **Errors (`error`)**: 0
 
 ## Results Table
@@ -26,7 +26,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 | [RSFC-03-2](https://w3id.org/rsfc/test/RSFC-03-2) | Releases have version and identifier | true |
 | [RSFC-03-3](https://w3id.org/rsfc/test/RSFC-03-3) | Release versions follow SemVer or CalVer | true |
 | [RSFC-03-4](https://w3id.org/rsfc/test/RSFC-03-4) | Release identifiers follow the same scheme | true |
-| [RSFC-03-5](https://w3id.org/rsfc/test/RSFC-03-5) | Last release version corresponds to version in package file | false |
+| [RSFC-03-5](https://w3id.org/rsfc/test/RSFC-03-5) | Last release version corresponds to version in package file | true |
 | [RSFC-03-6](https://w3id.org/rsfc/test/RSFC-03-6) | There is a version number stated in metadata files | true |
 | [RSFC-04-1](https://w3id.org/rsfc/test/RSFC-04-1) | Metadata files exist | true |
 | [RSFC-04-2](https://w3id.org/rsfc/test/RSFC-04-2) | There is a README file | true |
@@ -178,6 +178,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for release tags in the repository
 - **Evidence:** These releases were found:
+	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.8
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.7
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.6
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.5
@@ -219,10 +220,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### Last release consistency
 
 - **Test ID:** https://w3id.org/rsfc/test/RSFC-03-5
-- **Result:** false
+- **Result:** true
 - **Process:** Checks if the latest release tag matches the version stated in the codemeta or package files of the repository
-- **Evidence:** Latest release does not match the latest version stated
-- **Suggestions:** It is good practice to keep consistency between the version of your latest release and the version in your metadata files
+- **Evidence:** Latest release matches the latest version stated in the metadata files
+- **Suggestions:** N/A
 
 ### persistent_and_unique_identifier
 
@@ -571,10 +572,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for a file named 'LICENSE' or 'LICENSE.md' in the root of the repository.
 - **Evidence:** A license was found in:
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
 - **Suggestions:** N/A
 
 <a id="software_has_license-https---w3id-org-rsfc-test-rsfc-15-2"></a>
@@ -660,7 +661,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Checks if the software repository has a commits history
 - **Evidence:** A commit history was found in:
-	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-04-25T07:01:33.420239+00:00&per_page=100
+	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-05-19T08:00:38.389532+00:00&per_page=100
 - **Suggestions:** N/A
 
 <a id="version_control_use-https---w3id-org-rsfc-test-rsfc-17-3"></a>
