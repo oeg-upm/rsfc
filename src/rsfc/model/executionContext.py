@@ -6,7 +6,7 @@ import json
 
 class ExecutionContext:
     
-    def __init__(self, repo, branch, tag, metadata, token, mode):
+    def __init__(self, repo, branch, tag, metadata, token, s, mode):
         self.repo = repo
         self.somef_kwargs = {
             "threshold": 0.8,
@@ -24,21 +24,21 @@ class ExecutionContext:
             self.somef_kwargs["repo_url"] = self.repo
             self.gh_data = gt.GithubHarvester(self.repo, branch, tag, token)
         if metadata == None:
-            self.somef_data = self.run_somef(branch, tag, token)
+            self.somef_data = self.run_somef(branch, tag, token, s)
         else:
             self.somef_data = self.load_metadata(metadata)
         self.sw_name, self.sw_version = self.get_basic_metadata(self.somef_data)
         self.sw_id = None
     
     
-    def run_somef(self, branch, tag, token):
+    def run_somef(self, branch, tag, token, s):
 
         if branch is not None:
             self.somef_kwargs["branch"] = branch
         elif tag is not None:
             self.somef_kwargs["tag"] = tag
             
-        somef_data = som.SomefHarvester(self.somef_kwargs, token).somef_data
+        somef_data = som.SomefHarvester(self.somef_kwargs, token, s).somef_data
         
         return somef_data
     
