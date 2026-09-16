@@ -23,10 +23,13 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 - descriptive_metadata
 - software_tests
 - archived_in_software_heritage
+- archived_in_scholarly_repository
 - versioning_standards_use
 - support_issue_tracking
 - has_contribution_guidelines
 - software_is_containerized
+- has_active_communication_channels
+- has_active_contributors
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
 
@@ -66,12 +69,14 @@ Remote and Local execution modes have different test lists due to ability/inabil
 | **RSFC-05-1** | x | x |
 | **RSFC-05-2** | x | x |
 | **RSFC-05-3** | x | x |
+| **RSFC-05-4** | x | x |
 | **RSFC-06-1** | x | x |
 | **RSFC-06-2** | x | x |
 | **RSFC-06-3** | x | x |
 | **RSFC-07-1** | x | x |
 | **RSFC-07-2** | x | |
 | **RSFC-08-1** | x | x |
+| **RSFC-08-2** | x | x |
 | **RSFC-09-1** | x | |
 | **RSFC-12-1** | x | x |
 | **RSFC-13-1** | x | x |
@@ -220,6 +225,7 @@ Options:
   --id TEXT          Identifier of a specific test. Only that test will be ran
   --metadata FILE    SOMEF metadata file in case you already have one
   -t TEXT            Authorization Github token
+  -s                 Flag to indicate if SOMEFs output is to be saved locally
   --help             Show this message and exit.
 ```
 

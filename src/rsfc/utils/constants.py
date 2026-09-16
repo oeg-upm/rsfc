@@ -169,6 +169,12 @@ EVIDENCE_DOCUMENTATION = 'Documentation was found in:'
 EVIDENCE_NO_README_AND_READTHEDOCS = 'Could not find neither README file or Read The Docs badge'
 SUGGEST_NO_README_AND_READTHEDOCS = "Your software should be well documented via a README file or a Read the Docs page. More information at https://everse.software/RSQKit/software_documentation"
 
+#RSFC-05-4
+PROCESS_COMMUNICATION_CHANNELS = "Searches for support channels in the repository"
+EVIDENCE_COMMUNICATION_CHANNELS = "Found the following support channels:"
+EVIDENCE_NO_COMMUNICATION_CHANNELS = "Could not find any support channels in the repository"
+SUGGEST_NO_COMMUNICATION_CHANNELS = "You should give the users an active support channel in case they want to ask questions or have discussions with your developers"
+
 #RSFC-06-1
 PROCESS_AUTHORS = 'Searches for authors in various files of the repository (i.e. CITATION.cff, AUTHORS.md, codemeta.json)'
 EVIDENCE_AUTHORS = 'Authors were found in:'
@@ -203,11 +209,15 @@ EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER = 'DOI found but not resolvable'
 SUGGEST_DOI_NO_LINK_BACK_TO_REPO = "Your software's identifier should resolve to a page that links back to itself."
 
 #RSFC-08-1
-PROCESS_ZENODO_SOFTWARE_HERITAGE = 'Searches for Zenodo and Software Heritage badges in the README file of the repository'
-EVIDENCE_ZENODO_DOI = 'A Zenodo DOI identifier was found in:'
+PROCESS_SOFTWARE_HERITAGE = 'Searches for a Software Heritage badge in the README file of the repository'
 EVIDENCE_SOFTWARE_HERITAGE_BADGE = 'A Software Heritage badge was found in:'
-EVIDENCE_ZENODO_DOI_AND_SOFTWARE_HERITAGE = 'A Zenodo DOI identifier and a Software Heritage badge were found in:'
-EVIDENCE_NO_ZENODO_DOI_OR_SOFTWARE_HERITAGE = 'Could not find neither a Zenodo DOI identifier or a Software Heritage badge in the repository'
+EVIDENCE_NO_SOFTWARE_HERITAGE = 'Could not find a Software Heritage badge in the repository'
+SUGGEST_ARCHIVE_SOFTWARE = "You should archive your software not only in Github/Gitlab. More information at https://everse.software/RSQKit/archiving_software"
+
+#RSFC-08-2
+PROCESS_ZENODO = 'Searches for a Zenodo badge in the README file of the repository'
+EVIDENCE_ZENODO_DOI = 'A Zenodo DOI identifier was found in:'
+EVIDENCE_NO_ZENODO_DOI = 'Could not find a Zenodo badge in the repository'
 SUGGEST_ARCHIVE_SOFTWARE = "You should archive your software not only in Github/Gitlab. More information at https://everse.software/RSQKit/archiving_software"
 
 #RSFC-09-1
@@ -346,6 +356,7 @@ RSFC_04_5_ID = "https://w3id.org/rsfc/test/RSFC-04-5"
 RSFC_05_1_ID = "https://w3id.org/rsfc/test/RSFC-05-1"
 RSFC_05_2_ID = "https://w3id.org/rsfc/test/RSFC-05-2"
 RSFC_05_3_ID = "https://w3id.org/rsfc/test/RSFC-05-3"
+RSFC_05_4_ID = "https://w3id.org/rsfc/test/RSFC-05-4"
 RSFC_06_1_ID = "https://w3id.org/rsfc/test/RSFC-06-1"
 RSFC_06_2_ID = "https://w3id.org/rsfc/test/RSFC-06-2"
 RSFC_06_3_ID = "https://w3id.org/rsfc/test/RSFC-06-3"
@@ -353,6 +364,7 @@ RSFC_06_4_ID = "https://w3id.org/rsfc/test/RSFC-06-4"
 RSFC_07_1_ID = "https://w3id.org/rsfc/test/RSFC-07-1"
 RSFC_07_2_ID = "https://w3id.org/rsfc/test/RSFC-07-2"
 RSFC_08_1_ID = "https://w3id.org/rsfc/test/RSFC-08-1"
+RSFC_08_2_ID = "https://w3id.org/rsfc/test/RSFC-08-2"
 RSFC_09_1_ID = "https://w3id.org/rsfc/test/RSFC-09-1"
 RSFC_12_1_ID = "https://w3id.org/rsfc/test/RSFC-12-1"
 RSFC_13_1_ID = "https://w3id.org/rsfc/test/RSFC-13-1"
@@ -393,6 +405,7 @@ TEST_ID_DICT = {
     "RSFC-05-1": RSFC_05_1_ID,
     "RSFC-05-2": RSFC_05_2_ID,
     "RSFC-05-3": RSFC_05_3_ID,
+    "RSFC-05-4": RSFC_05_4_ID,
     "RSFC-06-1": RSFC_06_1_ID,
     "RSFC-06-2": RSFC_06_2_ID,
     "RSFC-06-3": RSFC_06_3_ID,
@@ -400,6 +413,7 @@ TEST_ID_DICT = {
     "RSFC-07-1": RSFC_07_1_ID,
     "RSFC-07-2": RSFC_07_2_ID,
     "RSFC-08-1": RSFC_08_1_ID,
+    "RSFC-08-2": RSFC_08_2_ID,
     "RSFC-09-1": RSFC_09_1_ID,
     "RSFC-12-1": RSFC_12_1_ID,
     "RSFC-13-1": RSFC_13_1_ID,
@@ -441,13 +455,15 @@ DESC_RSFC_04_5 = "There is a codemeta file"
 DESC_RSFC_05_1 = "There is a repostatus badge in the README file"
 DESC_RSFC_05_2 = "Contact and support metadata exists"
 DESC_RSFC_05_3 = "Software documentation exists"
+DESC_RSFC_05_4 = "Software has active communication channels"
 DESC_RSFC_06_1 = "Authors are declared"
 DESC_RSFC_06_2 = "Contributors are declared"
 DESC_RSFC_06_3 = "Authors have an ORCID assigned"
 DESC_RSFC_06_4 = "Authors have their roles stated"
 DESC_RSFC_07_1 = "There is an identifier in README or CITATION"
 DESC_RSFC_07_2 = "Software identifier resolves and links back to software"
-DESC_RSFC_08_1 = "Metadata record is found in SWHeritage or Zenodo"
+DESC_RSFC_08_1 = "Metadata record is found in SWHeritage"
+DESC_RSFC_08_2 = "Metadata record is found in Zenodo"
 DESC_RSFC_09_1 = "Repository is from Github or Gitlab"
 DESC_RSFC_12_1 = "There is an article citation or reference publication"
 DESC_RSFC_13_1 = "Dependencies are declared"
@@ -488,6 +504,7 @@ TEST_DESC_DICT = {
     "RSFC-05-1": DESC_RSFC_05_1,
     "RSFC-05-2": DESC_RSFC_05_2,
     "RSFC-05-3": DESC_RSFC_05_3,
+    "RSFC-05-4": DESC_RSFC_05_4,
     "RSFC-06-1": DESC_RSFC_06_1,
     "RSFC-06-2": DESC_RSFC_06_2,
     "RSFC-06-3": DESC_RSFC_06_3,
@@ -495,6 +512,7 @@ TEST_DESC_DICT = {
     "RSFC-07-1": DESC_RSFC_07_1,
     "RSFC-07-2": DESC_RSFC_07_2,
     "RSFC-08-1": DESC_RSFC_08_1,
+    "RSFC-08-2": DESC_RSFC_08_2,
     "RSFC-09-1": DESC_RSFC_09_1,
     "RSFC-12-1": DESC_RSFC_12_1,
     "RSFC-13-1": DESC_RSFC_13_1,
@@ -534,30 +552,33 @@ INDICATORS_DICT = {
     'descriptive_metadata': 'https://w3id.org/everse/i/indicators/descriptive_metadata',
     'versioning_standards_use': 'https://w3id.org/everse/i/indicators/versioning_standards_use',
     'archived_in_software_heritage': 'https://w3id.org/everse/i/indicators/archived_in_software_heritage',
+    'archived_in_scholarly_repository': 'https://w3id.org/everse/i/indicators/archived_in_scholarly_repository',
     'support_issue_tracking': 'https://w3id.org/everse/i/indicators/support_issue_tracking',
     'has_contribution_guidelines': 'https://w3id.org/everse/i/indicators/has_contribution_guidelines',
     'project_is_active': 'https://w3id.org/everse/i/indicators/project_is_active',
-    'software_is_containerized': 'https://w3id.org/everse/i/indicators/software_is_containerized'
+    'software_is_containerized': 'https://w3id.org/everse/i/indicators/software_is_containerized',
+    'has_active_communication_channels': 'https://w3id.org/everse/i/indicators/has_active_communication_channels',
+    'has_active_contributors': 'https://w3id.org/everse/i/indicators/has_active_contributors'
 }
 
 CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://w3id.org/rsfc/',
-        'version' : '0.1.9'
+        'version' : '0.2.0'
     }
 }
 
 STATUS_MAP_FTR = {
     "true": "pass",
     "false": "fail",
-    "error": "indeterminate",
+    "indeterminate": "indeterminate",
 }
 
 STATUS_MAP_REPORT = {
     "pass": "true",
     "fail": "false",
-    "indeterminate": "error"
+    "indeterminate": "indeterminate"
 }
 
 REPO_TYPES = {
@@ -635,12 +656,14 @@ REMOTE_EXEC_TESTS = [
     "RSFC-05-1",
     "RSFC-05-2",
     "RSFC-05-3",
+    "RSFC-05-4",
     "RSFC-06-1",
     "RSFC-06-2",
     "RSFC-06-3",
     "RSFC-07-1",
     "RSFC-07-2",
     "RSFC-08-1",
+    "RSFC-08-2",
     "RSFC-09-1",
     "RSFC-12-1",
     "RSFC-13-1",
@@ -671,11 +694,13 @@ LOCAL_EXEC_TESTS = [
     "RSFC-05-1",
     "RSFC-05-2",
     "RSFC-05-3",
+    "RSFC-05-4",
     "RSFC-06-1",
     "RSFC-06-2",
     "RSFC-06-3",
     "RSFC-07-1",
     "RSFC-08-1",
+    "RSFC-08-2",
     "RSFC-12-1",
     "RSFC-13-1",
     "RSFC-13-2",
