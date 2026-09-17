@@ -5,9 +5,9 @@ from rsfc.model import markdownReportGenerator as mdRep
 from rsfc.utils import rsfc_helpers
 
 
-def start_assessment(repo, branch, tag, ftr, test_id, metadata, token, mode):
+def start_assessment(repo, branch, tag, ftr, test_id, metadata, token, s, mode):
     
-    context = ctx.ExecutionContext(repo, branch, tag, metadata, token, mode)
+    context = ctx.ExecutionContext(repo, branch, tag, metadata, token, s, mode)
     evaluator = eval.RSFCEvaluator(context.get_context())
     evaluator.assess_indicators(test_id)
     checks = evaluator.get_results()

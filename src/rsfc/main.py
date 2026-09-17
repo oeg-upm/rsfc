@@ -12,7 +12,8 @@ import click
 @click.option('--id', help="Identifier of a specific test. Only that test will be ran")
 @click.option('--metadata', type=click.Path(exists=True, dir_okay=False), help="SOMEF metadata file in case you already have one")
 @click.option('-t', help="Authorization Github token")
-def main(repo, local, b, v, ftr, id, metadata, t):
+@click.option('-s', is_flag=True, help="Flag to indicate if SOMEFs output is to be saved locally")
+def main(repo, local, b, v, ftr, id, metadata, t, s):
 
     if local:
         if repo:
@@ -42,7 +43,7 @@ def main(repo, local, b, v, ftr, id, metadata, t):
         mode = "local"
     
     try:
-        rsfc_asmt, table = start_assessment(target, b, v, ftr, id, metadata, t, mode)
+        rsfc_asmt, table = start_assessment(target, b, v, ftr, id, metadata, t, s, mode)
         
     except GithubRateLimitExceeded as e:
         click.echo(click.style(f"\nERROR: {e}", fg="red"), err=True)

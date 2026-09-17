@@ -44,7 +44,7 @@ def test_id_presence_and_resolves(somef_data):
                             suggest = constants.SUGGEST_IDENTIFIER_NO_RESOLVE
 
                     except requests.RequestException:
-                        output = "error"
+                        output = "indeterminate"
                         evidence = "Something went wrong when trying to resolve the identifier"
                         suggest = None
 
@@ -352,7 +352,7 @@ def test_latest_release_consistency(somef_data):
     norm_latest = str(latest_release).strip().lstrip('vV')
     
     if version == None or latest_release == None:
-        output = "error"
+        output = "indeterminate"
         evidence = constants.EVIDENCE_NOT_ENOUGH_RELEASE_INFO
         suggest = None
     elif norm_version == norm_latest:
@@ -673,6 +673,34 @@ def test_software_documentation(somef_data):
 
     return check.convert()
 
+
+@test_registry.register_test("RSFC-05-4", args=["somef_data"])
+def test_active_communication_channels(somef_data):
+    unique_sources = set()
+    
+    if "support_channels" in somef_data and isinstance(somef_data["support_channels"], list):
+        for item in somef_data["support_channels"]:
+            if "source" in item:
+                sources = item["source"]
+                sources_list = sources if isinstance(sources, list) else [sources]
+                for s in sources_list:
+                    if s and str(s).strip():
+                        unique_sources.add(str(s).strip())
+                            
+    if unique_sources:
+        output = "true"
+        suggest = "N/A"
+        
+        formatted_sources = "".join([f"\n\t- {src}" for src in sorted(unique_sources)])
+        evidence = constants.EVIDENCE_COMMUNICATION_CHANNELS + formatted_sources
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_COMMUNICATION_CHANNELS
+        suggest = constants.SUGGEST_NO_COMMUNICATION_CHANNELS
+                            
+    check = ch.Check(constants.INDICATORS_DICT['has_active_communication_channels'], 'RSFC-05-4', "Software has active commmunication channels", constants.PROCESS_COMMUNICATION_CHANNELS, output, evidence, suggest)
+    
+    return check.convert()
 ################################################### FRSM_06 ###################################################
 
 
@@ -740,7 +768,7 @@ def test_contributors(somef_data):
         evidence = constants.EVIDENCE_NO_CONTRIBUTORS
         suggest = constants.SUGGEST_NO_CONTRIBUTORS
         
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-2', "Contributors are declared", constants.PROCESS_CONTRIBUTORS, output, evidence, suggest)
+    check = ch.Check(constants.INDICATORS_DICT['has_active_contributors'], 'RSFC-06-2', "Contributors are declared", constants.PROCESS_CONTRIBUTORS, output, evidence, suggest)
     
     return check.convert()
 
@@ -806,33 +834,6 @@ def test_authors_orcids(somef_data):
     
     return check.convert()
 
-
-'''def test_author_roles(codemeta_data):
-    
-    if codemeta_data != None:
-        if codemeta_data["author"] != None:
-            author_roles = rsfc_helpers.subtest_author_roles(codemeta_data["author"])
-            
-            if all(value is not None for value in author_roles.values()):
-                output = "true"
-                evidence = constants.EVIDENCE_AUTHOR_ROLES
-                suggest = "N/A"
-            else:
-                output = "false"
-                evidence = constants.EVIDENCE_NO_ALL_AUTHOR_ROLES
-                suggest = constants.SUGGEST_NO_ALL_AUTHOR_ROLES
-        else:
-            output = "false"
-            evidence = constants.EVIDENCE_NO_AUTHORS_IN_CODEMETA
-            suggest = constants.SUGGEST_NO_AUTHORS_IN_CODEMETA
-    else:
-        output = "false"
-        evidence = constants.EVIDENCE_NO_CODEMETA_FOUND
-        suggest = constants.SUGGEST_NO_CODEMETA
-        
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-4', "Authors have roles", constants.PROCESS_AUTHOR_ROLES, output, evidence, suggest)
-    
-    return check.convert()'''
 
 ################################################### FRSM_07 ###################################################
 
@@ -955,51 +956,59 @@ def test_identifier_resolves_to_software(somef_data, repo_url):
 
 
 @test_registry.register_test("RSFC-08-1", args=["somef_data"])
-def test_metadata_record_in_zenodo_or_software_heritage(somef_data):
-    zenodo_identifiers = []
+def test_metadata_record_in_software_heritage(somef_data):
     swh_identifiers = []
     
     if "identifier" in somef_data:
         for item in somef_data['identifier']:
             if 'result' in item and 'value' in item['result'] and item['result']['value']:
                 val = item['result']['value']
-                
-                if 'zenodo' in val:
-                    zenodo_identifiers.append(val)
-                elif 'softwareheritage' in val:
+                if 'softwareheritage' in val:
                     swh_identifiers.append(val)
 
-    if zenodo_identifiers and swh_identifiers:
-        output = "true"
-        suggest = "N/A"
-        
-        all_ids = zenodo_identifiers + swh_identifiers
-        formatted_ids = "".join([f"\n\t- {id_val}" for id_val in all_ids])
-        evidence = constants.EVIDENCE_ZENODO_DOI_AND_SOFTWARE_HERITAGE + formatted_ids
-        
-    elif swh_identifiers:
+    if swh_identifiers:
         output = "true"
         suggest = "N/A"
         
         formatted_ids = "".join([f"\n\t- {id_val}" for id_val in swh_identifiers])
         evidence = constants.EVIDENCE_SOFTWARE_HERITAGE_BADGE + formatted_ids
         
-    elif zenodo_identifiers:
+    else:
+        output = "false"
+        evidence = constants.EVIDENCE_NO_SOFTWARE_HERITAGE
+        suggest = constants.SUGGEST_ARCHIVE_SOFTWARE
+        
+    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], 'RSFC-08-1', "Metadata record in Software Heritage", constants.PROCESS_SOFTWARE_HERITAGE, output, evidence, suggest)
+    
+    return check.convert()
+
+
+@test_registry.register_test("RSFC-08-2", args=["somef_data"])
+def test_metadata_record_in_zenodo(somef_data):
+    zenodo_identifiers = []
+    
+    if "identifier" in somef_data:
+        for item in somef_data['identifier']:
+            if 'result' in item and 'value' in item['result'] and item['result']['value']:
+                val = item['result']['value']
+                if 'zenodo' in val:
+                    zenodo_identifiers.append(val)
+                        
+    if zenodo_identifiers:
         output = "true"
         suggest = "N/A"
         
         formatted_ids = "".join([f"\n\t- {id_val}" for id_val in zenodo_identifiers])
         evidence = constants.EVIDENCE_ZENODO_DOI + formatted_ids
-        
+            
     else:
         output = "false"
-        evidence = constants.EVIDENCE_NO_ZENODO_DOI_OR_SOFTWARE_HERITAGE
+        evidence = constants.EVIDENCE_NO_ZENODO_DOI
         suggest = constants.SUGGEST_ARCHIVE_SOFTWARE
-        
-    check = ch.Check(constants.INDICATORS_DICT['archived_in_software_heritage'], 'RSFC-08-1', "Metadata record in Software Heritage or Zenodo", constants.PROCESS_ZENODO_SOFTWARE_HERITAGE, output, evidence, suggest)
+            
+    check = ch.Check(constants.INDICATORS_DICT['archived_in_scholarly_repository'], 'RSFC-08-2', "Metadata record in scholarly repository", constants.PROCESS_ZENODO, output, evidence, suggest)
     
     return check.convert()
-
 ################################################### FRSM_09 ###################################################
 
 
@@ -1024,7 +1033,7 @@ def test_is_github_repository(repo_url):
                 evidence = constants.EVIDENCE_NO_RESOLVE_GITHUB_OR_GITLAB_URL
                 suggest = "N/A"
             else:
-                output = "error"
+                output = "indeterminate"
                 evidence = 'Connection error'
                 suggest = "N/A"
         else:
@@ -1266,7 +1275,7 @@ def test_presence_of_tests(gh_data):
             evidence = constants.EVIDENCE_NO_TESTS
             suggest = constants.SUGGEST_NO_TESTS
     else:
-        output = "error"
+        output = "indeterminate"
         evidence = None
         suggest = constants.SUGGEST_NO_TESTS
             

@@ -6,6 +6,7 @@ LOCAL_PATH=""
 METADATA_PATH=""
 TEST_ID=""
 FTR_FLAG=false
+S_FLAG=false
 TOKEN=""
 BRANCH=""
 TAG=""
@@ -32,6 +33,10 @@ while [[ $# -gt 0 ]]; do
             FTR_FLAG=true
             shift
             ;;
+        -s)
+            S_FLAG=true
+            shift
+            ;;
         -t)
             TOKEN="$2"
             shift 2
@@ -46,7 +51,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             echo "Unknown argument: $1"
-            echo "Usage: $0 (--repo <repo_url> | --local <local_path>) [--metadata <metadata_file>] [--ftr] [--id <test_id>] [-t <github_token>] [-b <branch>] [-v <tag>]"
+            echo "Usage: $0 (--repo <repo_url> | --local <local_path>) [--metadata <metadata_file>] [--ftr] [-s] [--id <test_id>] [-t <github_token>] [-b <branch>] [-v <tag>]"
             exit 1
             ;;
     esac
@@ -97,6 +102,10 @@ fi
 
 if [ "$FTR_FLAG" = true ]; then
     DOCKER_ARGS="$DOCKER_ARGS --ftr"
+fi
+
+if [ "$S_FLAG" = true ]; then
+    DOCKER_ARGS="$DOCKER_ARGS -s"
 fi
 
 if [ -n "$TEST_ID" ]; then

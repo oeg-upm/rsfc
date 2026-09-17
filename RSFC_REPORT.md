@@ -1,25 +1,25 @@
-# Quality Assessment for rsfc 0.1.8
+# Quality Assessment for rsfc 0.1.9
 
-An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-08-17.
+An automated assessment of the rsfc tool based on the EVERSE software quality indicators, run on 2026-09-16.
 
 ## General Information
 
 - **Software:** rsfc
 - **Repository:** https://github.com/oeg-upm/rsfc
-- **Assessment date:** 2026-08-17T08:01:00Z
-- **Total checks:** 41
+- **Assessment date:** 2026-09-16T11:01:04Z
+- **Total checks:** 43
 
 ## Summary
 
-- **Passed (`true`)**: 36
-- **Failed (`false`)**: 5
-- **Errors (`error`)**: 0
+- **Passed (`true`)**: 34
+- **Failed (`false`)**: 8
+- **Errors (`error`)**: 1
 
 ## Results Table
 
 | TEST ID | Short Description | Output |
 | --- | --- | --- |
-| [RSFC-01-1](https://w3id.org/rsfc/test/RSFC-01-1) | There is an identifier and it resolves | true |
+| [RSFC-01-1](https://w3id.org/rsfc/test/RSFC-01-1) | There is an identifier and it resolves | error |
 | [RSFC-01-2](https://w3id.org/rsfc/test/RSFC-01-2) | There is an identifier in the metadata files | true |
 | [RSFC-01-3](https://w3id.org/rsfc/test/RSFC-01-3) | There is an identifier and it follows a common schema | true |
 | [RSFC-03-1](https://w3id.org/rsfc/test/RSFC-03-1) | The software has releases | true |
@@ -36,12 +36,14 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 | [RSFC-05-1](https://w3id.org/rsfc/test/RSFC-05-1) | There is a repostatus badge in the README file | true |
 | [RSFC-05-2](https://w3id.org/rsfc/test/RSFC-05-2) | Contact and support metadata exists | true |
 | [RSFC-05-3](https://w3id.org/rsfc/test/RSFC-05-3) | Software documentation exists | true |
+| [RSFC-05-4](https://w3id.org/rsfc/test/RSFC-05-4) | Software has active communication channels | false |
 | [RSFC-06-1](https://w3id.org/rsfc/test/RSFC-06-1) | Authors are declared | true |
 | [RSFC-06-2](https://w3id.org/rsfc/test/RSFC-06-2) | Contributors are declared | true |
 | [RSFC-06-3](https://w3id.org/rsfc/test/RSFC-06-3) | Authors have an ORCID assigned | false |
 | [RSFC-07-1](https://w3id.org/rsfc/test/RSFC-07-1) | There is an identifier in README or CITATION | true |
-| [RSFC-07-2](https://w3id.org/rsfc/test/RSFC-07-2) | Software identifier resolves and links back to software | true |
-| [RSFC-08-1](https://w3id.org/rsfc/test/RSFC-08-1) | Metadata record is found in SWHeritage or Zenodo | true |
+| [RSFC-07-2](https://w3id.org/rsfc/test/RSFC-07-2) | Software identifier resolves and links back to software | false |
+| [RSFC-08-1](https://w3id.org/rsfc/test/RSFC-08-1) | Metadata record is found in SWHeritage | false |
+| [RSFC-08-2](https://w3id.org/rsfc/test/RSFC-08-2) | Metadata record is found in Zenodo | true |
 | [RSFC-09-1](https://w3id.org/rsfc/test/RSFC-09-1) | Repository is from Github or Gitlab | true |
 | [RSFC-12-1](https://w3id.org/rsfc/test/RSFC-12-1) | There is an article citation or reference publication | false |
 | [RSFC-13-1](https://w3id.org/rsfc/test/RSFC-13-1) | Dependencies are declared | true |
@@ -63,17 +65,28 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 
 ## Detailed Results by Indicator
 
-### archived_in_software_heritage
+### archived_in_scholarly_repository
 
-<a id="archived_in_software_heritage-https---w3id-org-rsfc-test-rsfc-08-1"></a>
-#### Metadata record in Software Heritage or Zenodo
+<a id="archived_in_scholarly_repository-https---w3id-org-rsfc-test-rsfc-08-2"></a>
+#### Metadata record in scholarly repository
 
-- **Test ID:** https://w3id.org/rsfc/test/RSFC-08-1
+- **Test ID:** https://w3id.org/rsfc/test/RSFC-08-2
 - **Result:** true
-- **Process:** Searches for Zenodo and Software Heritage badges in the README file of the repository
+- **Process:** Searches for a Zenodo badge in the README file of the repository
 - **Evidence:** A Zenodo DOI identifier was found in:
 	- https://doi.org/10.5281/zenodo.16531481
 - **Suggestions:** N/A
+
+### archived_in_software_heritage
+
+<a id="archived_in_software_heritage-https---w3id-org-rsfc-test-rsfc-08-1"></a>
+#### Metadata record in Software Heritage
+
+- **Test ID:** https://w3id.org/rsfc/test/RSFC-08-1
+- **Result:** false
+- **Process:** Searches for a Software Heritage badge in the README file of the repository
+- **Evidence:** Could not find a Software Heritage badge in the repository
+- **Suggestions:** You should archive your software not only in Github/Gitlab. More information at https://everse.software/RSQKit/archiving_software
 
 ### descriptive_metadata
 
@@ -158,6 +171,17 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
 - **Suggestions:** When documenting your software's authors, you should include their ORCIDs if possible.
 
+### has_active_communication_channels
+
+<a id="has_active_communication_channels-https---w3id-org-rsfc-test-rsfc-05-4"></a>
+#### Software has active commmunication channels
+
+- **Test ID:** https://w3id.org/rsfc/test/RSFC-05-4
+- **Result:** false
+- **Process:** Searches for support channels in the repository
+- **Evidence:** Could not find any support channels in the repository
+- **Suggestions:** You should give the users an active support channel in case they want to ask questions or have discussions with your developers
+
 ### has_contribution_guidelines
 
 <a id="has_contribution_guidelines-https---w3id-org-rsfc-test-rsfc-21-1"></a>
@@ -178,6 +202,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for release tags in the repository
 - **Evidence:** These releases were found:
+	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.9
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.8
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.7
 	- https://github.com/oeg-upm/rsfc/releases/tag/v0.1.6
@@ -231,10 +256,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### There is an identifier and resolves
 
 - **Test ID:** https://w3id.org/rsfc/test/RSFC-01-1
-- **Result:** true
+- **Result:** error
 - **Process:** Searches for an identifier (i.e. DOI or SWHID) in the README file of the repository
-- **Evidence:** Found the identifier https://doi.org/10.5281/zenodo.16531481 in the README and it resolves
-- **Suggestions:** N/A
+- **Evidence:** Something went wrong when trying to resolve the identifier
+- **Suggestions:** None
 
 <a id="persistent_and_unique_identifier-https---w3id-org-rsfc-test-rsfc-01-2"></a>
 #### There is an identifier associated with the software
@@ -269,10 +294,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 #### Software identifier resolves to software
 
 - **Test ID:** https://w3id.org/rsfc/test/RSFC-07-2
-- **Result:** true
+- **Result:** false
 - **Process:** Checks if the identifier found in the README file or metadata files (i.e. codemeta.json, CITATION.cff) resolves to a page that links back to the software repository
-- **Evidence:** The landing page of the software's identifier https://doi.org/10.5281/zenodo.16531481 links back to the software repository
-- **Suggestions:** N/A
+- **Evidence:** DOI found but not resolvable
+- **Suggestions:** You should make sure that your identifier is resolvable and persistent. More information at https://everse.software/RSQKit/software_identifiers
 
 ### repository_workflows
 
@@ -572,10 +597,10 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Searches for a file named 'LICENSE' or 'LICENSE.md' in the root of the repository.
 - **Evidence:** A license was found in:
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/LICENSE
-	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
 	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/pyproject.toml
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/codemeta.json
+	- https://raw.githubusercontent.com/oeg-upm/rsfc/main/CITATION.cff
 - **Suggestions:** N/A
 
 <a id="software_has_license-https---w3id-org-rsfc-test-rsfc-15-2"></a>
@@ -661,7 +686,7 @@ An automated assessment of the rsfc tool based on the EVERSE software quality in
 - **Result:** true
 - **Process:** Checks if the software repository has a commits history
 - **Evidence:** A commit history was found in:
-	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-05-19T08:00:38.389532+00:00&per_page=100
+	- https://api.github.com/repos/oeg-upm/rsfc/commits?sha=main&since=2026-06-18T11:00:24.888552+00:00&per_page=100
 - **Suggestions:** N/A
 
 <a id="version_control_use-https---w3id-org-rsfc-test-rsfc-17-3"></a>
