@@ -12,27 +12,27 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 
-<https://w3id.org/rsfc/test/RSFC-06-2> a ftr:Test, dcat:DataService ;
+<https://w3id.org/rsfc/test/RSFC-05-4> a ftr:Test, dcat:DataService ;
     dcat:contactPoint <https://orcid.org/0000-0003-0454-7145> ;
     dcterms:creator <https://orcid.org/0000-0003-0454-7145> ,
                     <https://github.com/andriumon> ;
-    dcterms:title "Contributors are declared"@en ;
-    rdfs:label "RSFC-06-2"^^xsd:string ;
-    vivo:abbreviation "RSFC-06-2"^^xsd:string ;
+    dcterms:title "Software has active communication channels"@en ;
+    rdfs:label "RSFC-05-4"^^xsd:string ;
+    vivo:abbreviation "RSFC-05-4"^^xsd:string ;
     dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:description """This test checks if there are contributors found in the repository. This is done by looking for contributors in files like CONTRIBUTOR, codemeta.json and package files."""@en ;
+    dcterms:description """This test checks if the repository contains active communication channels that let users discuss topics related to the software with its developers. This is done by looking for links in the README file. Currently limited to Gitter, Reddit and Discord channels."""@en ;
     dcterms:publisher <https://oeg.fi.upm.es> ,
                       <https://ror.org/03n6nwv02> ;
-    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
+    dqv:inDimension  <https://doi.org/10.25504/FAIRsharing.a712f1>, <https://doi.org/10.25504/FAIRsharing.9bf822>, <https://doi.org/10.25504/FAIRsharing.60a40f>;
     dcat:version "0.0.1"^^xsd:string ;
-    dcterms:identifier "https://w3id.org/rsfc/test/RSFC-06-2" ;
-    dcat:keyword "Author"@en , "ORCID"@en , 
+    dcterms:identifier "https://w3id.org/rsfc/test/RSFC-05-4" ;
+    dcat:keyword "Communication channels"@en ,
                  "Test"@en ;
     dcat:endpointDescription <https://w3id.org/rsfc/api> ;
-    dcat:endpointURL <https://api.rsfc.linkeddata.es/assess/test/RSFC-06-2> ;
+    dcat:endpointURL <https://api.rsfc.linkeddata.es/assess/test/RSFC-05-4> ;
     dpv:isApplicableFor <https://schema.org/SoftwareSourceCode> ;
     ftr:supportedBy <https://w3id.org/rsfc/> ;
-    <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/has_active_contributors> ; 
+    <http://semanticscience.org/resource/SIO_000233> <https://w3id.org/everse/i/indicators/has_active_communication_channels> ; 
     doap:repository <https://w3id.org/rsfc/repository> .
 <https://orcid.org/0000-0003-0454-7145> a vcard:Individual ;
     vcard:fn "Daniel Garijo"^^xsd:string ;
@@ -44,6 +44,10 @@
 	rdfs:label "F2"^^xsd:string ;
 	vivo:abbreviation "F2"^^xsd:string ;
 	dcterms:description "Software is described with rich metadata."@en .
+<https://doi.org/10.25504/FAIRsharing.9bf822> 
+	rdfs:label "R1"^^xsd:string ;
+	vivo:abbreviation "R1"^^xsd:string ;
+	dcterms:description "Software is described with a plurality of accurate and relevant attributes."@en .
 <https://doi.org/10.25504/FAIRsharing.60a40f> 
 	rdfs:label "R3"^^xsd:string ;
 	vivo:abbreviation "R3"^^xsd:string ;
@@ -58,5 +62,4 @@
 <https://w3id.org/rsfc/repository>
     foaf:homePage <https://github.com/oeg-upm/rsfc> ;
     dcterms:description "Main repository for Research Software Quality Checks (RSFC) code and documentation"@en .
-<https://w3id.org/everse/i/indicators/has_active_contributors> a dqv:Metric ;
-    owl:sameAs <https://doi.org/10.25504/FAIRsharing.452bcd> .
+<https://w3id.org/everse/i/indicators/has_active_communication_channels> a dqv:Metric .
