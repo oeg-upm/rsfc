@@ -16,41 +16,6 @@ def decode_github_content(content_json):
     else:
         return encoded_content
 
-def subtest_author_roles(authors):
-    
-    #Follows codemeta standards v2.0 and v3.0
-    
-    author_roles = {}
-    for item in authors:
-        type_field = None
-        id_field = None
-        
-        if 'type' in item:
-            type_field = 'type'
-        elif '@type' in item:
-            type_field = '@type'
-            
-        if 'id' in item:
-            id_field = 'id'
-        elif '@id' in item:
-            id_field = '@id'
-            
-            
-        if type_field != None and id_field != None:
-            if item[type_field] == 'Person':
-                if item[id_field] not in author_roles:
-                    author_roles[item[id_field]] = None
-            elif item[type_field] == 'Role' or item[type_field] == 'schema:Role':
-                if item['schema:author'] in author_roles:
-                    if 'roleName' in item:
-                        author_roles[item['schema:author']] = item['roleName']
-                    elif 'schema:roleName' in item:
-                        author_roles[item['schema:author']] = item['schema:roleName']
-        else:
-            continue
-        
-    return author_roles
-
 
 def subtest_author_orcids(file_data):
     
@@ -137,18 +102,29 @@ def check_issue(issue, issue_refs):
     return issue_id in issue_refs
 
 
-def cross_check_any_issue(issues, commits):
-    issue_refs = extract_issue_refs(commits)
-
-    for issue in issues:
-        issue_id = str(issue.get("number") or issue.get("iid"))
-        if issue_id in issue_refs:
-            return True
-
-    return False
+def cross_check_any_issue(issues, commits_list):
+    found_links = []
+    
+    for commit in commits_list:
+        commit_message = commit.get('message') or commit.get('commit', {}).get('message', '')
+        commit_sha = (commit.get("id") or commit.get("sha", ""))[:7]
+        
+        for issue in issues:
+            issue_number = issue.get("iid") or issue.get("number")
+            
+            if f"#{issue_number}" in commit_message:
+                found_links.append(f"Commit '{commit_sha}' linked to Issue #{issue_number}")
+                
+    return found_links
 
 
 def normalize_identifier_url(identifier):
+    
+    if isinstance(identifier, list):
+        identifier = next((item for item in identifier if item), "")
+
+    if isinstance(identifier, dict):
+        identifier = identifier.get("value", "")
 
     identifier = identifier.strip()
     lower = identifier.lower()
@@ -201,19 +177,11 @@ def landing_page_links_back(lp_html, repo_url):
 def resolve_w3id(url):
     
     if "w3id.org" not in url:
-        if "github" in url or "gitlab" in url:
-            return url
-        else:
-            return None
-    
-    try:
-        response = requests.get(
-            url,
-            allow_redirects=True,
-            timeout=10
-        )
-        return response.url
+        return url   
 
+    try:
+        response = requests.get(url, allow_redirects=True, timeout=10)
+        return response.url
     except RequestException:
         print("Error resolving the w3id")
         return None
@@ -221,7 +189,7 @@ def resolve_w3id(url):
  
 def remove_git_from_url(url):
 
-    if url.endswith(".git"):
+    if url and url.endswith(".git"):
         return url[:-4]
 
     return url

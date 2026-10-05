@@ -10,15 +10,15 @@ class Assessment:
     def __init__(self, checks):
         self.checks = checks
         
-    def render_template(self, sw, ftr, test_id):
+    def render_template(self, context, ftr, test_id):
         
         print("Rendering assessment...")
         
         data = dict()
-        data['name'] = sw.name
-        data['url'] = sw.url
-        data['version'] = sw.version
-        data['doi'] = sw.id
+        data['name'] = context["sw_name"]
+        data['url'] = context["repo_url"]
+        data['version'] = context["sw_version"]
+        data['doi'] = context["sw_id"]
         
         if ftr:
             for check in self.checks:

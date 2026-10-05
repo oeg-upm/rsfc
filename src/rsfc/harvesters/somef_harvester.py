@@ -1,70 +1,68 @@
 import io
-import contextlib
 import json
-from somef import somef_cli
-import subprocess
 import os
+import contextlib
+import subprocess
+from rsfc.utils.exceptions import GithubRateLimitExceeded
+
+from somef.somef_cli import run_cli
+
 
 class SomefHarvester:
-    
-    def __init__(self, repo_url, branch, tag, token):
+
+    def __init__(self, somef_kwargs, token, s):
         self.somef_configure(token)
-        self.somef_data = self.somef_assessment(repo_url, branch, tag, 0.8)
+        self.somef_data = self.somef_assessment(somef_kwargs, s)
         
         
+
     def somef_configure(self, token):
-        
+
         print("Configuring SOMEF...")
-        
+
         if token:
             configure = ["somef", "configure"]
             stdin_data = (
-            f"{token}\n" #To deal with the inputs asked by somef configure
-            "\n"
-            "\n"
-            "\n"
-            "\n"
-            "\n"
+                f"{token}\n"
+                "\n"*10
             )
+
         else:
             configure = ["somef", "configure", "-a"]
             stdin_data = None
-
+            
         try:
-            subprocess.run(
-                configure,
-                input=stdin_data,
-                text=True,
-                check=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
+            subprocess.run(configure, input=stdin_data, text=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except subprocess.CalledProcessError as e:
             raise RuntimeError("SOMEF configuration failed") from e
 
-    def somef_assessment(self, repo_url, branch=None, tag=None, threshold=0.8):
-    
+
+
+    def somef_assessment(self, somef_kwargs, s):
+
         print("Extracting repository metadata with SOMEF...")
+        os.makedirs("./rsfc_output/", exist_ok=True)
         
-        somef_kwargs = {
-            "threshold": threshold,
-            "ignore_classifiers": True,
-            "repo_url": repo_url,
-            "readme_only": False
-        }
+        try:
+            with (contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO())):
+                run_cli(**somef_kwargs)
 
-        if branch is not None:
-            somef_kwargs["branch"] = branch
-        elif tag is not None:
-            somef_kwargs["tag"] = tag
-
-        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-            repo_data = somef_cli.cli_get_data(**somef_kwargs)
+        except Exception as e:
+            if "Token lacks required permissions or scopes" in str(e):
+                raise GithubRateLimitExceeded() from e
             
-        repo_data = json.loads(json.dumps(repo_data.results))
-        
-        '''os.makedirs('./rsfc_output/', exist_ok=True)
-        with open('./rsfc_output/somef_assessment.json', 'w', encoding='utf-8') as f:
-            json.dump(repo_data, f, indent=4, ensure_ascii=False)'''
-        
-        return repo_data
+        if not os.path.exists(somef_kwargs["output"]):
+            raise RuntimeError(
+                "SOMEF did not generate the expected JSON output"
+            )
+            
+        with open(somef_kwargs["output"], "r", encoding="utf-8") as f:
+            somef_data = json.load(f)
+
+        if s:
+            output_path = "./rsfc_output/somef_assessment.json"
+
+            with open(output_path, "w", encoding="utf-8") as f:
+                json.dump(somef_data, f, indent=4)
+
+        return somef_data

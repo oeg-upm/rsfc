@@ -1,9 +1,31 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import urllib
 import yaml
 from rsfc.utils import constants
 from rsfc.utils.exceptions import GithubRateLimitExceeded
+
+def _is_gitlab_instance(host, timeout=10):
+    # Check if this is a gitlab instance
+    try:
+        resp = requests.get(f"https://{host}/api/v4/version", timeout=timeout)
+        return resp.status_code in (200, 401)   # 401 = GitLab API but unauthorized
+    except requests.RequestException:
+        return False    
+
+def detect_repo_type(repo_url):
+    """Return the forge type for a repository URL.
+    Raises ValueError when the forge cannot be determined.
+    """
+    host = urllib.parse.urlparse(repo_url).netloc.lower()
+    if "github.com" in host:
+        return constants.REPO_TYPES[0]                      # "GITHUB"
+    if "gitlab" in host or _is_gitlab_instance(host):
+        return constants.REPO_TYPES[1]                      # "GITLAB"
+    raise ValueError(
+        f"Unsupported or undetectable forge for host '{host}' "
+        f"(only GitHub and GitLab, including self-hosted, are supported)."
+    )
 
 class GithubHarvester:
     
@@ -19,6 +41,7 @@ class GithubHarvester:
         self.codemeta = self.get_codemeta_file()
         self.commits = self.get_commits()
         self.issues = self.get_issues()
+        self.bug_issues = self.get_bugs()
         self.tests = self.get_tests()
         
         
@@ -43,8 +66,13 @@ class GithubHarvester:
         if self.repo_type == constants.REPO_TYPES[0]:
             url = f"https://api.github.com/repos/{owner}/{repo}"
         elif self.repo_type == constants.REPO_TYPES[1]:
-            project_path = urllib.parse.quote(f"{owner}/{repo}", safe="")
-            url = f"https://gitlab.com/api/v4/projects/{project_path}"
+            project_path = parsed_url.path.strip("/")
+            if project_path.endswith(".git"):
+                project_path = project_path[:-4]
+            if not project_path:
+                raise ValueError("Error when parsing repository API URL")
+            project_path = urllib.parse.quote(project_path, safe="")
+            url = f"https://{parsed_url.netloc}/api/v4/projects/{project_path}"
         else:
             raise ValueError("URL not within supported types (Github and Gitlab)")
 
@@ -52,13 +80,7 @@ class GithubHarvester:
     
     
     def get_repo_type(self):
-        if "github" in self.repo_url:
-            repo_type = constants.REPO_TYPES[0]
-        elif "gitlab" in self.repo_url:
-            repo_type = constants.REPO_TYPES[1]
-            
-        return repo_type
-    
+        return detect_repo_type(self.repo_url)
     
     def get_repo_default_branch(self):
         res = self.safe_request("GET", self.api_url)
@@ -79,7 +101,7 @@ class GithubHarvester:
 
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
-                req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/codemeta.json/raw"
+                req_url = f"{self.api_url}/repository/files/codemeta.json/raw"
                 params = {'ref': self.repo_branch}
                 response = self.safe_request("GET", req_url, params=params)
                 return response.json()
@@ -103,7 +125,7 @@ class GithubHarvester:
 
             elif self.repo_type == "GITLAB":
                 project_path_encoded = self.api_url.split("/projects/")[-1]
-                req_url = f"https://gitlab.com/api/v4/projects/{project_path_encoded}/repository/files/CITATION.cff/raw"
+                req_url = f"{self.api_url}/repository/files/CITATION.cff/raw"
                 params = {'ref': self.repo_branch}
                 response = self.safe_request("GET", req_url, params=params)
                 return yaml.safe_load(response.text)
@@ -153,13 +175,16 @@ class GithubHarvester:
         
         
     def get_commits(self):
+        since = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
+        commits_url = ""
+
         if self.repo_type == "GITHUB":
-            commits_url = f"{self.api_url}/commits?sha={self.repo_branch}&per_page=100"
+            commits_url = f"{self.api_url}/commits?sha={self.repo_branch}&since={since}&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
             response = self.safe_request("GET", commits_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
-            commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}&per_page=100"
+            commits_url = f"{self.api_url}/repository/commits?ref_name={self.repo_branch}&since={since}&per_page=100"
             response = self.safe_request("GET", commits_url)
 
         else:
@@ -171,31 +196,64 @@ class GithubHarvester:
             print(f"Error getting commits: {response.status_code}")
             commits = []
 
-        return commits
+        return commits_url, commits
 
     
     
     def get_issues(self):
+        since = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
+
         if self.repo_type == "GITHUB":
-            issues_url = f"{self.api_url}/issues?state=all&per_page=100"
+            issues_url = f"{self.api_url}/issues?state=all&since={since}&per_page=100"
             headers = {'Accept': 'application/vnd.github.v3.raw'}
             response = self.safe_request("GET", issues_url, headers=headers)
 
         elif self.repo_type == "GITLAB":
-            issues_url = f"{self.api_url}/issues?state=all&per_page=100"
+            issues_url = f"{self.api_url}/issues?state=all&updated_after={since}&per_page=100"
             response = self.safe_request("GET", issues_url)
 
         else:
             raise ValueError(f"Not supported repository: {self.repo_type}")
 
         issues = []
+
         if response.status_code == 200:
             data = response.json()
-            issues = [issue for issue in data if "pullsafe_request" not in issue]
+            if self.repo_type == "GITHUB":
+                issues = [issue for issue in data if "pull_request" not in issue]
+            else:
+                issues = data
         else:
             print(f"Error getting issues: {response.status_code}")
 
         return issues
+    
+    def get_bugs(self):
+
+        if self.repo_type == "GITHUB":
+            issues_url = f"{self.api_url}/issues?state=all&labels=bug&per_page=100"
+            headers = {'Accept': 'application/vnd.github.v3+json'}
+            response = self.safe_request("GET", issues_url, headers=headers)
+
+        elif self.repo_type == "GITLAB":
+            issues_url = f"{self.api_url}/issues?labels=bug&per_page=100"
+            response = self.safe_request("GET", issues_url)
+
+        else:
+            raise ValueError(f"Not supported repository: {self.repo_type}")
+
+        if response.status_code == 200:
+            bugs = response.json()
+
+            if self.repo_type == "GITHUB":
+                bugs = [issue for issue in bugs if "pull_request" not in issue]
+
+        else:
+            print(f"Error getting bugs: {response.status_code}")
+            bugs = []
+
+        return bugs
+        
 
     
     def get_tests(self):

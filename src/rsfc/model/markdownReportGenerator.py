@@ -211,6 +211,12 @@ class MarkdownReportGenerator:
         md.append("| " + " | ".join(["---"] * len(header)) + " |")
 
         for row in data_rows:
+            row = row.copy()
+
+            test_id = row[0].strip()
+
+            if test_id in constants.TEST_ID_DICT:
+                row[0] = f"[{test_id}]({constants.TEST_ID_DICT[test_id]})"
             md.append("| " + " | ".join(row) + " |")
 
         return "\n".join(md)

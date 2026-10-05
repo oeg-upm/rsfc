@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![PyPI](https://img.shields.io/pypi/v/rsfc?label=PyPI)](https://pypi.org/project/rsfc/) [![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_76%25-green)](./RSFC_REPORT.md)
+[![DOI](https://zenodo.org/badge/993095977.svg)](https://doi.org/10.5281/zenodo.16531481) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![PyPI](https://img.shields.io/pypi/v/rsfc?label=PyPI)](https://pypi.org/project/rsfc/) [![RSFC_Coverage](https://img.shields.io/badge/rsfc-coverage_87%25-green)](./RSFC_REPORT.md)
 
 
 # Research Software FAIRness Checks (RSFC)
@@ -23,11 +23,20 @@ Given a repository URL, RSFC will perform a series of checks based on a list of 
 - descriptive_metadata
 - software_tests
 - archived_in_software_heritage
+- archived_in_scholarly_repository
 - versioning_standards_use
 - support_issue_tracking
 - has_contribution_guidelines
+- software_is_containerized
+- has_active_communication_channels
+- has_active_contributors
 
 For more information about these RSQIs, you can check https://github.com/EVERSE-ResearchSoftware/indicators. We have plans to implement all of the RSQIs available in that repository.
+
+
+## Execution modes
+
+RSFC offers the ability to run itself both in remote and local modes. Remote mode was the only execution mode available prior to version 0.1.8 and Local mode is an offline execution mode that uses the local path to your cloned repository instead of its Git URL.
 
 
 ## Available tests
@@ -35,6 +44,57 @@ For more information about these RSQIs, you can check https://github.com/EVERSE-
 RSFC offers a catalogue of its tests that you can check [here](https://oeg-upm.github.io/rsfc/doc/catalog.html#test)
 
 **Note**: The short names stated in the catalogue will be the identifiers needed to run single-test assessments. More information later in the README
+
+
+### Differences between execution modes
+
+Remote and Local execution modes have different test lists due to ability/inability to perform HTTP requests. The differences are presented in the following table:
+
+| TEST_ID | REMOTE | LOCAL |
+|---|:---:|:---:|
+| **RSFC-01-1** | x | |
+| **RSFC-01-2** | x | x |
+| **RSFC-01-3** | x | x |
+| **RSFC-03-1** | x | |
+| **RSFC-03-2** | x | |
+| **RSFC-03-3** | x | |
+| **RSFC-03-4** | x | |
+| **RSFC-03-5** | x | |
+| **RSFC-03-6** | x | x |
+| **RSFC-04-1** | x | |
+| **RSFC-04-2** | x | x |
+| **RSFC-04-3** | x | x |
+| **RSFC-04-4** | x | x |
+| **RSFC-04-5** | x | |
+| **RSFC-05-1** | x | x |
+| **RSFC-05-2** | x | x |
+| **RSFC-05-3** | x | x |
+| **RSFC-05-4** | x | x |
+| **RSFC-06-1** | x | x |
+| **RSFC-06-2** | x | x |
+| **RSFC-06-3** | x | x |
+| **RSFC-07-1** | x | x |
+| **RSFC-07-2** | x | |
+| **RSFC-08-1** | x | x |
+| **RSFC-08-2** | x | x |
+| **RSFC-09-1** | x | |
+| **RSFC-12-1** | x | x |
+| **RSFC-13-1** | x | x |
+| **RSFC-13-2** | x | x |
+| **RSFC-13-3** | x | x |
+| **RSFC-13-4** | x | x |
+| **RSFC-14-1** | x | |
+| **RSFC-14-2** | x | x |
+| **RSFC-15-1** | x | x |
+| **RSFC-15-2** | x | x |
+| **RSFC-16-1** | x | x |
+| **RSFC-17-2** | x | |
+| **RSFC-17-3** | x | |
+| **RSFC-18-1** | x | x |
+| **RSFC-19-1** | x | x |
+| **RSFC-20-1** | x | |
+| **RSFC-21-1** | x | x |
+| **RSFC-22-1** | x | x |
 
 
 ## Requirements
@@ -144,6 +204,29 @@ RSFC also offers the possibility of using a personal Github token to avoid a rat
 
 ```
 rsfc --repo <repo_url> -t <token>
+```
+
+### Parameter overview
+
+Here is an overview of the available parameters supported by RSFC
+
+```
+Usage: rsfc [OPTIONS]
+
+  RSFC - EVERSE Research Software Fairness Checks
+
+Options:
+  --repo TEXT        URL of the Github/Gitlab repository to be analyzed
+  --local DIRECTORY  Local path of the repository to be analyzed
+  -b TEXT            Name of the repo branch to analyze. By default
+                     main/master
+  -v TEXT            Tag of the release to analyze. By default latest release.
+  --ftr              Flag to indicate if JSON-LD in FTR format is desired
+  --id TEXT          Identifier of a specific test. Only that test will be ran
+  --metadata FILE    SOMEF metadata file in case you already have one
+  -t TEXT            Authorization Github token
+  -s                 Flag to indicate if SOMEFs output is to be saved locally
+  --help             Show this message and exit.
 ```
 
 ## RSFC Badge
