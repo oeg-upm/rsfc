@@ -5,7 +5,7 @@ from rsfc.utils.registry import test_registry
 
 ################################################### FRSM_17 ###################################################
 
-'''def test_repo_enabled_and_commits(somef_data, gh):
+"""def test_repo_enabled_and_commits(somef_data, gh):
 
     if 'repository_status' in somef_data and somef_data['repository_status'][0]['result']['value']:
         if '#active' in somef_data['repository_status'][0]['result']['value']:
@@ -35,7 +35,7 @@ from rsfc.utils.registry import test_registry
 
     check = ch.Check(constants.INDICATORS_DICT['project_is_active'], 'RSFC-17-1', "Repository is active", constants.PROCESS_REPO_ENABLED_AND_COMMITS, output, evidence, suggest)
 
-    return check.convert()'''
+    return check.convert()"""
 
 
 @test_registry.register_test("RSFC-17-2", args=["gh_data"])
@@ -52,7 +52,15 @@ def test_commit_history(gh_data):
         evidence = constants.EVIDENCE_NO_COMMITS
         suggest = constants.SUGGEST_NO_COMMITS
 
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-2', "Commit history", constants.PROCESS_COMMITS_HISTORY, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["version_control_use"],
+        "RSFC-17-2",
+        "Commit history",
+        constants.PROCESS_COMMITS_HISTORY,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
@@ -81,7 +89,14 @@ def test_commits_linked_issues(gh_data):
             evidence = constants.EVIDENCE_NO_COMMITS_LINKED_TO_ISSUES
             suggest = constants.SUGGEST_NO_ISSUES_LINK_COMMITS
 
-
-    check = ch.Check(constants.INDICATORS_DICT['version_control_use'], 'RSFC-17-3', "Commits are linked to issues", constants.PROCESS_COMMITS_LINKED_TO_ISSUES, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["version_control_use"],
+        "RSFC-17-3",
+        "Commits are linked to issues",
+        constants.PROCESS_COMMITS_LINKED_TO_ISSUES,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()

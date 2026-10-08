@@ -11,7 +11,7 @@ def test_presence_of_tests(gh_data):
     test_evidences = gh_data.tests
 
     if test_evidences:
-        rx = re.compile(r'tests?', re.IGNORECASE)
+        rx = re.compile(r"tests?", re.IGNORECASE)
         sources = ""
         for e in test_evidences:
             path = e["path"]
@@ -35,25 +35,39 @@ def test_presence_of_tests(gh_data):
         evidence = None
         suggest = constants.SUGGEST_NO_TESTS
 
-    check = ch.Check(constants.INDICATORS_DICT['software_has_tests'], 'RSFC-14-1', "Presence of tests in repository", constants.PROCESS_TESTS, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["software_has_tests"],
+        "RSFC-14-1",
+        "Presence of tests in repository",
+        constants.PROCESS_TESTS,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
 
 @test_registry.register_test("RSFC-14-2", args=["somef_data"])
 def test_github_action_tests(somef_data):
-    sources = ''
+    sources = ""
 
-    if 'continuous_integration' not in somef_data:
+    if "continuous_integration" not in somef_data:
         output = "false"
         evidence = constants.EVIDENCE_NO_WORKFLOWS
         suggest = constants.SUGGEST_NO_WORKFLOWS
 
     else:
-        for item in somef_data['continuous_integration']:
-            if item['result']['value'] and ('.github/workflows' in item['result']['value'] or '.gitlab-ci.yml' in item['result']['value']):
-                if any(keyword in item['result']['value'] for keyword in ["test", "validate", "check"]):
-                    sources += f'\n\t- {item["result"]["value"]}'
+        for item in somef_data["continuous_integration"]:
+            if item["result"]["value"] and (
+                ".github/workflows" in item["result"]["value"]
+                or ".gitlab-ci.yml" in item["result"]["value"]
+            ):
+                if any(
+                    keyword in item["result"]["value"]
+                    for keyword in ["test", "validate", "check"]
+                ):
+                    sources += f"\n\t- {item['result']['value']}"
 
     if sources:
         output = "true"
@@ -65,12 +79,20 @@ def test_github_action_tests(somef_data):
         evidence = constants.EVIDENCE_NO_AUTOMATED_TESTS
         suggest = constants.SUGGEST_NO_TEST_ACTIONS
 
-
-    check = ch.Check(constants.INDICATORS_DICT['repository_workflows'], 'RSFC-14-2', "There are actions to automate tests", constants.PROCESS_AUTOMATED_TESTS, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["repository_workflows"],
+        "RSFC-14-2",
+        "There are actions to automate tests",
+        constants.PROCESS_AUTOMATED_TESTS,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
-'''def test_has_no_known_bugs(gh_data):
+
+"""def test_has_no_known_bugs(gh_data):
     if len(gh_data.bug_issues) == 0:
         output = "true"
         evidence = constants.EVIDENCE_NO_ISSUES_BUG
@@ -82,4 +104,4 @@ def test_github_action_tests(somef_data):
 
     check = ch.Check(constants.INDICATORS_DICT['software_has_no_known_bugs'], 'RSFC-14-3', "Software has no issues tagged as bugs", constants.PROCESS_ISSUES_BUGS, output, evidence, suggest)
 
-    return check.convert()'''
+    return check.convert()"""

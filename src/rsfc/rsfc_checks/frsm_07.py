@@ -30,7 +30,11 @@ def test_identifier_in_readme_citation(somef_data):
 
                 if isinstance(citations_list, list):
                     for ident in citations_list:
-                        if isinstance(ident, dict) and "value" in ident and ident["value"]:
+                        if (
+                            isinstance(ident, dict)
+                            and "value" in ident
+                            and ident["value"]
+                        ):
                             citation_ids.append(ident["value"])
 
     if citation_ids and readme_ids:
@@ -60,7 +64,15 @@ def test_identifier_in_readme_citation(somef_data):
         evidence = constants.EVIDENCE_NO_IDENTIFIER_IN_README_OR_CITATION
         suggest = constants.SUGGEST_NO_IDENTIFIER_IN_README_OR_CITATION
 
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-1', "There is an identifier in README or CITATION.cff", constants.PROCESS_IDENTIFIER_IN_README_CITATION, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["persistent_and_unique_identifier"],
+        "RSFC-07-1",
+        "There is an identifier in README or CITATION.cff",
+        constants.PROCESS_IDENTIFIER_IN_README_CITATION,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
@@ -79,9 +91,12 @@ def test_identifier_resolves_to_software(somef_data, repo_url):
                 sources = item["source"]
                 sources_list = sources if isinstance(sources, list) else [sources]
 
-                if any("README" in str(s) or "codemeta.json" in str(s) for s in sources_list):
-                    if item['result']['value']:
-                        identifier = item['result']['value']
+                if any(
+                    "README" in str(s) or "codemeta.json" in str(s)
+                    for s in sources_list
+                ):
+                    if item["result"]["value"]:
+                        identifier = item["result"]["value"]
                         pause = True
                         break
 
@@ -93,7 +108,11 @@ def test_identifier_resolves_to_software(somef_data, repo_url):
 
                     if isinstance(citations_list, list) and citations_list:
                         first_id = citations_list[0]
-                        if isinstance(first_id, dict) and "value" in first_id and first_id["value"]:
+                        if (
+                            isinstance(first_id, dict)
+                            and "value" in first_id
+                            and first_id["value"]
+                        ):
                             identifier = first_id["value"]
                             break
 
@@ -105,7 +124,9 @@ def test_identifier_resolves_to_software(somef_data, repo_url):
 
             if rsfc_helpers.landing_page_links_back(html, repo_url):
                 output = "true"
-                evidence = constants.EVIDENCE_DOI_LINKS_BACK_TO_REPO.format(identifier=identifier)
+                evidence = constants.EVIDENCE_DOI_LINKS_BACK_TO_REPO.format(
+                    identifier=identifier
+                )
                 suggest = "N/A"
             else:
                 output = "false"
@@ -117,6 +138,14 @@ def test_identifier_resolves_to_software(somef_data, repo_url):
             evidence = constants.EVIDENCE_NO_RESOLVE_DOI_IDENTIFIER
             suggest = constants.SUGGEST_IDENTIFIER_NO_RESOLVE
 
-    check = ch.Check(constants.INDICATORS_DICT['persistent_and_unique_identifier'], 'RSFC-07-2', "Software identifier resolves to software", constants.PROCESS_ID_RESOLVES_TO_SOFTWARE, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["persistent_and_unique_identifier"],
+        "RSFC-07-2",
+        "Software identifier resolves to software",
+        constants.PROCESS_ID_RESOLVES_TO_SOFTWARE,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()

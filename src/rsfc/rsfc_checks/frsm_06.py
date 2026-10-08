@@ -20,7 +20,11 @@ def test_authors(somef_data):
 
     if "citation" in somef_data and isinstance(somef_data["citation"], list):
         for item in somef_data["citation"]:
-            if "result" in item and "author" in item["result"] and item["result"]["author"]:
+            if (
+                "result" in item
+                and "author" in item["result"]
+                and item["result"]["author"]
+            ):
                 if "source" in item:
                     sources = item["source"]
                     sources_list = sources if isinstance(sources, list) else [sources]
@@ -39,7 +43,15 @@ def test_authors(somef_data):
         evidence = constants.EVIDENCE_NO_AUTHORS
         suggest = constants.SUGGEST_NO_AUTHORS
 
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-1', "Authors are declared", constants.PROCESS_AUTHORS, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["descriptive_metadata"],
+        "RSFC-06-1",
+        "Authors are declared",
+        constants.PROCESS_AUTHORS,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
@@ -68,7 +80,15 @@ def test_contributors(somef_data):
         evidence = constants.EVIDENCE_NO_CONTRIBUTORS
         suggest = constants.SUGGEST_NO_CONTRIBUTORS
 
-    check = ch.Check(constants.INDICATORS_DICT['has_active_contributors'], 'RSFC-06-2', "Contributors are declared", constants.PROCESS_CONTRIBUTORS, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["has_active_contributors"],
+        "RSFC-06-2",
+        "Contributors are declared",
+        constants.PROCESS_CONTRIBUTORS,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
 
@@ -125,11 +145,24 @@ def test_authors_orcids(somef_data):
         suggest = constants.SUGGEST_NO_AUTHOR_ORCIDS
 
         if missing_orcid_sources:
-            formatted_sources = "".join([f"\n\t- {src}" for src in sorted(missing_orcid_sources)])
+            formatted_sources = "".join(
+                [f"\n\t- {src}" for src in sorted(missing_orcid_sources)]
+            )
             evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS + formatted_sources
         else:
-            evidence = constants.EVIDENCE_NO_AUTHOR_ORCIDS + "\n\t- No author sources found to analyze"
+            evidence = (
+                constants.EVIDENCE_NO_AUTHOR_ORCIDS
+                + "\n\t- No author sources found to analyze"
+            )
 
-    check = ch.Check(constants.INDICATORS_DICT['descriptive_metadata'], 'RSFC-06-3', "Authors have an ORCID", constants.PROCESS_AUTHOR_ORCIDS, output, evidence, suggest)
+    check = ch.Check(
+        constants.INDICATORS_DICT["descriptive_metadata"],
+        "RSFC-06-3",
+        "Authors have an ORCID",
+        constants.PROCESS_AUTHOR_ORCIDS,
+        output,
+        evidence,
+        suggest,
+    )
 
     return check.convert()
