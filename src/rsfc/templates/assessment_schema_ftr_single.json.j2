@@ -5,7 +5,7 @@
   "identifier": "{{ result_id }}",
   "title": "Output from running test: {{ check['test_id'] }} (https://w3id.org/rsfc/test/{{ check['test_id'] }})",
   "description": {{ check['evidence'] | tojson }},
-  "suggestion": {{ check['suggestions'] | tojson }},
+  "guidance": {{ check['suggestions'] | tojson }},
   "license": { 
     "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
@@ -24,7 +24,6 @@
     {% endif %}
   },
   "log": {{ check['evidence'] | tojson }},
-  "suggestion": {{ check['suggestions'] | tojson }},
   "outputFromTest": {
     "@id": "https://w3id.org/rsfc/test/{{ check['test_id'] }}",
     "@type": "Test",
