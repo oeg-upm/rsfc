@@ -565,7 +565,7 @@ CHECKERS_DICT = {
     'rsfc' : {
         'name' : 'RSFC',
         'id' : 'https://w3id.org/rsfc/',
-        'version' : '0.2.1'
+        'version' : '0.2.2'
     }
 }
 
